@@ -1,13 +1,20 @@
+import { env } from '@/config/env'
 import type { DefaultFiltersPayload } from '../global.type'
 import { Http } from '../Http'
 import { BeneficiaryRouteApi } from './beneficiary-constants'
 import type { BeneficiaryRequest, BeneficiaryResponse, BeneficiaryUpdatePayload } from './beneficiary-type'
+import { mockBeneficiariesResponse } from '@/mocks/beneficiary.mock.response'
 
 export async function fetchFiltersBeneficiariesApi({
   payload,
 }: {
   payload: DefaultFiltersPayload
 }): Promise<SuccessResponse<PaginationResponse<BeneficiaryResponse>> | undefined> {
+  if (env.VITE_MOCK_API == 'true') {
+      // TODO: remove this once you have auth
+      return Promise.resolve(mockBeneficiariesResponse as SuccessResponse<PaginationResponse<BeneficiaryResponse>>) ;
+  }
+  
   const result = await Http.get<SuccessResponse<PaginationResponse<BeneficiaryResponse>>>(
     BeneficiaryRouteApi.default,
     payload,
