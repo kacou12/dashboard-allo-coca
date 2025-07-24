@@ -1,35 +1,26 @@
-import type { TransactionFiltersPayload } from '@/services/global.type'
-import { transactionQueryKeys } from '@/services/transactions/transaction-query-keys'
+import { supplyTransactionQueryKeys } from '@/services/supply-transactions/supply-transaction-query-keys'
 import {
-  createTransfertTransaction,
-  fetchFiltersTransactions,
-  fetchUserTransactions,
-  relaunchTransactions,
-  updateTransaction,
-  updateTransactionStatus,
-} from '@/services/transactions/transaction-service'
+    createSupplyTransaction,
+    fetchFiltersSupplyTransactions
+} from '@/services/supply-transactions/supply-transaction-service'
 import type {
-  TransactionStatutUpdatePayload,
-  TransactionUpdatePayload,
-  TransfertTransactionPayload,
-} from '@/services/transactions/transaction-type'
+    SupplyTransactionPayload
+} from '@/services/supply-transactions/supply-transaction-type'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
-import { computed, reactive, watch } from 'vue'
-import { useCountryStore } from '../../stores/useCountryStore'
-import { useTransactionFiltersStore } from '../../stores/useTransactionFilterStore'
-import { useFailedTransactionFilterStore } from '@/stores/useFailedTransactionFilterStore'
+import { computed, watch } from 'vue'
+import { useCountryStore } from '@/stores/useCountryStore'
+import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore'
 
 const { currentCountry: country } = storeToRefs(useCountryStore())
 const transactionFilters = storeToRefs(useTransactionFiltersStore())
-const transactionFailedFilters = storeToRefs(useFailedTransactionFilterStore())
 
-export function useTransactionsFiltersQuery(user_id?: string) {
+export function useSupplyTransactionsFiltersQuery(user_id?: string) {
   const queryClient = useQueryClient()
 
   const invalidateQuery = () => {
     queryClient.invalidateQueries({
-      queryKey: transactionQueryKeys.transactionFilters({
+      queryKey: supplyTransactionQueryKeys.supplyTransactionFilters({
         limit: transactionFilters!.limit.value,
         page: transactionFilters?.page.value,
         q: transactionFilters?.q.value,
@@ -38,7 +29,6 @@ export function useTransactionsFiltersQuery(user_id?: string) {
         payer_provider: transactionFilters?.payer_provider.value,
         status: transactionFilters?.status.value,
         type: transactionFilters?.type.value,
-        // has_relaunch_payment: transactionFilters?.has_relaunch_payment.value,
         user_id: user_id,
         country_iso_code: country.value?.iso_code,
       }),
@@ -47,7 +37,7 @@ export function useTransactionsFiltersQuery(user_id?: string) {
 
   const query = useQuery({
     queryKey: computed(() =>
-      transactionQueryKeys.transactionFilters({
+      supplyTransactionQueryKeys.supplyTransactionFilters({
         limit: transactionFilters!.limit.value,
         page: transactionFilters?.page.value,
         q: transactionFilters?.q.value,
@@ -56,13 +46,13 @@ export function useTransactionsFiltersQuery(user_id?: string) {
         payer_provider: transactionFilters?.payer_provider.value,
         status: transactionFilters?.status.value,
         type: transactionFilters?.type.value,
-        // has_relaunch_payment: transactionFilters?.has_relaunch_payment.value,
+  
         user_id: user_id,
         country_iso_code: country.value?.iso_code,
       }),
     ),
     queryFn: ({ signal }) =>
-      fetchFiltersTransactions({
+      fetchFiltersSupplyTransactions({
         limit: transactionFilters!.limit.value,
         page: transactionFilters?.page.value,
         q: transactionFilters?.q.value,
@@ -71,7 +61,6 @@ export function useTransactionsFiltersQuery(user_id?: string) {
         payer_provider: transactionFilters?.payer_provider.value,
         status: transactionFilters?.status.value,
         type: transactionFilters?.type.value,
-        // has_relaunch_payment: transactionFilters?.has_relaunch_payment.value,
         user_id: user_id,
         country_iso_code: country.value?.iso_code,
         // age: 'test'
@@ -87,7 +76,7 @@ export function useTransactionsFiltersQuery(user_id?: string) {
       payer_provider: transactionFilters.payer_provider.value,
       status: transactionFilters.status.value,
       type: transactionFilters.type.value,
-      // has_relaunch_payment: transactionFilters?.has_relaunch_payment.value,
+    //   has_relaunch_payment: transactionFilters?.has_relaunch_payment.value,
     }),
     () => {
       transactionFilters.page.value = 1
@@ -103,24 +92,10 @@ export function useTransactionsFiltersQuery(user_id?: string) {
   }
 }
 
-
-export function useUpdateTransactionMutation(id: string) {
-  const { invalidateQuery } = useTransactionsFiltersQuery()
+export function useCreateSupplyTransactionMutation() {
+  const { invalidateQuery } = useSupplyTransactionsFiltersQuery()
   return useMutation({
-    mutationFn: (payload: TransactionUpdatePayload) => updateTransaction({ id, data: payload }),
-
-    onSuccess: () => {
-      console.log('update transaction successfully')
-
-      invalidateQuery()
-    },
-  })
-}
-
-export function useCreateTransfertTransactionMutation() {
-  const { invalidateQuery } = useTransactionsFiltersQuery()
-  return useMutation({
-    mutationFn: (payload: TransfertTransactionPayload) => createTransfertTransaction({  payload: payload }),
+    mutationFn: (payload: SupplyTransactionPayload) => createSupplyTransaction({  payload: payload }),
 
     onSuccess: () => {
      
@@ -129,25 +104,3 @@ export function useCreateTransfertTransactionMutation() {
   })
 }
 
-
-export function useUpdateTransactionStatusMutation(id: string) {
-  const { invalidateQuery } = useTransactionsFiltersQuery()
-  return useMutation({
-    mutationFn: (payload: TransactionStatutUpdatePayload) =>
-      updateTransactionStatus({ id, data: payload }),
-
-    onSuccess: () => {
-      console.log('update transaction status successfully')
-
-      invalidateQuery()
-    },
-  })
-}
-
-export function useUserTransactionsQuery(id: string) {
-  return useQuery({
-    queryKey: computed(() => transactionQueryKeys.transaction({ id, country: country.value?.id! })),
-    queryFn: ({ signal }) => fetchUserTransactions({ id }),
-    // enabled: false,
-  })
-}

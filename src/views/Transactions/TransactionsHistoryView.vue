@@ -51,12 +51,7 @@
                         { name: 'Echouée', value: 'Failed' },
                         { name: 'Réussi', value: 'Successful' }]">
                 </CommonSelect>
-                <CommonSelect v-model="hasRelaunchModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
-                    class=" w-full" title="Filtre par remboursement" :elements="[
-                        { name: 'Filtre par remboursement', value: 'all' },
-                        { name: 'Oui (cas de remboursement)', value: 'true' },
-                        { name: 'Non (cas de non remboursement)', value: 'false' }]">
-                </CommonSelect>
+
 
                 <CommonSelect v-model="limitModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
                     title="Lignes par page"
@@ -162,20 +157,7 @@ const [statusModel,] = defineModel('status', {
     //   },
     default: undefined,
 })
-const [hasRelaunchModel,] = defineModel('relaunch', {
-    set(value: string) {
-        if (value == "all") {
-            filters.has_relaunch_payment = undefined;
-        } else {
-            filters.has_relaunch_payment = value == "true" ? true : false;
-        }
-        return value
-    },
-    //   get(v) {
-    //     return v;
-    //   },
-    default: undefined,
-})
+
 
 const [typeModel, typeModifiers] = defineModel('type', {
     set(value: string) {

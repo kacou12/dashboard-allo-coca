@@ -55,7 +55,7 @@ export type TransactionResponse = {
   beneficiary_name: string
   beneficiary_phone: string
   beneficiary_provider?: BeneficiaryProvider
-  beneficiary_provider_id: string
+  beneficiary_provider_id?: string
   beneficiary_provider_image_url?: string
   beneficiary_provider_name?: string
   cashin_fees: number
@@ -151,7 +151,7 @@ interface GiftCard {
 }
 
 interface PayerProvider {
-  country: CountryResponse
+  country?: CountryResponse
   country_id: string
   created_at: string
   id: string
