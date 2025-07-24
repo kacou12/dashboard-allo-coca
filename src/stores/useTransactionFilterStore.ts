@@ -13,7 +13,7 @@ const initialFilters: TransactionFiltersPayload = {
   payer_provider: undefined,
   status: undefined,
   type: undefined,
-  has_relaunch_payment: undefined,
+  // has_relaunch_payment: undefined,
   //   user_id: undefined,
   limit: 10,
 }
@@ -26,7 +26,7 @@ export const useTransactionFiltersStore = defineStore('Transactionfilters', () =
   const payer_provider = ref(initialFilters.payer_provider)
   const status = ref(initialFilters.status)
   const type = ref(initialFilters.type)
-  const has_relaunch_payment = ref(initialFilters.has_relaunch_payment)
+  // const has_relaunch_payment = ref(initialFilters.has_relaunch_payment)
   //   const user_id = ref(initialFilters.user_id)
   const limit = ref(initialFilters.limit)
   const country_iso_code = ref(initialFilters.country_iso_code)
@@ -47,7 +47,7 @@ export const useTransactionFiltersStore = defineStore('Transactionfilters', () =
         status.value != initialFilters.status ||
         type.value != initialFilters.type ||
         limit.value != initialFilters.limit ||         
-        has_relaunch_payment.value != initialFilters.has_relaunch_payment ||         
+        // has_relaunch_payment.value != initialFilters.has_relaunch_payment ||         
         country_iso_code.value != initialFilters.country_iso_code
       ) {
         q.value = initialFilters.q
@@ -58,7 +58,7 @@ export const useTransactionFiltersStore = defineStore('Transactionfilters', () =
         status.value = initialFilters.status
         type.value = initialFilters.type
         limit.value = initialFilters.limit
-        has_relaunch_payment.value = initialFilters.has_relaunch_payment
+        // has_relaunch_payment.value = initialFilters.has_relaunch_payment
         country_iso_code.value = initialFilters.country_iso_code
       }
      
@@ -87,6 +87,6 @@ export const useTransactionFiltersStore = defineStore('Transactionfilters', () =
     // user_id,
     limit,
     country_iso_code,
-    has_relaunch_payment
+    // has_relaunch_payment
   }
 })

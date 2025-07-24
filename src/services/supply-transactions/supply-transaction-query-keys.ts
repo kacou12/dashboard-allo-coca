@@ -1,15 +1,15 @@
 import type { TransactionFiltersPayload } from '../global.type'
 
-export const transactionQueryKeys = {
+export const supplyTransactionQueryKeys = {
   // admins: (country: string) => ['admins', country],
-  transaction: ({ id, country }: { id: string; country: string }) => [
-    'transaction',
+  supplyTransaction: ({ id, country }: { id: string; country: string }) => [
+    'supplyTransaction',
     { id },
     { country },
   ],
-  transactionPagination: (page: number) => ['transaction', { page }],
-  transactionFilters: (payload: TransactionFiltersPayload) => [
-    'transactionFilters',
+  supplyTransactionPagination: (page: number) => ['supplyTransactionPagination', { page }],
+  supplyTransactionFilters: (payload: TransactionFiltersPayload) => [
+    'supplyTransactionFilters',
     { limit: payload.limit },
     { page: payload.page },
     { q: payload.q },
@@ -22,7 +22,7 @@ export const transactionQueryKeys = {
     { beneficiary_country_iso_code: payload.beneficiary_country_iso_code },
     // { has_relaunch_payment: payload.has_relaunch_payment },
   ],
-  transactionFailedFilters: (payload: TransactionFiltersPayload) => [
+  supplyTransactionFailedFilters: (payload: TransactionFiltersPayload) => [
     'transactionFailedFilters',
     'failed',
     { limit: payload.limit },

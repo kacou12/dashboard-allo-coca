@@ -59,7 +59,7 @@ const commonUser = {
 };
 // SuccessResponse<PaginationResponse<TransactionResponse>>
 
-export const mockTransactionsResponse = {
+export const mockSupplyTransactionsResponse = {
   code: 200,
   msg: 'Transactions successfully retrieved',
   data: {

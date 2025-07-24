@@ -42,7 +42,7 @@ export type TransactionFiltersPayload = DefaultFiltersPayload & {
   user_id?: string
   limit: number
   country_iso_code?: string
-  has_relaunch_payment?: boolean
+  // has_relaunch_payment?: boolean
 }
 export type OperationLogFiltersPayload = DefaultFiltersPayload & {
   trace_id?: string
