@@ -6,347 +6,239 @@
       <p class="text-sm text-[#808080]">Bienvenue, {{ fullName() }}</p>
     </header>
 
-    <!-- Filtres en haut -->
-    <section class="flex  flex-col  md:flex-row my-5 gap-5 justify-between w-full ">
-      <div class="h-10  w-full">
 
-        <DashboardTabs v-model="tabsValue" class="w-full "></DashboardTabs>
+    <!-- wallet account section -->
+    <BannerWallet></BannerWallet>
 
+    <section class="flex gap-2 items-center justify-between">
+      <div class="flex items-center justify-between gap-2">
+
+        <p class="text-[18px] font-semibold">Dernières Transactions</p>
+        <div>
+          <span class="text-xs font-medium px-[5px] py-[1px]  rounded-xl border text-[#633DA5] border-[#633DA5]"><span
+              v-if="isFetched">{{ transactionsData!.total }}</span>
+            Transactions</span>
+        </div>
       </div>
-
-      <div class="gap-3  w-full  md:w-[60%] 2xl:w-[50%]  flex justify-start lg:justify-end">
-
-        <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter>
-
-      </div>
-    </section>
-
-    <!-- Contenu principal -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6  ">
-      <!-- Cards principales -->
-
-      <FadeSlideAnimation mode="out-in">
-        <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-          <div class="animate-pulse bg-gray-200 h-[409px] rounded-xl"></div>
-        </div>
-        <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-else :data="collectedBloc"
-          title="Montant total collecté">
-        </dashboardDoughnutCard>
-      </FadeSlideAnimation>
-
-      <FadeSlideAnimation mode="out-in">
-        <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-          <div class="animate-pulse bg-gray-200 h-[409px] rounded-xl"></div>
-        </div>
-        <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-else :data="transferedBloc"
-          title="Montant total transferé">
-        </dashboardDoughnutCard>
-      </FadeSlideAnimation>
-
-
-
-      <FadeSlideAnimation mode="out-in">
-
-
-        <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-          <div class="animate-pulse bg-gray-200 h-[192px] rounded-xl"></div>
-
-        </div>
-
-        <DashboardDoughnutWithoutNetworkCard v-else :is-loading-filters="isLoadingFilters"
-          :gift-card-data-color="giftCardDataColor" :sub-title="`Montant total de cartes cadeaux  ${blocCommonText}`"
-          :data="giftCardAmountBloc" title="Montant total de cartes cadeaux" :show-network-details="false">
-        </DashboardDoughnutWithoutNetworkCard>
-      </FadeSlideAnimation>
-
-
-
-
-
-
-      <FadeSlideAnimation mode="out-in">
-
-
-        <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-          <div class="animate-pulse bg-gray-200 h-[192px] rounded-xl"></div>
-
-        </div>
-
-        <DashboardDoughnutWithoutNetworkCard v-else :is-loading-filters="isLoadingFilters"
-          :gift-card-data-color="giftCardDataColor" :data="giftCardCountBloc" :is-money="false"
-          title="Nombre total de cartes cadeaux" :sub-title="`Nombre  de cartes cadeaux  ${blocCommonText}`"
-          :show-network-details="false">
-        </DashboardDoughnutWithoutNetworkCard>
-      </FadeSlideAnimation>
-
-
-
-    </section>
-
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
-      <DashboardUserCard title="Nombre total de transferts d'argent"
-        :preview_count="dashboardData?.previous_period_stats.count_transferts_txns"
-        :count="dashboardData?.current_period_stats.count_transferts_txns"></DashboardUserCard>
-      <!-- :amount="dashboardData?.current_period_stats.count_transferts_txns"></DashboardUserCard> -->
 
       <div>
 
-        <CommonBarStatut title="Nombre total de transactions" :items="transactionRepartitionData"></CommonBarStatut>
-      </div>
-
-    </section>
-
-    <!-- Trafic des utilisateurs par reseau -->
-    <section class="">
-      <UserTrafficByNetworkCard :data="dashboardData!.count_txns_group_by_type_and_month" v-if="isFetched" class="my-8">
-      </UserTrafficByNetworkCard>
-
-    </section>
-
-
-
-    <!-- Status de transactions -->
-    <section class="flex flex-col lg:flex-row h-[455px] gap-4  my-5 ">
-      <div class=" lg:w-[60%]">
-
-        <FadeSlideAnimation class="h-full" mode="out-in">
-          <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-            <div class="animate-pulse bg-gray-200 h-[455px]  rounded-xl"></div>
-          </div>
-          <DashboardTransactionsChart v-else :data="dashboardData!.count_txns_group_by_provider_and_type">
-          </DashboardTransactionsChart>
-        </FadeSlideAnimation>
-
-
-      </div>
-      <div class="lg:w-[40%]">
-
-        <FadeSlideAnimation class="h-full" mode="out-in">
-          <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-            <div class="animate-pulse bg-gray-200  h-[455px] rounded-xl"></div>
-          </div>
-          <DashboardRecentTransactions v-else :transactions="dashboardData!.txns_recents">
-          </DashboardRecentTransactions>
-        </FadeSlideAnimation>
-
+        <CustomButton @click="() => { }" type="outline">
+          Voir tous
+        </CustomButton>
       </div>
     </section>
 
+    <!-- transaction filter -->
+    <section class="flex xl:justify-between flex-col my-4">
+      <section class="xl:flex xl:flex-wrap grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  gap-2 "
+        v-if="isFetchedProviders">
+        <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full"
+          title="Filtre par statut" :elements="[
+            { name: 'Filtre par statut', value: 'all' },
+            { name: 'En attente', value: 'Pending' },
+            { name: 'En cours', value: 'Processing' },
+            { name: 'Echouée', value: 'Failed' },
+            { name: 'Réussi', value: 'Successful' }]">
+        </CommonSelect>
 
+
+        <CommonSelect v-model="limitModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Lignes par page"
+          :elements="[{ name: 'Lignes par page', value: '10' }, { name: '20', value: '20' }, { name: '50', value: '50' }, { name: '100', value: '100' }]">
+        </CommonSelect>
+        <CommonSelect v-model="typeModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
+          title="Filtre par type de transaction" :elements="[
+            { name: 'Filtre par type de transaction', value: 'all' },
+            { name: 'Achat de gift card', value: 'giftcard' },
+            // { name: 'Award', value: 'award' },
+            { name: 'Transfert d\'argent', value: 'trensfert_argent' }]">
+        </CommonSelect>
+        <!-- [{ name: 'Tout', value: 'all' },{ name: 'Orange', value: 'orange' }, { name: 'Moov', value: 'moov' }, { name: 'MTN', value: 'mtn' }, { name: 'Wave', value: 'wave' }] -->
+        <CommonSelect v-model="payerProviderModel" v-if="isFetchedProviders"
+          :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Filtre par reseau debité"
+          :elements="[{ name: 'Filtre par reseau debité', value: 'all' }, ...providersData!.items.map((provider) => ({ name: provider.name, value: provider.id }))]">
+        </CommonSelect>
+        <CommonSelect v-model="beneficiaryProviderModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
+          title="Filtre par reseau beneficiaire"
+          :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, ...providersData!.items.map((provider) => ({ name: provider.name, value: provider.id }))]">
+        </CommonSelect>
+        <CommonSelect v-if="isFetchedCounty" v-model="beneficiaryCountryProviderModel"
+          :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Filtre par pays béneficiaire"
+          :elements="[{ name: 'Filtre par pays béneficiaire', value: 'all' }, ...countriesData!.items.map((country) => ({ name: country.name, value: country.iso_code }))]">
+        </CommonSelect>
+      </section>
+      <section class="xl:w-[19%] my-5 ">
+        <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
+      </section>
+    </section>
+
+    <!-- Transactions table -->
+    <section class=" w-full ">
+
+      <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
+        :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"
+        :data="transactionsData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
+      </CommonDataTable>
+    </section>
 
   </div>
 </template>
 
 <script setup lang="ts">
-import UserTrafficByNetworkCard from "@/components/aggregatorSwitch/userTrafficByNetworkCard.vue";
-import FadeSlideAnimation from "@/components/animations/fadeSlideAnimation.vue";
-import CommonBarStatut from "@/components/common/commonBarStatut.vue";
-import CommonDatesFilter from "@/components/common/commonDatesFilter.vue";
-import dashboardDoughnutCard from "@/components/main/dashboard/dashboardDoughnutCard.vue";
-import DashboardDoughnutWithoutNetworkCard from "@/components/main/dashboard/dashboardDoughnutWithoutNetworkCard.vue";
-import DashboardRecentTransactions from "@/components/main/dashboard/dashboardRecentTransactions.vue";
-import DashboardTabs from "@/components/main/dashboard/dashboardTabs.vue";
-import DashboardTransactionsChart from "@/components/main/dashboard/dashboardTransactionsChart.vue";
-import DashboardUserCard from "@/components/main/dashboard/dashboardUserCard.vue";
-import { useDashBoardFiltersQuery } from "@/composables/queries/useDashboardQueries";
-import { TransactionStatusEnum } from "@/interfaces/datatable.interface";
-import type { LocalPurChasingCardType } from "@/interfaces/giftCard.interface";
-import { generateColor } from "@/lib/utils";
-import type { CustomChartDataBloc, CustomGiftCardDataBloc, Status } from "@/services/dashboard/dashboard-alpha-type";
+import CommonDataTable from '@/components/common/commonDataTable.vue';
+import CommonSelect from '@/components/common/commonSelect.vue';
+import { recentsTransactionsColumns } from '@/components/main/recentTransactions/tables/TransactionsColumn';
+import SearchBar from '@/components/users/SearchBar.vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
-import {
-  CalendarDate
-} from '@internationalized/date';
-import moment from "moment";
-import { storeToRefs } from "pinia";
-import type { DateRange } from "radix-vue";
-import { computed, ref, watch, type Ref } from "vue";
+import { useCountryFiltersQuery } from '@/composables/queries/useCountryQueries';
+import { useProvidersFiltersQuery } from '@/composables/queries/useProviderQueries';
+import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
+import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
+import { useWindowSize } from '@vueuse/core';
+import { onBeforeMount, useTemplateRef } from 'vue';
+import { useRoute } from 'vue-router';
+import CustomButton from '@/components/buttons/customButton.vue';
+import BannerWallet from '@/components/bannerWallet.vue';
 
 const { user, fullName } = useAuthStore();
 
-const { startLoadingSkeleton } = useLoaderStore();
 
-const { isLoading, isLoadingSkeleton } = storeToRefs(useLoaderStore());
+const { data: transactionsData, isFetched, refetch, isFetching } = useTransactionsFiltersQuery();
+const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
+const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
-const { isFetched, data: dashboardData, filters, isLoading: isLoadingFilters } = useDashBoardFiltersQuery();
 
-const isLoadingData = computed(() => {
-  return isLoading.value || isLoadingSkeleton.value || isLoadingFilters.value
+const filters = useTransactionFiltersStore()
+// const { page } = storeToRefs(useTransactionFiltersStore())
+
+const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
+
+const route = useRoute();
+const { width, height } = useWindowSize()
+
+
+
+const tableRef = useTemplateRef('my-table')
+
+onBeforeMount(async () => {
+
+  await refetchProviders();
+
 })
 
-
-
-const collectedBloc = computed<CustomChartDataBloc>(() => {
-  const data: CustomChartDataBloc = {
-    sum_txns: dashboardData.value?.current_period_stats.sum_collected_txns || 0,
-    sum_txns_group_by_provider: dashboardData.value?.sum_collected_txns_group_by_provider || [],
-    current_period_stats: {
-      count_txns: dashboardData.value?.current_period_stats.count_collected_txns || 0,
-      sum_txns: dashboardData.value?.current_period_stats.sum_collected_txns || 0
-
-    },
-    previous_period_stats: {
-      count_txns: dashboardData.value?.previous_period_stats.count_collected_txns || 0,
-      sum_txns: dashboardData.value?.previous_period_stats.sum_collected_txns || 0
+const [statusModel,] = defineModel('status', {
+  set(value: string) {
+    if (value == "all") {
+      filters.status = undefined;
+    } else {
+      filters.status = value;
     }
-  }
-  return data;
+    return value
+  },
+  //   get(v) {
+  //     return v;
+  //   },
+  default: undefined,
 })
 
-const transferedBloc = computed<CustomChartDataBloc>(() => {
-  const data: CustomChartDataBloc = {
-    sum_txns: dashboardData.value?.current_period_stats.sum_transfered_txns || 0,
-    sum_txns_group_by_provider: dashboardData.value?.sum_transfered_txns_group_by_provider || [],
-    current_period_stats: {
-      count_txns: dashboardData.value?.current_period_stats.count_transferts_txns || 0,
-      sum_txns: dashboardData.value?.current_period_stats.sum_transfered_txns || 0
-    },
-    previous_period_stats: {
-      count_txns: dashboardData.value?.previous_period_stats.count_transferts_txns || 0,
-      sum_txns: dashboardData.value?.previous_period_stats.sum_transfered_txns || 0
+
+const [typeModel, typeModifiers] = defineModel('type', {
+  set(value: string) {
+    if (value == "all") {
+      filters.type = undefined;
+    } else {
+      filters.type = value;
     }
-  }
-  return data;
+    return value
+  },
+  //   get(v) {
+  //     return v;
+  //   },
+  default: undefined,
 })
 
-
-const giftCardAmountBloc = computed<CustomGiftCardDataBloc>(() => {
-  const data: CustomGiftCardDataBloc = {
-    total: dashboardData.value?.current_period_stats.sum_giftcard_txns || 0,
-    total_gift_card_broup_by_brand: dashboardData.value?.total_amount_gift_cards_group_by_brand.map((item) => { return { brand: item.brand, sum_or_total: item.total_amount } }) || [],
-    current_period_stats: {
-      total: dashboardData.value?.current_period_stats.sum_giftcard_txns || 0,
-
-      // calculated_total: dashboardData.value?.current_period_stats.sum_giftcard_txns || 0
-    },
-    previous_period_stats: {
-      total: dashboardData.value?.previous_period_stats.sum_giftcard_txns || 0,
-      // calculated_total: dashboardData.value?.previous_period_stats.sum_giftcard_txns || 0
+const [payerProviderModel, payerProviderModifiers] = defineModel('payerProvider', {
+  set(value: string) {
+    if (value == "all") {
+      filters.type = undefined;
+    } else {
+      filters.payer_provider = value;
     }
-
-  }
-  return data;
+    return value
+  },
+  //   get(v) {
+  //     return v;
+  //   },
+  default: undefined,
 })
 
-const defaultGiftCardColor = [
-  {
-    name: "apple",
-    color: "#000000"
-  },
-  {
-    name: "xbox",
-    color: "#22C55E"
-  },
-  {
-    name: "playstation",
-    color: "#3B82F6"
-  },
-  {
-    name: "netflix",
-    color: "#EF4444"
-  }
-]
+const [limitModel, limitModifiers] = defineModel('limitProvider', {
+  type: String,
 
-const getColorTootip = (name: string) => {
-  const finded = defaultGiftCardColor.find((d) => d.name == name);
-  return finded == undefined ? generateColor() : finded.color;
+  set(value: string) {
+    filters.limit = parseInt(value);
+    return value
+  },
+  //   get(v) {
+  //     return v;
+  //   },
+  default: undefined,
+})
+
+const [beneficiaryProviderModel, beneficiaryProviderModifiers] = defineModel('beneficiaryProvider', {
+  set(value: string) {
+    if (value == "all") {
+      filters.beneficiary_provider = '';
+    } else {
+      filters.beneficiary_provider = value;
+    }
+    return value
+  },
+  //   get(v) {
+  //     return v;
+  //   },
+  default: undefined,
+})
+const [beneficiaryCountryProviderModel, beneficiaryCountyProviderModifiers] = defineModel('beneficiaryCountryProvider', {
+  set(value: string) {
+    if (value == "all") {
+      filters.beneficiary_country_iso_code = '';
+    } else {
+      filters.beneficiary_country_iso_code = value;
+    }
+    return value
+  },
+  //   get(v) {
+  //     return v;
+  //   },
+  default: undefined,
+})
+
+
+const nextPage = async () => {
+  filters.page = filters.page + 1;
+  startLoadingSkeleton();
+  // refetch();
+
+}
+const goToPage = async (page: number) => {
+
+  filters.page = page
+  startLoadingSkeleton();
+  // refetch();
+
+
 }
 
+const prevPage = async () => {
 
-const giftCardDataColor = computed(() => {
-  const dataColor: { name: string, color: string }[] = []
-  dashboardData.value?.total_amount_gift_cards_group_by_brand.forEach((d, index) => {
-    dataColor.push({
-      name: d.brand,
-      color: getColorTootip(d.brand)
-    })
-  });
-  return dataColor;
-})
-const giftCardCountBloc = computed<CustomGiftCardDataBloc>(() => {
-  const data: CustomGiftCardDataBloc = {
-    total: dashboardData.value?.current_period_stats.count_giftcard_txns || 0,
-    total_gift_card_broup_by_brand: dashboardData.value?.count_gift_cards_group_by_brand.map((item) => { return { brand: item.brand, sum_or_total: item.count } }) || [],
-    current_period_stats: {
-      total: dashboardData.value?.current_period_stats.count_giftcard_txns || 0
-    },
-    previous_period_stats: {
-      total: dashboardData.value?.previous_period_stats.count_giftcard_txns || 0
-    }
-  }
-  return data;
-})
-
-const tabsValue = ref("0");
-let date = new Date()
-// let momentDate = moment();
-
-const blocCommonText = computed(() => {
-  if (tabsValue.value == "0") {
-    return " d'aujourd'hui"
-  }
-  if (tabsValue.value == "1") {
-    return " d'hier"
-  }
-  if (tabsValue.value == "7") {
-    return " sur les 7 derniers jours"
-  }
-  if (tabsValue.value == "30") {
-    return " sur les 30 derniers jours"
-  }
-
-  return ` entre ${moment(dates.value.start!.toDate('Africa/Abidjan')).format('DD/MM/YYYY')} et ${moment(dates.value.end!.toDate('Africa/Abidjan')).format('DD/MM/YYYY')} `
-})
-
-const dates = ref({
-  start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
-  end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
-}) as Ref<DateRange>
-
-const updateData = () => {
-  tabsValue.value = "";
-  console.log("wataru");
-  const startDate = dates.value.start!.toDate('Africa/Abidjan')
-  const endDate = dates.value.end!.toDate('Africa/Abidjan')
-  filters.dates = [dates.value.start!.toDate('Africa/Abidjan'), dates.value.end!.toDate('Africa/Abidjan')]
+  filters.page = filters.page - 1;
   startLoadingSkeleton();
+  refetch();
+
 }
 
-
-watch(tabsValue, (n, o) => {
-  if (n == "") return;
-  // yesterday
-  if (n == "1") {
-    dates.value = {
-      start:
-        new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()).subtract({ days: parseInt("1") }),
-      end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()).subtract({ days: parseInt("1") }),
-    }
-
-  } else {
-    dates.value = {
-      start:
-        new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()).subtract({ days: parseInt(n) }),
-      end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
-    }
-
-  }
-
-  filters.dates = [dates.value.start!.toDate('Africa/Abidjan'), dates.value.end!.toDate('Africa/Abidjan')]
-  startLoadingSkeleton();
-
-})
-
-const transactionRepartitionData = computed<LocalPurChasingCardType[]>(() => {
-  if (!dashboardData.value) return [];
-  return [
-    { id: 1, subscriptionType: "Refusé", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.FAILED.value)?.count_txns ?? 0, color: "#000000" },
-    { id: 2, subscriptionType: "En cours ", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.PROCESSING.value)?.count_txns ?? 0, color: "#3b82f6" },
-    { id: 3, subscriptionType: "En attente", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.PENDING.value)?.count_txns ?? 0, color: "#eab308" },
-    { id: 3, subscriptionType: "Réussi", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.SUCCESS.value)?.count_txns ?? 0, color: "#22C55E" },
-  ]
-})
 
 </script>
 
