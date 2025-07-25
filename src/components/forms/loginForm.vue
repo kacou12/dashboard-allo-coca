@@ -11,7 +11,7 @@
                 required /> -->
             <InputField v-model="email" placeholder="Entrer votre email sendchap" name="email" />
         </div>
-        <div class="mb-4">
+        <div class=" ">
             <label class="block text-neutral-20 text-sm font-medium mb-2" for="password">
                 Mot de passe
             </label>
@@ -28,6 +28,10 @@
             </div> -->
             <PasswordField v-model="password" placeholder="Mot de passe" name="password" />
         </div>
+        <RouterLink :to="{ name: AppRoute.LOST_PASSWORD.name }"
+            class=" text-primary text-sm cursor-pointer font-medium hover:underline text-[15px]">
+            Mot de passe oublier
+        </RouterLink>
         <div class="mb-6 mt-6 flex items-center">
             <input type="checkbox" id="rememberMe" v-model="rememberMe"
                 class="mr-2 rounded text-primary-40 focus:ring-primary-40" />
@@ -35,6 +39,8 @@
                 Se souvenir pendant 30 jours
             </label>
         </div>
+
+
         <CustomButton :is-loading="loading"
             class="bg-[#8559C5]  font-worksans rounded-lg text-white font-normal   text-[15px] py-[22px] px-4  w-full  hover:bg-primary-50 focus:outline-none focus:ring focus:ring-primary-60">
             Se connecter
