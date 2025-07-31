@@ -7,8 +7,13 @@
             </Button> -->
             <slot name="trigger"></slot>
         </DialogTrigger>
-        <DialogContent class="max-w-[90%] rounded-lg sm:max-w-[480px] font-worksans ">
-            <form @submit.prevent="() => handleSubmit()" class="space-y-3">
+        <DialogContent :onInteractOutside="(e) => {
+            if (isPersisted) {
+                e.preventDefault();
+            }
+
+        }" class="max-w-[90%]  sm:max-w-[480px] font-worksans ">
+            <form @submit.prevent="() => handleSubmit()">
 
                 <!-- bg-[url('/src/assets/images/hexagone.png')]  -->
                 <DialogHeader :class="[showDivider ? 'border-b-[1px]' : '']" class="flex flex-row bg-[url('/src/assets/images/hexagone.png')] justify-between   border-neutral-200
@@ -36,7 +41,7 @@
 
                 </DialogHeader>
 
-                <div :class="`text-sm px-4 py-4 ${backgroudColor}`">
+                <div :class="`${textDefaulSize} px-4 py-4 ${backgroudColor} rounded-xl`">
                     <slot name="content"></slot>
                 </div>
 
@@ -77,6 +82,14 @@ defineProps({
     handleSubmit: {
         type: Function as PropType<() => void>,
         default: () => { }
+    },
+    isPersisted: {
+        default: false,
+        type: Boolean
+    },
+    textDefaulSize: {
+        default: 'text-sm',
+        type: String
     }
 })
 

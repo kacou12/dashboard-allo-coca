@@ -10,11 +10,13 @@
             </button>
 
             <!-- Bouton Envoyer un paiement -->
-            <button @click="handleSendPayment"
+            <!-- <button @click="handleSendPayment"
                 class="flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 transition-colors">
                 <Send class="w-4 h-4 mr-2" />
-                Envoyer un paiement
-            </button>
+                Transfert unique
+            </button> -->
+            <TransactionTransfertStepperModal></TransactionTransfertStepperModal>
+
         </div>
     </section>
     <section class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -38,6 +40,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { Wallet, Plus, Send } from 'lucide-vue-next'
+import TransactionTransfertStepperModal from './transactions-transfert-stepper/transactionTransfertStepperModal.vue';
 
 interface Props {
     balance?: number

@@ -26,7 +26,7 @@ export const SamplingStatusEnum = Object.freeze({
 })
 
 export const TransactionStatusEnum = Object.freeze({
-  PENDING: { value: 'Pending', name: 'En attente', color: '#FFF9C4', textColor: '#F57F17' },
+  PENDING: { value: 'Pending', name: 'En attente', color: '#F5F5F5', textColor: '#525866' },
   PROCESSING: { value: 'Processing', name: 'En cours', color: '#E1F5FE', textColor: '#0288D1' },
   SUCCESS: { value: 'Successful', name: 'Effectué', color: '#C8E6C9', textColor: '#388E3C' },
   FAILED: { value: 'Failed', name: 'Échec', color: '#FFCDD2', textColor: '#D32F2F' },
