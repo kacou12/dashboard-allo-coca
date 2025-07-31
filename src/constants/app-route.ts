@@ -95,6 +95,12 @@ export const AppRoute = {
     path: '/transactions-history',
     v1_object: TransactionRouteApi.default,
   },
+  // RECENT TRANSACTIONS
+  BENEFICIARIES_MANAGEMENT: {
+    name: 'beneficiaries-management',
+    path: '/beneficiaries-management',
+    v1_object: TransactionRouteApi.default,
+  },
 
   TRANSACTIONS_HISTORY_USER: {
     name: 'transactions-history-user',

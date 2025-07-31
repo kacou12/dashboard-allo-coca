@@ -10,7 +10,7 @@
     <!-- wallet account section -->
     <BannerWallet></BannerWallet>
 
-    <section class="flex gap-2 items-center justify-between">
+    <section class="flex gap-2 items-center justify-between my-3">
       <div class="flex items-center justify-between gap-2">
 
         <p class="text-[18px] font-semibold">Dernières Transactions</p>
@@ -46,6 +46,7 @@
         <CommonSelect v-model="limitModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Lignes par page"
           :elements="[{ name: 'Lignes par page', value: '10' }, { name: '20', value: '20' }, { name: '50', value: '50' }, { name: '100', value: '100' }]">
         </CommonSelect>
+
         <CommonSelect v-model="typeModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
           title="Filtre par type de transaction" :elements="[
             { name: 'Filtre par type de transaction', value: 'all' },
@@ -53,19 +54,14 @@
             // { name: 'Award', value: 'award' },
             { name: 'Transfert d\'argent', value: 'trensfert_argent' }]">
         </CommonSelect>
-        <!-- [{ name: 'Tout', value: 'all' },{ name: 'Orange', value: 'orange' }, { name: 'Moov', value: 'moov' }, { name: 'MTN', value: 'mtn' }, { name: 'Wave', value: 'wave' }] -->
-        <CommonSelect v-model="payerProviderModel" v-if="isFetchedProviders"
-          :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Filtre par reseau debité"
-          :elements="[{ name: 'Filtre par reseau debité', value: 'all' }, ...providersData!.items.map((provider) => ({ name: provider.name, value: provider.id }))]">
-        </CommonSelect>
+
+
         <CommonSelect v-model="beneficiaryProviderModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
           title="Filtre par reseau beneficiaire"
           :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, ...providersData!.items.map((provider) => ({ name: provider.name, value: provider.id }))]">
         </CommonSelect>
-        <CommonSelect v-if="isFetchedCounty" v-model="beneficiaryCountryProviderModel"
-          :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Filtre par pays béneficiaire"
-          :elements="[{ name: 'Filtre par pays béneficiaire', value: 'all' }, ...countriesData!.items.map((country) => ({ name: country.name, value: country.iso_code }))]">
-        </CommonSelect>
+
+
       </section>
       <section class="xl:w-[19%] my-5 ">
         <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>

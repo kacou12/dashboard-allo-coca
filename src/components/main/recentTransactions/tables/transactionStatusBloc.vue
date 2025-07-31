@@ -15,8 +15,6 @@ import type { PropType } from 'vue';
 
 const getTransactionStatusData: () => { value: string; name: string; color: string; textColor: string; } | undefined = () => {
     for (const [key, value] of Object.entries(TransactionStatusEnum)) {
-        let testKey = key;
-        let testValue = value;
         if (transaction.status.toLowerCase() === value.value.toLowerCase()) {
             return value;
         }

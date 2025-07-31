@@ -17,6 +17,7 @@ const { currentCountry: country } = storeToRefs(useCountryStore())
 const useFilters = storeToRefs(useFiltersStore())
 
 
+
 // Fonction utilitaire qui crée les paramètres de requête
 const createQueryParams = () => ({
   page: useFilters.page?.value,
@@ -28,6 +29,13 @@ const createQueryParams = () => ({
   name_filter: useFilters.name_filter?.value,
   phone_verified: useFilters.phone_verified?.value,
 })
+
+const initialSearchFilters = reactive({
+  q: undefined,
+})
+
+
+
 
 
 export function useUsersFiltersQuery() {
@@ -82,6 +90,45 @@ export function useUsersFiltersQuery() {
   return {
     ...query,
     // filters,
+    invalidateQuery,
+  }
+}
+export function useSearchUsersFiltersQuery() {
+  const queryClient = useQueryClient()
+
+
+
+
+  const invalidateQuery = () => {
+    queryClient.invalidateQueries({
+      queryKey: usersQueryKeys.userSearchFilters(
+       {q: initialSearchFilters.q}
+      ),
+    })
+  }
+
+  const query = useQuery({
+    queryKey: computed(() =>
+      usersQueryKeys.userSearchFilters( {q: initialSearchFilters.q}),
+    ),
+    queryFn: ({ signal }) =>
+      fetchFiltersUsers( {q: initialSearchFilters.q, page: 1}),
+  })
+
+
+  watch(
+    initialSearchFilters,
+    () => {
+      console.log("refetch search");
+      
+      query.refetch()
+    },
+    { deep: true },
+  )
+
+  return {
+    ...query,
+    filters: initialSearchFilters,
     invalidateQuery,
   }
 }

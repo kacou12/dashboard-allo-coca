@@ -88,6 +88,13 @@ const router = createRouter({
           // beforeEnter:Auth.authIsRequire,
           meta: { layout: 'DefaultLayout', requiresAuth: true },
         },
+        {
+          path: AppRoute.BENEFICIARIES_MANAGEMENT.path,
+          name: AppRoute.BENEFICIARIES_MANAGEMENT.name,
+          component: () => import('@/views/BeneficiariesManagement/BeneficiariesManagementView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
 
         // Gestion des transactions   =============== **************
         {

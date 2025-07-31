@@ -19,4 +19,9 @@ export const usersQueryKeys = {
     { name_filter: payload.name_filter },
     { phone_verified: payload.phone_verified },
   ],
+  userSearchFilters: (payload: {q?: string}) => [
+    'userSearchFilters',
+    { q: payload.q },
+   
+  ],
 }

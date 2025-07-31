@@ -1,15 +1,8 @@
+import type { BeneficiaryResponse } from "@/services/beneficiaries/beneficiary-type";
+
 // Define the specific network types
 export type BeneficiaryNetwork = 'Orange' | 'Moov' | 'MTN' | 'Wave';
 
-export type BeneficiaryResponse = {
-  id: string; // Unique identifier for the beneficiary
-  first_name: string;
-  last_name: string;
-  network: BeneficiaryNetwork; // Now uses the defined union type
-  phone: string;
-  description?: string;
-  created_at: string;
-};
 
 export const mockBeneficiariesResponse: {
   
