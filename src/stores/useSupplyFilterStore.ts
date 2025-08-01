@@ -1,19 +1,11 @@
-import type {
-  TransactionFiltersPayload,
-  UserFiltersPayload,
-} from "@/services/global.type";
-import { defineStore, storeToRefs } from "pinia";
-import { computed, reactive, ref, watch } from "vue";
+import type { SupplyFiltersPayload } from "@/services/global.type";
+import { defineStore } from "pinia";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useCountryStore } from "./useCountryStore";
-import { AppRoute } from "@/constants/app-route";
 
-const initialFilters: TransactionFiltersPayload = {
+const initialFilters: SupplyFiltersPayload = {
   q: undefined,
   page: 1,
-  beneficiary_provider: undefined,
-  beneficiary_country_iso_code: undefined,
-  payer_provider: undefined,
   status: undefined,
   type: undefined,
   // has_relaunch_payment: undefined,
@@ -21,16 +13,11 @@ const initialFilters: TransactionFiltersPayload = {
   limit: 10,
 };
 
-export const useTransactionFiltersStore = defineStore(
-  "Transactionfilters",
+export const useSupplyFiltersStore = defineStore(
+  "useSupplyFiltersStore",
   () => {
     const q = ref(initialFilters.q);
     const page = ref(initialFilters.page);
-    const beneficiary_provider = ref(initialFilters.beneficiary_provider);
-    const beneficiary_country_iso_code = ref(
-      initialFilters.beneficiary_country_iso_code,
-    );
-    const payer_provider = ref(initialFilters.payer_provider);
     const status = ref(initialFilters.status);
     const type = ref(initialFilters.type);
     // const has_relaunch_payment = ref(initialFilters.has_relaunch_payment)
@@ -46,10 +33,6 @@ export const useTransactionFiltersStore = defineStore(
         if (
           q.value != initialFilters.q ||
           page.value != initialFilters.page ||
-          beneficiary_provider.value != initialFilters.beneficiary_provider ||
-          beneficiary_country_iso_code.value !=
-            initialFilters.beneficiary_country_iso_code ||
-          payer_provider.value != initialFilters.payer_provider ||
           status.value != initialFilters.status ||
           type.value != initialFilters.type ||
           limit.value != initialFilters.limit ||
@@ -58,10 +41,6 @@ export const useTransactionFiltersStore = defineStore(
         ) {
           q.value = initialFilters.q;
           page.value = initialFilters.page;
-          beneficiary_provider.value = initialFilters.beneficiary_provider;
-          beneficiary_country_iso_code.value =
-            initialFilters.beneficiary_country_iso_code;
-          payer_provider.value = initialFilters.payer_provider;
           status.value = initialFilters.status;
           type.value = initialFilters.type;
           limit.value = initialFilters.limit;
@@ -85,9 +64,6 @@ export const useTransactionFiltersStore = defineStore(
     return {
       q,
       page,
-      beneficiary_provider,
-      beneficiary_country_iso_code,
-      payer_provider,
       status,
       type,
       // user_id,

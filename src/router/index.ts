@@ -95,6 +95,13 @@ const router = createRouter({
           // beforeEnter:Auth.authIsRequire,
           meta: { layout: 'DefaultLayout', requiresAuth: true },
         },
+        {
+          path: AppRoute.SUPPLY.path,
+          name: AppRoute.SUPPLY.name,
+          component: () => import('@/views/supplies/suppliesView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
 
         // Gestion des transactions   =============== **************
         {

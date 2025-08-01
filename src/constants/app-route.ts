@@ -101,6 +101,11 @@ export const AppRoute = {
     path: '/beneficiaries-management',
     v1_object: TransactionRouteApi.default,
   },
+  SUPPLY: {
+    name: 'supplies',
+    path: '/supplies',
+    v1_object: TransactionRouteApi.default,
+  },
 
   TRANSACTIONS_HISTORY_USER: {
     name: 'transactions-history-user',

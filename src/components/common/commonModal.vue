@@ -5,7 +5,10 @@
             <!-- <Button class=" py-[22px]  text-sm rounded-lg" variant="outline">
                 Rejeter la verification
             </Button> -->
+
+
             <slot name="trigger"></slot>
+
         </DialogTrigger>
         <DialogContent :onInteractOutside="(e) => {
             if (isPersisted) {

@@ -91,25 +91,24 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
     },
   },
 
-  {
-    accessorKey: 'paymentStatus',
-    // enableResizing: false,
-    header: () => h('div', { class: 'text-left text-xs ' }, 'Statut de prélèvement'),
-    cell: ({ row }) => {
-      // const samplingStatus: SamplingStatusEnum = row.getValue('samplingStatus')
-      const transaction: TransactionResponse = row.original
+  // {
+  //   accessorKey: 'paymentStatus',
+  //   header: () => h('div', { class: 'text-left text-xs ' }, 'Statut de prélèvement'),
+  //   cell: ({ row }) => {
+  //     const transaction: TransactionResponse = row.original
 
-      return h(
-        'div',
-        {
-          class: ' text-neutral-20 text-xs min-w-[150px] flex items-center',
-        },
-        h(TransactionPaymentStatusBloc, {
-          transaction: transaction,
-        }),
-      )
-    },
-  },
+  //     return h(
+  //       'div',
+  //       {
+  //         class: ' text-neutral-20 text-xs min-w-[150px] flex items-center',
+  //       },
+  //       h(TransactionPaymentStatusBloc, {
+  //         transaction: transaction,
+  //       }),
+  //     )
+  //   },
+  // },
+
    {
     accessorKey: 'type',
     // enableResizing: false,
