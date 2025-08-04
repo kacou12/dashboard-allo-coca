@@ -60,9 +60,7 @@
 </template>
 <script setup lang="ts">
 import CommonModal from '@/components/common/commonModal.vue';
-import { Button } from '@/components/ui/button';
-import { formatPrice, formatRelativeDate } from '@/lib/utils';
-import type { GiftCardTransactionResponse } from '@/services/giftcard/giftcard-type';
+import { formatPrice } from '@/lib/utils';
 import type { TransactionResponse } from '@/services/transactions/transaction-type';
 import { ref, type PropType } from 'vue';
 import TransactionDetailsInfo from './transactionDetailsInfo.vue';

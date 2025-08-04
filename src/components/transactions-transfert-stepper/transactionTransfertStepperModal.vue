@@ -16,7 +16,8 @@
         <template #content>
             <!-- stepper -->
             <section class="space-y-3" v-if="currentStep <= 3">
-                <Comp517 v-model="currentStep"></Comp517>
+                <CommonStepperBar :steps-data="localStepsData" :steps-length="localStepsLength" v-model="currentStep">
+                </CommonStepperBar>
 
 
                 <div class="relative min-h-[350px]">
@@ -29,7 +30,7 @@
                 </div>
             </section>
 
-            <!-- is loading -->
+
             <section v-else class="space-y-4 flex flex-col items-center py-7 ">
 
                 <div class="relative flex items-center justify-center">
@@ -68,7 +69,7 @@ import CommonModal from '@/components/common/commonModal.vue';
 import { Send } from 'lucide-vue-next';
 import { reactive, ref, watch } from 'vue';
 import Button from '../ui/button/Button.vue';
-import Comp517 from '../comp-517.vue';
+import CommonStepperBar from '../common/commonStepperBar.vue';
 import SelectUserStepOne from './selectUserStepOne.vue';
 import SetAmountStepTwo from './setAmountStepTwo.vue';
 import RecapStepThree from './recapStepThree.vue';
@@ -76,6 +77,22 @@ import RecapStepThree from './recapStepThree.vue';
 const open = ref(false);
 const currentStep = ref<1 | 2 | 3 | 4>(1);
 // const isSubmitting = ref(false);
+const localStepsData = ref([
+    {
+        title: 'Destinataire',
+        description: 'Selectionner le destinataire'
+    },
+    {
+        title: 'Montant',
+        description: 'Selectionner le montant'
+    },
+    {
+        title: 'Resume',
+        description: 'Récapitulatif de la transaction'
+    }
+]);
+
+const localStepsLength = ref(3);
 
 const transfertState = reactive({
     amount: 0,

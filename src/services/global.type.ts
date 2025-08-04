@@ -51,6 +51,14 @@ export type SupplyFiltersPayload = DefaultFiltersPayload & {
   country_iso_code?: string;
   // has_relaunch_payment?: boolean
 };
+export type InvoiceFiltersPayload = DefaultFiltersPayload & {
+  status?: string;
+  type?: string;
+  limit: number;
+  service?: "CIE" | "SODECI" | "Canal+";
+  country_iso_code?: string;
+  // has_relaunch_payment?: boolean
+};
 
 export type OperationLogFiltersPayload = DefaultFiltersPayload & {
   trace_id?: string;
