@@ -15,7 +15,7 @@
                 e.preventDefault();
             }
 
-        }" class="max-w-[90%]  sm:max-w-[480px] font-worksans ">
+        }" :class="dialogClass" class="max-w-[90%]  sm:max-w-[480px] font-worksans ">
             <form @submit.prevent="() => handleSubmit()">
 
                 <!-- bg-[url('/src/assets/images/hexagone.png')]  -->
@@ -92,6 +92,10 @@ defineProps({
     },
     textDefaulSize: {
         default: 'text-sm',
+        type: String
+    },
+    dialogClass: {
+        default: '',
         type: String
     }
 })
