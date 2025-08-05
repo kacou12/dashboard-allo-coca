@@ -28,7 +28,7 @@
                     <Wallet class="w-5 h-5 text-orange-600" />
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600 mb-1">Solde du portefeuille XOF Account</p>
+                    <p class="text-sm text-gray-600 mb-1">Solde disponible</p>
                     <p class="text-3xl font-bold text-gray-900">{{ formattedBalance }}</p>
                 </div>
             </div>

@@ -80,7 +80,7 @@
                     {{ currentStep == 3 ? 'Valider' : 'Suivant' }}
                 </Button>
             </div> -->
-            <Button @click="handleNextStep" class="py-[22px] text-sm rounded-lg bg-primary font-normal"
+            <Button @click="handleNextStep" class="py-[22px] w-full mx-4 mb-5 text-sm rounded-lg bg-primary font-normal"
                 variant="default">
                 Payer maintenant
             </Button>

@@ -17,6 +17,13 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
+      path: AppRoute.SIGNUP.path,
+      name: AppRoute.SIGNUP.name,
+      component: () => import('@/views/Guests/SignupView.vue'),
+      // beforeEnter:Auth.authIsRequire,
+      meta: { requiresAuth: false },
+    },
+    {
       path: AppRoute.LOST_PASSWORD.path,
       name: AppRoute.LOST_PASSWORD.name,
       component: () => import('@/views/Guests/ForgetPasswordView.vue'),
@@ -102,7 +109,13 @@ const router = createRouter({
           // beforeEnter:Auth.authIsRequire,
           meta: { layout: 'DefaultLayout', requiresAuth: true },
         },
-
+        {
+          path: AppRoute.INVOICE_TRANSACTIONS.path,
+          name: AppRoute.INVOICE_TRANSACTIONS.name,
+          component: () => import('@/views/invoicePayment/invoicePaymentView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
         // Gestion des transactions   =============== **************
         {
           path: AppRoute.TRANSACTIONS_MANAGEMENT.path,

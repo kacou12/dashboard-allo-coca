@@ -13,7 +13,7 @@
                 </TableRow>
             </TableHeader>
 
-            <Transition name="fade-slide">
+            <Transition name="slide-fade" mode="out-in">
 
                 <TableBody :key="table.getRowModel().rows?.length || (isLoadingData ? 'loading' : 'not-loading')">
                     <template v-if="table.getRowModel().rows?.length">
@@ -195,18 +195,46 @@ watch(() => selectedRowModel.value, (n, o) => {
 </script>
 <style scoped>
 /* Animation de fade et slide */
-.fade-slide-enter-active,
-.fade-slide-leave-active {
+/* Transition slide-fade */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
     transition: all 0.3s ease;
 }
 
-.fade-slide-enter-from {
+.slide-fade-enter-from {
+    transform: translateX(30px);
     opacity: 0;
-    transform: translateX(-10px);
 }
 
-.fade-slide-leave-to {
+.slide-fade-leave-to {
+    transform: translateX(-30px);
     opacity: 0;
-    transform: translateX(10px);
+}
+
+/* Alternative: transition avec slide vertical */
+.slide-vertical-enter-active,
+.slide-vertical-leave-active {
+    transition: all 0.3s ease;
+}
+
+.slide-vertical-enter-from {
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.slide-vertical-leave-to {
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+/* Alternative: transition fade simple */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

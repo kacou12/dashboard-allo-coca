@@ -5,11 +5,12 @@
     <div class="flex flex-col w-full">
 
       <Select v-model="Modelvalue" v-bind="componentField">
-        <!-- <SelectTrigger class="min-w-[120px] max-w-[350px]  "> -->
-        <SelectTrigger class="space-x-1"
+        <SelectTrigger class="space-x-1 min-w-full"
           :class="[`${borderColor}`, open ? 'ring-4 ring-primary-70 transition-all duration-300' : '', `${defaultWidth}`]">
-          <slot name="icon"></slot>
-          <SelectValue :placeholder="title" class="text-[#525866]">
+          <slot name="icon">
+
+          </slot>
+          <SelectValue :placeholder="title" class="text-neutral-50 text-[16px]">
           </SelectValue>
         </SelectTrigger>
         <SelectContent>

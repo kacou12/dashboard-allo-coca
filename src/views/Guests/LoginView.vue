@@ -17,7 +17,7 @@
         </LoginForm>
 
         <div class="text-center mt-4">
-          <p>Vous n'avez pas de compte ? <RouterLink :to="{ name: AppRoute.LOST_PASSWORD.name }"
+          <p>Vous n'avez pas de compte ? <RouterLink :to="{ name: AppRoute.SIGNUP.name }"
               class="text-primary text-sm cursor-pointer font-medium hover:underline text-[15px]">
               S'inscrire
             </RouterLink>

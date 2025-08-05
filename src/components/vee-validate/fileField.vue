@@ -1,22 +1,26 @@
 <template>
   <Field v-model="modelValue" v-slot="{ componentField, errorMessage }" :name="name">
     <div class="flex flex-col w-full">
-      <div v-if="!modelValue" class="bg-neutral-80 rounded-md py-8 text-center space-y-3">
-        <article class="space-y-1">
-          <p class="text-sm text-black font-medium">
-            Téléchargez l’image du bordereau de versement
-          </p>
-          <p class="text-xs text-[#999999]">JPEG, PNG, PDF, jusqu'à 50 Mo.</p>
-        </article>
-        <div>
-          <CommonButton @click="openSelectFile" type="outline" title="Parcourir le fichier">
-          </CommonButton>
+      <CustomSlideFadeAnimation>
+        <div v-if="!modelValue"
+          class="bg-neutral-90 rounded-xl py-8 text-center space-y-3 border-[1px] border-neutral-70 border-dashed">
+          <article class="space-y-1">
+            <p class="text-sm text-black font-medium">
+              {{ title }}
+            </p>
+            <p class="text-xs text-[#999999]">JPEG, PNG, PDF, jusqu'à 50 Mo.</p>
+          </article>
+          <div>
+            <CommonButton @click="openSelectFile" type="outline" title="Parcourir le fichier">
+            </CommonButton>
+          </div>
         </div>
-      </div>
-      <div v-else class="h-[153px]">
-        <DocumentType @reset="resetFile" :file-size="modelValue.size" :file-name="modelValue.name"
-          :file-type="(modelValue.type.toLowerCase() as FileTypeEnum)"></DocumentType>
-      </div>
+
+        <div v-else class="h-[158px] ">
+          <DocumentType @reset="resetFile" :file-size="modelValue.size" :file-name="modelValue.name"
+            :file-type="(modelValue.type.toLowerCase() as FileTypeEnum)"></DocumentType>
+        </div>
+      </CustomSlideFadeAnimation>
 
       <div class="min-h-[20px] mt-2">
         <FadeInAnimation mode="out-in">
@@ -38,12 +42,18 @@ import FadeInAnimation from '@/components/animations/fadeInAnimation.vue';
 import CommonButton from '@/components/buttons/commonButton.vue';
 import DocumentType from '@/components/documentType.vue';
 import { FileTypeEnum } from '@/constants/constant.enum'; // Make sure this path is correct
+import CustomSlideFadeAnimation from '../animations/customSlideFadeAnimation.vue';
 
 const props = defineProps({
   name: {
     type: String,
     required: true,
   },
+  title: {
+    type: String,
+    required: false,
+    default: "Téléchargez l’image du bordereau de versement"
+  }
 });
 
 const modelValue = defineModel<File | undefined | null>();

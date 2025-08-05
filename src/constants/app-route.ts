@@ -106,7 +106,16 @@ export const AppRoute = {
     path: '/supplies',
     v1_object: TransactionRouteApi.default,
   },
-
+  INVOICE_TRANSACTIONS: {
+    name: 'invoice-transactions',
+    path: '/invoice-transactions',
+    v1_object: TransactionRouteApi.default,
+  },
+  SIGNUP: {
+    name: 'signup',
+    path: '/signup',
+    v1_object: TransactionRouteApi.default,
+  },
   TRANSACTIONS_HISTORY_USER: {
     name: 'transactions-history-user',
     path: '/transactions-history/user/:id',
