@@ -1,7 +1,7 @@
 <template>
-    <Button :disabled="isDisabled || isLoading" :variant="type"
+    <Button :disabled="isDisabled || isLoading" :variant="type" :type="isSubmit ? 'submit' : 'button'"
         :class="[type != 'default' ? 'font-medium' : 'font-normal', `py-${paddingY}`, `rounded-${roundSize}`]" class="flex-1 text-sm font-worksans
-    hover:scale-105 transition-all duration-300 ease-in-out" @click=" $emit('action')">
+    transition-all duration-300 ease-in-out" @click=" $emit('action')">
         <div v-if="isLoading" class="flex items-center gap-2">
 
             <svg aria-hidden="true" class="w-5 h-5  text-gray-200 animate-spin dark:text-gray-600 fill-primary"
@@ -38,6 +38,10 @@ defineProps({
         type: Number,
         default: 0,
 
+    },
+    isSubmit: {
+        type: Boolean,
+        default: false
     },
     isDisabled: {
         type: Boolean,

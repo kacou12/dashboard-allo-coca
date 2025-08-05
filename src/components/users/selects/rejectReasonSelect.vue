@@ -6,7 +6,6 @@
 
 
             <Select v-model="modelValue" v-bind="componentField" v-model:open="open">
-                <!-- <SelectTrigger class="min-w-[120px] max-w-[350px]  "> -->
                 <SelectTrigger :class="[open ? 'ring-4 ring-primary-70 transition-all duration-300' : '', 'w-full ']">
                     <SelectValue placeholder="Motif" class="" />
                 </SelectTrigger>
