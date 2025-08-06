@@ -72,3 +72,9 @@ export type AuthResponse = {
   created_at: string
   updated_at: string
 }
+
+export type ResetPasswordRequest = {
+  new_password: string
+  confirmed_password: string
+  token: string
+}

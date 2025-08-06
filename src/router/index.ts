@@ -12,46 +12,63 @@ const router = createRouter({
     {
       path: AppRoute.LOGIN.path,
       name: AppRoute.LOGIN.name,
-      component: () => import('@/views/Guests/LoginView.vue'),
+      component: () => import('@/views/guests/LoginView.vue'),
       // beforeEnter:Auth.authIsRequire,
       meta: { requiresAuth: false },
     },
     {
       path: AppRoute.SIGNUP.path,
       name: AppRoute.SIGNUP.name,
-      component: () => import('@/views/Guests/SignupView.vue'),
+      component: () => import('@/views/guests/SignupView.vue'),
       // beforeEnter:Auth.authIsRequire,
       meta: { requiresAuth: false },
     },
     {
       path: AppRoute.LOST_PASSWORD.path,
       name: AppRoute.LOST_PASSWORD.name,
-      component: () => import('@/views/Guests/ForgetPasswordView.vue'),
+      component: () => import('@/views/guests/ForgetPasswordView.vue'),
       // beforeEnter:Auth.authIsRequire,
       meta: { requiresAuth: false },
     },
-    {
+      {
       path: AppRoute.VERIFY_EMAIL.path,
       name: AppRoute.VERIFY_EMAIL.name,
-      component: () => import('@/views/Guests/ForgetPassword/VerifyEmailView.vue'),
-      // beforeEnter:Auth.authIsRequire,
+      component: () => import('@/views/guests/forgetPassword/verifyEmailView.vue'),
+      // beforeEnter: (to, from) => {
+      //   if(from.name === AppRoute.LOST_PASSWORD.name ) {
+      //     return true;
+      //   }
+      //   return AppRoute.LOST_PASSWORD.name
+      // },
       meta: { requiresAuth: false },
     },
-
     {
-      path: AppRoute.UPDATE_PASSWORD.path,
+      path: AppRoute.UPDATE_PASSWORD.path,   
       name: AppRoute.UPDATE_PASSWORD.name,
-      component: () => import('@/views/Guests/ForgetPassword/DefinePasswordView.vue'),
+      component: () => import('@/views/guests/forgetPassword/definePasswordView.vue'),
       // beforeEnter:Auth.authIsRequire,
+      beforeEnter: (to, from) => {
+        if(to.query.token) {
+          return true;
+        }
+        // reject the navigation
+        return AppRoute.LOST_PASSWORD.name
+      },
       meta: { requiresAuth: false },
     },
     {
       path: AppRoute.SUCCESS_UPDATE_PASSWORD.path,
       name: AppRoute.SUCCESS_UPDATE_PASSWORD.name,
-      component: () => import('@/views/Guests/ForgetPassword/SuccessResetPasswordView.vue'),
-      // beforeEnter:Auth.authIsRequire,
+      component: () => import('@/views/guests/forgetPassword/successResetPasswordView.vue'),
+      beforeEnter: (to, from) => {
+        if(from.name === AppRoute.UPDATE_PASSWORD.name ) {
+          return true;
+        }
+        return AppRoute.LOGIN.name
+      },
       meta: { requiresAuth: false },
     },
+   
     {
       path: AppRoute.ADMIN.path,
       name: AppRoute.ADMIN.name,

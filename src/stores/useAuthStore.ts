@@ -10,6 +10,7 @@ export const useAuthStore = defineStore(
   () => {
     const user = ref<AuthResponse | null>(null)
     const userPolicies = ref<AdminPolicyResponse[] | null>([])
+       const emailToResetingPassword = ref<string | null>(null)
 
     const setUser = (userData: AuthResponse) => {
       user.value = userData
@@ -21,6 +22,10 @@ export const useAuthStore = defineStore(
     //     (p) => p.route_name === permissionData?.route_name,
     //   )
     // }
+
+    const setEmailToResetingPassword = (email: string) => {
+      emailToResetingPassword.value = email;
+    }
 
 
    
@@ -49,6 +54,8 @@ export const useAuthStore = defineStore(
       setAdminPolicies,
       userPolicies,
       isSuperAdmin,
+      setEmailToResetingPassword,
+      emailToResetingPassword
 
     }
   },

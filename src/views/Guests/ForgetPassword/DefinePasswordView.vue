@@ -1,6 +1,8 @@
 <template>
     <!-- Modifier Mot de passe -->
-    <div class="flex items-center justify-center h-screen p-8">
+    <div class="flex items-center justify-center h-screen p-8
+    bg-[url('/src/assets/images/bg-forget-password.jpg')]
+    ">
         <div class="bg-white p-8 rounded-xl shadow-lg w-full border max-w-[422px]">
             <!-- Icône ou alerte -->
             <div class="flex justify-center mb-6">
@@ -21,26 +23,15 @@
                 Votre nouveau mot de passe doit être différent des mots de passe utilisés précédemment.
             </p>
             <!-- Formulaire -->
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="onSubmit">
 
                 <section class="mb-4">
                     <label class="block text-neutral-20 font-medium mb-1 text-sm" for="password">
                         Mot de passe
                     </label>
 
-                    <div class="flex gap-3 w-full relative ">
-                        <Input :type="showPassword ? 'text' : 'password'" id="password" placeholder="Mot de passe"
-                            class="w-full pr-9" required />
-                        <div class=" px-1 absolute right-2 inset-y-0 cursor-pointer flex items-center justify-center"
-                            @click="showPassword = !showPassword">
-                            <span v-if="showPassword" class="">
-                                <EyeClosed :size="18" class="text-neutral-40" />
-                            </span>
-                            <span v-else class="">
-                                <Eye :size="18" class="text-neutral-40" />
-                            </span>
-                        </div>
-                    </div>
+                    <PasswordField class="w-full" v-model="userData.password" placeholder="Nouveau mot de passe"
+                        name="password" />
                 </section>
 
                 <section class="mb-4">
@@ -48,19 +39,8 @@
                         Confirmation de mot de passe
                     </label>
 
-                    <div class="flex gap-3 w-full relative ">
-                        <Input :type="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
-                            placeholder="Confirmation de mot de passe" class="w-full pr-9" required />
-                        <div class=" px-1 absolute right-2 inset-y-0 cursor-pointer flex items-center justify-center"
-                            @click="showConfirmPassword = !showConfirmPassword">
-                            <span v-if="showConfirmPassword" class="">
-                                <EyeClosed :size="18" class="text-neutral-40" />
-                            </span>
-                            <span v-else class="">
-                                <Eye :size="18" class="text-neutral-40" />
-                            </span>
-                        </div>
-                    </div>
+                    <PasswordField v-model="userData.confirmPassword" placeholder="confirmation du nouveau mot de passe"
+                        name="confirmPassword" />
                 </section>
 
 
@@ -74,25 +54,75 @@
 
 <script setup lang="ts">
 import CommonButton from "@/components/buttons/commonButton.vue";
-import { Input } from '@/components/ui/input';
-import { Eye, EyeClosed } from 'lucide-vue-next';
+import PasswordField from "@/components/vee-validate/PasswordField.vue";
+import { useResetPasswordMutation } from "@/composables/queries/useAuthQueries";
+import { AppRoute } from "@/constants/app-route";
+import { useLoaderStore } from "@/stores/useLoaderStore";
+import { toTypedSchema } from "@vee-validate/zod";
+import { useForm } from "vee-validate";
 import { ref } from 'vue';
+import { useRoute, useRouter } from "vue-router";
+import { useToast } from 'vue-toastification';
+import { z } from 'zod';
 
 
-const email = ref("");
-const password = ref("");
+const route = useRoute();
+const router = useRouter();
+const { startLoading, stopLoading } = useLoaderStore();
 
-const showPassword = ref(false);
-const showConfirmPassword = ref(false);
+const passwordsSchema = z.object({
+    password: z
+        .string({ required_error: 'Le mot de passe est requis' })
+        .min(8, { message: 'Le mot de passe doit contenir au moins 8 caractères' }) // Updated min length to 8
+        .trim(),
+    confirmPassword: z.string({ required_error: 'La confirmation du mot de passe est requise' }),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Les mots de passe ne correspondent pas",
+    path: ['confirmPassword'],
+});
 
-const togglePasswordVisibility = () => {
-    showPassword.value = !showPassword.value;
+
+const toast = useToast();
+
+
+const { handleSubmit, resetForm } = useForm({
+    validationSchema: toTypedSchema(passwordsSchema)
+});
+
+const { mutateAsync: resetPassword } = useResetPasswordMutation();
+const userData = ref({ password: "", confirmPassword: "" });
+
+const resetPasswordHandler = async () => {
+
+    try {
+        startLoading();
+        await resetPassword({
+            new_password: userData.value.password,
+            confirmed_password: userData.value.confirmPassword,
+            token: route.query.token! as string,
+        });
+
+        // toast.success("Le mot de passe a été mis à jour avec succès");
+        router.push({ name: AppRoute.SUCCESS_UPDATE_PASSWORD.name, replace: true })
+        resetForm();
+
+    } catch (err) {
+
+    }
+    finally {
+        stopLoading()
+    }
+
 };
 
-const handleSubmit = () => {
-    // Ajoutez ici la logique pour envoyer l'email de réinitialisation
+const onSubmit = handleSubmit(async ({ }) => {
+    await resetPasswordHandler();
+    resetForm();
+});
 
-};
+
+
+
 
 
 </script>

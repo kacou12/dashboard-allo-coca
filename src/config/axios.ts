@@ -1,5 +1,5 @@
 // import { refreshToken } from '@/modules/auth/auth-service'
-import axios, { HttpStatusCode, type AxiosInstance } from 'axios'
+import axios, { AxiosError, HttpStatusCode, type AxiosInstance } from 'axios'
 import router from '@/router'
 
 import { destroySensitiveInfo, getAccessToken, getDeviceId } from '@/services/auth/auth-util'
@@ -37,13 +37,15 @@ axiosInstance.interceptors.response.use(
   (response) => {
     return response // Return the response as-is
   },
-  async (error) => {
-    const res: ErrorResponse = error?.response?.data
-    const originalRequestConfig = error.config
+  async (error: AxiosError) => {
+const originalRequestConfig = error.config
     const { stopLoading } = useLoaderStore()
     stopLoading()
 
-    if (res?.code === HttpStatusCode.Unauthorized || res?.code === HttpStatusCode.NotAcceptable) {
+    if (
+      error?.status === HttpStatusCode.Unauthorized ||
+      error?.status === HttpStatusCode.NotAcceptable
+    ) {
       if (router.currentRoute.value.name !== AppRoute.LOGIN.name) {
         destroySensitiveInfo()
         // const router = useRouter()

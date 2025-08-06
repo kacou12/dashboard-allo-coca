@@ -1,15 +1,17 @@
+import { AppRoute } from '@/constants/app-route'
 import router from '@/router'
 import type {
   AdminPolicyResponse,
+  AuthResponse,
   LoginForm,
   LoginRequest,
-  RefreshTokenRequest,
+  ResetPasswordRequest
 } from '@/services/auth/auth-type'
-import { destroySensitiveInfo, getDeviceId, getRefreshToken, saveToken } from './auth-util'
-import { AppRoute } from '@/constants/app-route'
-import { fetchAdminPoliciesByRoleIdApi, loginApi, logoutApi, refreshTokenApi } from './auth-api'
-import { useToast } from 'vue-toastification'
+import { useAuthStore } from '@/stores/useAuthStore'
 import type { AxiosError } from 'axios'
+import { useToast } from 'vue-toastification'
+import { fetchAdminPoliciesByRoleIdApi, forgetPasswordApi, loginApi, logoutApi, profilApi, refreshTokenApi, resetPasswordApi, updatePasswordApi } from './auth-api'
+import { destroySensitiveInfo, saveToken } from './auth-util'
 
 export async function loginWithCredential({ email, password }: LoginForm) {
   const toast = useToast()
@@ -33,6 +35,60 @@ export async function loginWithCredential({ email, password }: LoginForm) {
   }
 }
 
+
+export async function updatePassword(payload: {password: string, new_password: string}) {
+  const toast = useToast()
+  try {
+    const res = await updatePasswordApi(payload)
+   
+    return res.data
+  } catch (error: any) {
+    const localError = (error as AxiosError<ErrorResponse>)
+     toast.error(localError.response?.data.error ?? 'Quelque chose s\'est mal passé')
+     throw error;
+  }
+}
+
+export async function forgetPassword({email}: {email: string}) {
+  const toast = useToast()
+  try {
+    const res = await forgetPasswordApi({email})
+   
+    return res.data
+  } catch (error: any) {
+    const localError = (error as AxiosError<ErrorResponse>)
+     toast.error(localError.response?.data.error ?? 'Quelque chose s\'est mal passé')
+     throw error;
+  }
+}
+export async function resetPassword(payload: ResetPasswordRequest) {
+  const toast = useToast()
+  try {
+    const res = await resetPasswordApi(payload)
+   
+    return res.data
+  } catch (error: any) {
+    const localError = (error as AxiosError<ErrorResponse>)
+     toast.error(localError.response?.data.error ?? 'Quelque chose s\'est mal passé')
+     throw error;
+  }
+}
+
+export async function fetchProfil(): Promise<AuthResponse | undefined> {
+  const toast = useToast()
+  const { setUser } = useAuthStore();
+  try {
+   
+
+    const res = await profilApi()
+    setUser(res.data.data!)
+
+    return res.data.data;
+  } catch (error: any) {
+    const localError = (error as AxiosError<ErrorResponse>)
+     toast.error(localError.response?.data.message ?? 'Quelque chose s\'est mal passé')
+  }
+}
 export async function refreshToken(): Promise<string | undefined> {
   try {
     // if (getRefreshToken() && getDeviceId()) {

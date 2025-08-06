@@ -36,7 +36,7 @@
                 </div>
                 <div>
                     <p>Durée</p>
-                    <SelectField name="duration" v-model="dataState.duration" border-color="border-neutral-60"
+                    <SelectField name="duration" v-model="dataState.durationTime" border-color="border-neutral-60"
                         default-width="w-full" class="w-full" title="duration"
                         :elements="durationOptions.map((formula) => ({ name: formula.name, value: formula.id }))">
                     </SelectField>
@@ -100,7 +100,7 @@ const open = ref(false);
 const currentStep = ref<1 | 2 | 3 | 4>(1);
 
 const dataState = reactive({
-    duration: '',
+    durationTime: '',
     option: '',
     formula: '',
     renewalNumber: '',

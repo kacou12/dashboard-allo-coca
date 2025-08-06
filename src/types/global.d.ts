@@ -8,11 +8,10 @@ declare global {
     msg?: string
     code?: HttpStatusCode
   }
-
   type ErrorResponse = {
-    data: string
-    msg?: string
-    code?: HttpStatusCode
+    error: string
+    message?: string
+    status?: true
   }
 
   type PaginationResponse<T = any> = {
