@@ -1,6 +1,7 @@
 <template>
     <!-- Mot de passe oublié lost-password-->
-    <div class="flex items-center justify-center h-screen p-8">
+    <div class="flex items-center justify-center h-screen p-8
+    bg-[url('/src/assets/images/bg-forget-password.jpg')]">
         <div class="bg-white p-8 rounded-xl shadow-md border w-full max-w-[422px]">
             <!-- Icône ou alerte -->
             <div class="flex justify-center mb-6">
@@ -20,19 +21,19 @@
             </div>
             <!-- Titre et sous-titre -->
             <h1 class="text-[28px] font-bold text-center mb-2 font-merriweathersans">Mot de passe oublié ?</h1>
-            <p class="text-[#666666] text-center mb-6 text-[16px] font-worksans">
+            <p class="text-[#666666] text-center mb-6 text-[16px] font-publicsans">
                 Pas de problème, nous vous enverrons des instructions de réinitialisation.
             </p>
             <!-- Formulaire -->
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="onSubmit">
                 <div class="mb-4">
                     <label for="email"
-                        class="block text-neutral-20 font-medium mb-1 text-sm font-worksans">Email</label>
+                        class="block text-neutral-20 font-medium mb-1 text-sm font-publicsans">Email</label>
                     <!-- <input type="email" id="email" v-model="email" placeholder="Enter votre email"
                         class="shadow appearance-none border border-neutral-50 rounded w-full py-2 px-3 text-neutral-20 placeholder:text-neutral-40 leading-tight focus:outline-none focus:ring focus:ring-primary-40"
                         required /> -->
-                    <Input type="email" v-model="email" id="email" placeholder="Entrer votre email" class="w-full"
-                        required />
+                    <InputField name="email"" type=" email" v-model="email" id="email" placeholder="Entrer votre email"
+                        class="w-full" required />
                 </div>
                 <!-- <button type="submit"
                     class="bg-primary-40 text-white font-normal py-2 px-4 rounded w-full hover:bg-primary-50 focus:outline-none focus:ring focus:ring-primary-60">
@@ -45,9 +46,8 @@
             </form>
             <!-- Lien retour -->
             <div class="text-center mt-3">
-                <CommonButton class="text-[#633DA5]" type="link" title="Retour à la connexion"
-                    @click.prevent="$router.push({ name: 'Login' })">
-
+                <CommonButton class="" type="link" title="Retour à la connexion"
+                    @click.prevent="$router.push({ name: AppRoute.LOGIN.name })">
                 </CommonButton>
             </div>
         </div>
@@ -58,26 +58,71 @@
 
 <script setup lang="ts">
 import CommonButton from "@/components/buttons/commonButton.vue";
-import { Input } from "@/components/ui/input";
+import InputField from "@/components/vee-validate/InputField.vue";
+import { useForgetPasswordMutation } from "@/composables/queries/useAuthQueries";
+import { AppRoute } from "@/constants/app-route";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { useLoaderStore } from "@/stores/useLoaderStore";
+import { toTypedSchema } from "@vee-validate/zod";
+import { useForm } from "vee-validate";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+import { z } from "zod";
 
-const email = ref("djd@gmail.com");
-const password = ref("");
+const toast = useToast();
+
+const email = ref("");
 const router = useRouter()
+const { startLoading, stopLoading } = useLoaderStore();
+const { setEmailToResetingPassword } = useAuthStore();
 
-const showPassword = ref(false);
-const showConfirmPassword = ref(false);
+const forgetPasswordSchema = z.object({
+    email: z
+        .string({ required_error: "L'email est obligatoire" })
+        .email({ message: "L'email n'est pas valide" })
+        .trim(),
+})
 
-const togglePasswordVisibility = () => {
-    showPassword.value = !showPassword.value;
+const { mutateAsync: forgetPassword } = useForgetPasswordMutation();
+
+
+const { handleSubmit, resetForm } = useForm({
+    validationSchema: toTypedSchema(forgetPasswordSchema)
+});
+
+const forgetPasswordHandler = async () => {
+    try {
+        startLoading()
+        await forgetPassword({
+            email: email.value.toLowerCase()
+        });
+
+        // toast.success("Le mot de passe a été mis à jour avec succès");
+
+        setEmailToResetingPassword(email.value)
+        router.push({ name: AppRoute.VERIFY_EMAIL.name })
+        resetForm();
+
+
+    } catch (err) {
+
+    }
+    finally {
+        stopLoading()
+    }
 
 };
 
-const handleSubmit = () => {
-    // Ajoutez ici la logique pour envoyer l'email de réinitialisation
-    router.push({ name: 'VerifyEmail' })
-};
+
+const onSubmit = handleSubmit(async ({ }) => {
+    await forgetPasswordHandler();
+
+});
+
+
+
+
 
 </script>
 
