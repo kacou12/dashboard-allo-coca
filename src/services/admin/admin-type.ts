@@ -44,20 +44,20 @@ export type AdminResponse = {
   firstname: string
   id: string
   is_superuser: boolean
-  last_login: string
+  last_login: string | null
   lastname: string
   password: string
   phone: string
   phone_verified: boolean
   pin_code: string
-  referral_code: string
-  referred_by: string
+  referral_code: string | null
+  referred_by: string | null
   reward_amount: number
   role: RoleResponse
   role_id: string
   sendchap_id: string
   updated_at: string
-  validated_phone_numbers: string[]
+  validated_phone_numbers: string[] | null
   verification_status: string
   withdrawn_amount: number
 }
@@ -93,4 +93,6 @@ export type RoleResponse = {
   name: string
   description: string
   permissions?: PermissionResponse[]
+  created_at:string
+  updated_at:string
 }

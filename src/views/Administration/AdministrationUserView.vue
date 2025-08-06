@@ -106,17 +106,13 @@
                     <p class="flex-1 text-neutral-20">Role</p>
                 </div>
 
-                <div class=" w-full  max-w-[512px]">
+                <!-- <div class=" w-full  max-w-[512px]">
 
                     <CommonSelect v-model="userState.role_id" v-if="rolesData" border-color="border-neutral-60"
                         default-width="w-full" class="w-full" title="Role"
                         :elements="rolesData?.items.map((role: RoleResponse) => ({ name: role.name, value: role.id }))">
                     </CommonSelect>
-
-                    <!-- <CommonMultiselect v-model="selectedOptions" :options="options" placeholder="Choix des roles"
-                        :animation="0.5" :max-count="2" variant="default">
-                    </CommonMultiselect> -->
-                </div>
+                </div> -->
             </section>
 
             <section class="flex flex-col md:flex-row">
@@ -160,7 +156,7 @@ const updateUser = async () => {
 
 
 }
-const rolesData = ref<PaginationResponse<RoleResponse>>();
+// const rolesData = ref<PaginationResponse<RoleResponse>>();
 
 
 
@@ -194,9 +190,9 @@ onMounted(async () => {
     userState.role_id = adminUser.value?.role_id;
     userState.active = adminUser.value?.active;
 
-    await fetchRoles(1).then((res) => {
-        rolesData.value = res!;
-    })
+    // await fetchRoles(1).then((res) => {
+    //     rolesData.value = res!;
+    // })
 
 });
 

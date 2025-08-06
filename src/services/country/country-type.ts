@@ -5,6 +5,7 @@ export type CountryResponse = {
   code: string
   iso_code: string
   phonenumber_length: number
+  flag: string
 }
 export type CountryUpdatePayload = {
   name?: string
@@ -17,4 +18,5 @@ export type CountryRequest = {
   code: string
   iso_code: string
   phonenumber_length: number
+
 }

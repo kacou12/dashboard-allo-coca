@@ -11,7 +11,8 @@
         </div> -->
 
         <!-- show icons -->
-        <div class="p-1 cursor-pointer" @click="$router.push({ name: 'administration-user', params: { id } })">
+        <div class="p-1 cursor-pointer"
+            @click="$router.push({ name: AppRoute.ADMINISTRATION_USER.name, params: { id } })">
 
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -25,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+import { AppRoute } from '@/constants/app-route';
+
 defineProps({
     id: {
         type: String,
