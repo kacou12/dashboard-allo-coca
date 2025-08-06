@@ -24,6 +24,19 @@ const defaultProviderColor = [
     name: 'wave',
     color: '#1dc8ff',
   },
+
+
+  {
+    name: 'out',
+    title: "Sorties",
+    color: '#F44336',
+  },
+  {
+    name: 'in',
+    title: "Entrées",
+    color: '#4CAF50',
+  },
+
 ]
 
 export async function fetchFiltersDashboard(

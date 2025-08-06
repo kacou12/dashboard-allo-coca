@@ -20,120 +20,53 @@
 
             </div>
         </section>
+        <main class="space-y-5 ">
 
-        <!-- Contenu principal -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6  ">
-            <!-- Cards principales -->
-
-            <FadeSlideAnimation mode="out-in">
-                <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-                    <div class="animate-pulse bg-gray-200 h-[409px] rounded-xl"></div>
-                </div>
-                <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-else :data="collectedBloc"
-                    title="Montant total collecté">
-                </dashboardDoughnutCard>
-            </FadeSlideAnimation>
-
-            <FadeSlideAnimation mode="out-in">
-                <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-                    <div class="animate-pulse bg-gray-200 h-[409px] rounded-xl"></div>
-                </div>
-                <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-else :data="transferedBloc"
-                    title="Montant total transferé">
-                </dashboardDoughnutCard>
-            </FadeSlideAnimation>
+            <!-- Vue d'ensemble des transactions -->
+            <section>
+                <p class="font-semibold space-y-4">Vue d'ensemble des transactions</p>
+                <article class="grid grid-cols-2 gap-5">
+                    <!-- Cards principales -->
+                    <SegmentationVerificationCard :is-money="true"
+                        :title="`Montant total de transactions ${blocCommonText}`"
+                        :items="amountTransactionRepartitionData" class="" :data="[]">
+                    </SegmentationVerificationCard>
+                    <SegmentationVerificationCard :title="`Nombre total de transactions ${blocCommonText}`"
+                        :items="transactionRepartitionData" class="" :data="[]">
+                    </SegmentationVerificationCard>
 
 
+                </article>
+            </section>
 
-            <FadeSlideAnimation mode="out-in">
+            <!-- Visualisation des données -->
+            <section class="mt-4">
+                <p class="font-semibold space-y-4">Visualisation des données</p>
+                <article class="flex gap-5">
 
-
-                <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-                    <div class="animate-pulse bg-gray-200 h-[192px] rounded-xl"></div>
-
-                </div>
-
-                <DashboardDoughnutWithoutNetworkCard v-else :is-loading-filters="isLoadingFilters"
-                    :gift-card-data-color="giftCardDataColor"
-                    :sub-title="`Montant total de cartes cadeaux  ${blocCommonText}`" :data="giftCardAmountBloc"
-                    title="Montant total de cartes cadeaux" :show-network-details="false">
-                </DashboardDoughnutWithoutNetworkCard>
-            </FadeSlideAnimation>
-
-
-
-
-
-
-            <FadeSlideAnimation mode="out-in">
-
-
-                <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-                    <div class="animate-pulse bg-gray-200 h-[192px] rounded-xl"></div>
-
-                </div>
-
-                <DashboardDoughnutWithoutNetworkCard v-else :is-loading-filters="isLoadingFilters"
-                    :gift-card-data-color="giftCardDataColor" :data="giftCardCountBloc" :is-money="false"
-                    title="Nombre total de cartes cadeaux" :sub-title="`Nombre  de cartes cadeaux  ${blocCommonText}`"
-                    :show-network-details="false">
-                </DashboardDoughnutWithoutNetworkCard>
-            </FadeSlideAnimation>
-
-
-
-        </section>
-
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
-            <DashboardUserCard title="Nombre total de transferts d'argent"
-                :preview_count="dashboardData?.previous_period_stats.count_transferts_txns"
-                :count="dashboardData?.current_period_stats.count_transferts_txns"></DashboardUserCard>
-            <!-- :amount="dashboardData?.current_period_stats.count_transferts_txns"></DashboardUserCard> -->
-
-            <div>
-
-                <CommonBarStatut title="Nombre total de transactions" :items="transactionRepartitionData">
-                </CommonBarStatut>
-            </div>
-
-        </section>
-
-        <!-- Trafic des utilisateurs par reseau -->
-        <section class="">
-            <UserTrafficByNetworkCard :data="dashboardData!.count_txns_group_by_type_and_month" v-if="isFetched"
-                class="my-8">
-            </UserTrafficByNetworkCard>
-
-        </section>
-
-
-
-        <!-- Status de transactions -->
-        <section class="flex flex-col lg:flex-row h-[455px] gap-4  my-5 ">
-            <div class=" lg:w-[60%]">
-
-                <FadeSlideAnimation class="h-full" mode="out-in">
-                    <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-                        <div class="animate-pulse bg-gray-200 h-[455px]  rounded-xl"></div>
+                    <div class="max-w-[280px] ">
+                        <!-- <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-if="isFetched"
+                            :data="mock_collected_txns" title="Montant total collecté">
+                        </dashboardDoughnutCard> -->
+                        <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-if="isFetched"
+                            :data="collectedBloc" title="Montant total collecté">
+                        </dashboardDoughnutCard>
                     </div>
-                    <DashboardTransactionsChart v-else :data="dashboardData!.count_txns_group_by_provider_and_type">
-                    </DashboardTransactionsChart>
-                </FadeSlideAnimation>
+
+                    <UserTrafficByNetworkCard :data="dashboardData!.count_txns_group_by_type_and_month" v-if="isFetched"
+                        class="flex-1">
+                    </UserTrafficByNetworkCard>
+                    <!-- <UserTrafficByNetworkCard :data="mock_count_txns_group_by_type_and_month" v-if="isFetched"
+                        class="flex-1">
+                    </UserTrafficByNetworkCard> -->
+
+                </article>
+            </section>
+        </main>
 
 
-            </div>
-            <div class="lg:w-[40%]">
 
-                <FadeSlideAnimation class="h-full" mode="out-in">
-                    <div v-if="isLoadingData" class=" rounded-xl shadow 0 font-worksans">
-                        <div class="animate-pulse bg-gray-200  h-[455px] rounded-xl"></div>
-                    </div>
-                    <DashboardRecentTransactions v-else :transactions="dashboardData!.txns_recents">
-                    </DashboardRecentTransactions>
-                </FadeSlideAnimation>
 
-            </div>
-        </section>
 
 
 
@@ -142,20 +75,12 @@
 
 <script setup lang="ts">
 import UserTrafficByNetworkCard from "@/components/aggregatorSwitch/userTrafficByNetworkCard.vue";
-import FadeSlideAnimation from "@/components/animations/fadeSlideAnimation.vue";
-import CommonBarStatut from "@/components/common/commonBarStatut.vue";
 import CommonDatesFilter from "@/components/common/commonDatesFilter.vue";
 import dashboardDoughnutCard from "@/components/main/dashboard/dashboardDoughnutCard.vue";
-import DashboardDoughnutWithoutNetworkCard from "@/components/main/dashboard/dashboardDoughnutWithoutNetworkCard.vue";
-import DashboardRecentTransactions from "@/components/main/dashboard/dashboardRecentTransactions.vue";
 import DashboardTabs from "@/components/main/dashboard/dashboardTabs.vue";
-import DashboardTransactionsChart from "@/components/main/dashboard/dashboardTransactionsChart.vue";
-import DashboardUserCard from "@/components/main/dashboard/dashboardUserCard.vue";
+import SegmentationVerificationCard from "@/components/users/cards/segmentationVerificationCard.vue";
 import { useDashBoardFiltersQuery } from "@/composables/queries/useDashboardQueries";
-import { TransactionStatusEnum } from "@/interfaces/datatable.interface";
-import type { LocalPurChasingCardType } from "@/interfaces/giftCard.interface";
-import { generateColor } from "@/lib/utils";
-import type { CustomChartDataBloc, CustomGiftCardDataBloc, Status } from "@/services/dashboard/dashboard-alpha-type";
+import type { CustomChartDataBloc } from "@/services/dashboard/dashboard-alpha-type";
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import {
@@ -178,6 +103,49 @@ const isLoadingData = computed(() => {
     return isLoading.value || isLoadingSkeleton.value || isLoadingFilters.value
 })
 
+const transactionRepartitionData = computed(() => {
+    // if (!canShowStats.value || !isFetched) return [];
+    return [
+        {
+            id: 1, subscriptionType: "Approvisionnement",
+            subscriptionCount: 80, color: "#FFB300"
+        },
+        {
+            id: 3, subscriptionType: "Paiement de masse",
+            subscriptionCount: 40, color: "#FF7043"
+        },
+        {
+            id: 3, subscriptionType: "Paiement de facture",
+            subscriptionCount: 120, color: "#26A69A"
+        },
+        {
+            id: 4, subscriptionType: "Transfert unique",
+            subscriptionCount: 120, color: "#3F51B5"
+        },
+    ]
+})
+const amountTransactionRepartitionData = computed(() => {
+    // if (!canShowStats.value || !isFetched) return [];
+    return [
+        {
+            id: 1, subscriptionType: "Approvisionnement",
+            subscriptionCount: 55000, color: "#FFB300"
+        },
+        {
+            id: 3, subscriptionType: "Paiement de masse",
+            subscriptionCount: 150000, color: "#FF7043"
+        },
+        {
+            id: 3, subscriptionType: "Paiement de facture",
+            subscriptionCount: 100000, color: "#26A69A"
+        },
+        {
+            id: 4, subscriptionType: "Transfert unique",
+            subscriptionCount: 90000, color: "#3F51B5"
+        },
+    ]
+})
+
 
 
 const collectedBloc = computed<CustomChartDataBloc>(() => {
@@ -197,89 +165,8 @@ const collectedBloc = computed<CustomChartDataBloc>(() => {
     return data;
 })
 
-const transferedBloc = computed<CustomChartDataBloc>(() => {
-    const data: CustomChartDataBloc = {
-        sum_txns: dashboardData.value?.current_period_stats.sum_transfered_txns || 0,
-        sum_txns_group_by_provider: dashboardData.value?.sum_transfered_txns_group_by_provider || [],
-        current_period_stats: {
-            count_txns: dashboardData.value?.current_period_stats.count_transferts_txns || 0,
-            sum_txns: dashboardData.value?.current_period_stats.sum_transfered_txns || 0
-        },
-        previous_period_stats: {
-            count_txns: dashboardData.value?.previous_period_stats.count_transferts_txns || 0,
-            sum_txns: dashboardData.value?.previous_period_stats.sum_transfered_txns || 0
-        }
-    }
-    return data;
-})
 
 
-const giftCardAmountBloc = computed<CustomGiftCardDataBloc>(() => {
-    const data: CustomGiftCardDataBloc = {
-        total: dashboardData.value?.current_period_stats.sum_giftcard_txns || 0,
-        total_gift_card_broup_by_brand: dashboardData.value?.total_amount_gift_cards_group_by_brand.map((item) => { return { brand: item.brand, sum_or_total: item.total_amount } }) || [],
-        current_period_stats: {
-            total: dashboardData.value?.current_period_stats.sum_giftcard_txns || 0,
-
-            // calculated_total: dashboardData.value?.current_period_stats.sum_giftcard_txns || 0
-        },
-        previous_period_stats: {
-            total: dashboardData.value?.previous_period_stats.sum_giftcard_txns || 0,
-            // calculated_total: dashboardData.value?.previous_period_stats.sum_giftcard_txns || 0
-        }
-
-    }
-    return data;
-})
-
-const defaultGiftCardColor = [
-    {
-        name: "apple",
-        color: "#000000"
-    },
-    {
-        name: "xbox",
-        color: "#22C55E"
-    },
-    {
-        name: "playstation",
-        color: "#3B82F6"
-    },
-    {
-        name: "netflix",
-        color: "#EF4444"
-    }
-]
-
-const getColorTootip = (name: string) => {
-    const finded = defaultGiftCardColor.find((d) => d.name == name);
-    return finded == undefined ? generateColor() : finded.color;
-}
-
-
-const giftCardDataColor = computed(() => {
-    const dataColor: { name: string, color: string }[] = []
-    dashboardData.value?.total_amount_gift_cards_group_by_brand.forEach((d, index) => {
-        dataColor.push({
-            name: d.brand,
-            color: getColorTootip(d.brand)
-        })
-    });
-    return dataColor;
-})
-const giftCardCountBloc = computed<CustomGiftCardDataBloc>(() => {
-    const data: CustomGiftCardDataBloc = {
-        total: dashboardData.value?.current_period_stats.count_giftcard_txns || 0,
-        total_gift_card_broup_by_brand: dashboardData.value?.count_gift_cards_group_by_brand.map((item) => { return { brand: item.brand, sum_or_total: item.count } }) || [],
-        current_period_stats: {
-            total: dashboardData.value?.current_period_stats.count_giftcard_txns || 0
-        },
-        previous_period_stats: {
-            total: dashboardData.value?.previous_period_stats.count_giftcard_txns || 0
-        }
-    }
-    return data;
-})
 
 const tabsValue = ref("0");
 let date = new Date()
@@ -341,15 +228,17 @@ watch(tabsValue, (n, o) => {
 
 })
 
-const transactionRepartitionData = computed<LocalPurChasingCardType[]>(() => {
-    if (!dashboardData.value) return [];
-    return [
-        { id: 1, subscriptionType: "Refusé", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.FAILED.value)?.count_txns ?? 0, color: "#000000" },
-        { id: 2, subscriptionType: "En cours ", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.PROCESSING.value)?.count_txns ?? 0, color: "#3b82f6" },
-        { id: 3, subscriptionType: "En attente", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.PENDING.value)?.count_txns ?? 0, color: "#eab308" },
-        { id: 3, subscriptionType: "Réussi", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.SUCCESS.value)?.count_txns ?? 0, color: "#22C55E" },
-    ]
-})
+// const transactionRepartitionData = computed<LocalPurChasingCardType[]>(() => {
+//     if (!dashboardData.value) return [];
+//     return [
+//         { id: 1, subscriptionType: "Refusé", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.FAILED.value)?.count_txns ?? 0, color: "#000000" },
+//         { id: 2, subscriptionType: "En cours ", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.PROCESSING.value)?.count_txns ?? 0, color: "#3b82f6" },
+//         { id: 3, subscriptionType: "En attente", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.PENDING.value)?.count_txns ?? 0, color: "#eab308" },
+//         { id: 3, subscriptionType: "Réussi", subscriptionCount: dashboardData.value!.count_txns_group_by_status.find((item: Status) => item.status == TransactionStatusEnum.SUCCESS.value)?.count_txns ?? 0, color: "#22C55E" },
+//     ]
+// })
+
+
 
 </script>
 
