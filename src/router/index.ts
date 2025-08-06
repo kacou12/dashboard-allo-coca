@@ -116,6 +116,13 @@ const router = createRouter({
           // beforeEnter:Auth.authIsRequire,
           meta: { layout: 'DefaultLayout', requiresAuth: true },
         },
+        {
+          path: AppRoute.DATA_ANALYSIS.path,
+          name: AppRoute.DATA_ANALYSIS.name,
+          component: () => import('@/views/dataAnalysis/DataAnalysisView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
         // Gestion des transactions   =============== **************
         {
           path: AppRoute.TRANSACTIONS_MANAGEMENT.path,

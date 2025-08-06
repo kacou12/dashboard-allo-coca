@@ -1,65 +1,35 @@
 <template>
 
     <div :key="componentKey"
-        class="bg-white p-5 rounded-xl shadow border border-neutral-70 flex flex-col justify-between gap-6 font-worksans ">
+        class="bg-white p-5 rounded-lg shadow border border-neutral-70  gap-6 font-worksans h-full">
+
+        <p class="font-medium">Flux de trésorerie</p>
         <section
-            class="flex flex-col sm:flex-row sm:justify-between  sm:items-end xl:h-[150px] sm:h-[100px] sm:space-x-3">
+            class="flex flex-col sm:flex-row sm:justify-between  sm:items-end xl:h-[180px] w-[180px] sm:h-[100px] sm:space-x-3">
             <!-- chart doughnut -->
-            <div class="sm:max-w-[30%] xl:w-[150px] h-[100px]  sm:h-full flex items-center"
-                v-if="data.sum_txns_group_by_provider!.length > 0">
+            <div class="sm:h-full  w-full" v-if="data.sum_txns_group_by_provider!.length > 0">
 
-                <doughnut-chart ref="doughnutRef" class="mb-2" :data="chartData" :options="chartOptions" />
+                <doughnut-chart ref="doughnutRef" class="" :data="chartData" :options="chartOptions" />
             </div>
-            <!-- informations transaction -->
-            <div class=" flex h-full flex-col w-full xl:justify-between justify-around pt-2">
 
-                <article class="flex justify-center sm:justify-between  w-full">
-                    <p class="font-medium text-[16px]">{{ title }}</p>
-                    <!-- <MoreVertical class="w-4 h-4" /> -->
-                </article>
+        </section>
+        <section class="mt-4">
 
-                <div>
-                    <article class="mb-2">
-                        <p class="text-sm font-medium text-center sm:text-left text-neutral-20">{{ subTitle }}</p>
-                    </article>
-
-                    <article class="flex items-center flex-col sm:flex-row sm:justify-between ">
-                        <p class="font-merriweathersans font-bold text-lg xl:text-[28px] ">{{
-                            isMoney ?
-                                formatPrice(data.sum_txns) : data.sum_txns }}
-
-                        </p>
-                        <div>
-                            <CommonBadge v-if="currentPercentage != 0" :type="isUp ? 'up' : 'down'"
-                                :value="currentPercentage.toFixed(2).toString()">
-                            </CommonBadge>
-                        </div>
-                    </article>
-                </div>
-
+            <div class="flex items-center gap-1">
+                <div class="w-2 h-2 rounded-full bg-[#F44336]" />
+                <span class="text-[14px]  text-[#1A1A1A]">
+                    Sorties
+                </span>
+            </div>
+            <div class="flex items-center gap-1">
+                <div class="w-2 h-2 rounded-full  bg-[#4CAF50]" />
+                <span class="text-[14px] text-[#1A1A1A]">
+                    Entrées
+                </span>
             </div>
         </section>
 
-        <div class="my-2 h-[1px] bg-neutral-70 mx-4"></div>
 
-        <!-- info network -->
-        <section v-if="data.sum_txns_group_by_provider!.length > 0"
-            class="flex flex-col justify-between gap-2 text-neutral-20 font-[16px] mx-5">
-            <article class="flex justify-between" v-for="item, index in data.sum_txns_group_by_provider"
-                :key="item.provider.name">
-                <div>
-                    <img width="32" height="32" :src="item.provider.image_url" alt="" class="rounded-sm">
-                </div>
-                <p>{{ formatPrice(item.sum_txns) }}</p>
-                <!-- <p>{{ Math.round((item.sum_txns * 100) / data.sum_txns) }} %</p> -->
-                <p v-if="data.sum_txns == 0">100 %</p>
-                <p v-else>{{ Math.round((item.sum_txns * 100) / data.sum_txns) }} %</p>
-            </article>
-        </section>
-
-        <section v-else>
-            <p class="text-sm font-medium text-neutral-20 mx-5 text-center">Aucune transaction trouvée</p>
-        </section>
 
 
     </div>
@@ -254,31 +224,7 @@ const currentData = computed(() => {
 // }, { immediate: true })
 
 
-const radiusMultipliers = computed(() => {
-    return createDecreasingArray({ numberOfElements: data.sum_txns_group_by_provider!.length });
-});
 
-
-const currentPercentage = computed(() => {
-    // percentage of difference
-    if (data.sum_txns == 0 && data.previous_period_stats?.sum_txns == 0) {
-        return 0;
-    }
-    else if (data.current_period_stats?.sum_txns == 0 && data.previous_period_stats?.sum_txns != 0) {
-        return 0;
-    }
-
-    else if (data.previous_period_stats?.sum_txns == 0 && data.sum_txns != 0) {
-        return 100
-    }
-
-    return (Math.abs(data.sum_txns - data.previous_period_stats!.sum_txns) * 100) / data.previous_period_stats!.sum_txns;
-
-})
-
-const isUp = computed(() => {
-    return data.current_period_stats!.sum_txns - data.previous_period_stats!.sum_txns > 0 ? true : false;
-})
 
 // data.sum_txns_group_by_provider
 const chartData
@@ -288,19 +234,9 @@ const chartData
             datasets: [
 
                 {
-                    // borderWidth: 2,
-                    // borderAlign: "center",
-                    // borderColor: "red",
-                    // hidden: true,
-                    // spacing: 10,
 
-
-                    // borderWidth: 10s,
-                    // weight: 80,
                     borderWidth: 0,
 
-
-                    // data: [30, 25, 20, 25],
 
                     data: currentChartDataValues.value,
 
@@ -337,17 +273,6 @@ const arrayTooltips = ref(
 
     })
 
-    // [
-    // {
-    //     id: "1",
-    //     amount: "11450551", //partie
-    //     color: "#ED7F10",
-    //     label: "Orange",
-    //     percentage: "55",
-    //     value: 23450551 //total
-    // },
-
-    // ]
 );
 
 
@@ -456,19 +381,6 @@ onBeforeUnmount(() => {
 });
 
 onMounted(() => {
-    // let plugin: {
-    //     id: string;
-    //     afterDraw: (chart: ChartJS) => void;
-    // };
-
-
-
-    // setTimeout(() => {
-    //     plugin = customDoughnutPlugin;
-    //     // ChartJS.register(customDoughnutPlugin);
-    // }, 3000)
-    // ChartJS.register(plugin!);
-
 
     data.sum_txns_group_by_provider?.map((d) => {
 
@@ -490,8 +402,4 @@ onMounted(() => {
 
 </script>
 
-<style scoped>
-.card {
-    width: 300px;
-}
-</style>
+<style scoped></style>

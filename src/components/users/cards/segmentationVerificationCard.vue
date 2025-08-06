@@ -2,30 +2,57 @@
 
     <div class=" p-4 bg-white rounded-lg shadow  ">
         <div class="flex justify-between items-center mb-4 mr-4">
-            <h3 class="text-sm lg:text-lg font-medium text-gray-900">{{ title }}</h3>
-            <!-- <button class="text-gray-400 hover:text-gray-600">
-                <span class="sr-only">Options</span>
-                <svg width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M1.66667 1.25C2.17293 1.25 2.58333 1.66041 2.58333 2.16667C2.58333 2.67293 2.17293 3.08333 1.66667 3.08333C1.16041 3.08333 0.75 2.67293 0.75 2.16667C0.75 1.66041 1.16041 1.25 1.66667 1.25Z"
-                        fill="#999999" stroke="#999999" stroke-width="1.5" />
-                    <path
-                        d="M3.33333 8C3.33333 7.07952 2.58714 6.33333 1.66667 6.33333C0.746192 6.33333 0 7.07952 0 8C0 8.92047 0.746192 9.66666 1.66667 9.66666C2.58714 9.66666 3.33333 8.92047 3.33333 8Z"
-                        fill="#999999" />
-                    <path
-                        d="M3.33333 13.8333C3.33333 12.9129 2.58714 12.1667 1.66667 12.1667C0.746192 12.1667 0 12.9129 0 13.8333C0 14.7538 0.746192 15.5 1.66667 15.5C2.58714 15.5 3.33333 14.7538 3.33333 13.8333Z"
-                        fill="#999999" />
-                </svg>
+            <h3 class="text-sm  font-medium text-[#666666]">{{ title }}</h3>
 
-            </button> -->
         </div>
+
+        <section class="flex items-center justify-between">
+
+            <div class="my-5 flex items-center gap-1">
+                <p class="text-[32px] font-bold font-merriweathersans">{{ isMoney ? formatPrice(total) : total }}
+                </p>
+                <span class="text-[20px] font-bold font-merriweathersans mt-1" v-if="!isMoney">trs</span>
+            </div>
+            <CommonBadge v-if="currentPercentage != 0" :type="isUp ? 'up' : 'down'"
+                :value="currentPercentage.toFixed(2)"></CommonBadge>
+        </section>
 
         <!-- Barre de progression -->
         <div class="h-2 w-full flex  overflow-hidden space-x-1">
-            <div v-for="(item, index) in items" :key="index" :style="{
+            <!-- <div v-for="(item, index) in items" :key="index" :style="{
                 width: `${calculatePercentage(item.subscriptionCount)}%`,
                 backgroundColor: item.color
-            }" class="transition-all duration-300 rounded-[2px]" />
+            }" class="transition-all duration-300 rounded-[2px]"></div> -->
+
+            <TooltipProvider>
+                <Tooltip v-for="(item, index) in items" :key="index">
+                    <TooltipTrigger as-child>
+                        <div :style="{
+                            width: `${calculatePercentage(item.subscriptionCount)}%`,
+                            backgroundColor: item.color
+                        }" class="transition-all duration-300 rounded-[2px] cursor-pointer"></div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <div>
+                            <div class="p-4 ">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-2 h-2 mr-2 bg-orange-500 rounded-full"></div>
+                                    <h3 class="text-lg font-semibold text-gray-800">Approvisionnement</h3>
+                                </div>
+                                <p class="text-gray-600">
+                                    {{ formattedCurrent }} F CFA / {{ formattedTotal }} F CFA
+                                </p>
+                                <p class="text-gray-500">
+                                    soit {{ percentage }}%
+                                </p>
+                            </div>
+                        </div>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+
+
+
         </div>
 
         <!-- Légende -->
@@ -48,16 +75,26 @@ import { Button } from '@/components/ui/button'
 import statusBarChart from '@/components/common/statusBarChart.vue';
 import commonBadge from '@/components/common/commonBadge.vue';
 import type { LocalPurChasingCardType } from '@/interfaces/giftCard.interface';
+import { formatPrice } from '@/myUtils';
+import CommonBadge from '@/components/common/commonBadge.vue';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 
 interface Props {
     title: string
-    items: LocalPurChasingCardType[]
+    items: LocalPurChasingCardType[],
+    isMoney?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
     title: 'Carte la plus vendue',
-    items: () => []
+    items: () => [],
+    isMoney: false
 })
 
 const total = computed(() => {
@@ -70,6 +107,46 @@ const calculatePercentage = (value: number): number => {
 }
 
 
+const currentPercentage = computed(() => {
+    // percentage of difference
+    // if (data.total == 0 && data.previous_period_stats?.total == 0) {
+    //     return 0;
+    // }
+    // else if (data.current_period_stats?.total == 0 && data.previous_period_stats?.total != 0) {
+    //     return 0;
+    // }
+
+    // else if (data.previous_period_stats?.total == 0 && data.total != 0) {
+    //     return 100
+    // }
+
+    // return (Math.abs(data.total - data.previous_period_stats!.total) * 100) / data.previous_period_stats!.total;
+
+    return 5;
+})
+
+const isUp = computed(() => {
+    // return data.total - data.previous_period_stats!.total > 0 ? true : false;
+    return true;
+
+})
+
+
+
+// const total = 24000000;
+const current = 14000000;
+
+const percentage = computed(() => {
+    return Math.round((current / total.value) * 100);
+});
+
+const formattedCurrent = computed(() => {
+    return new Intl.NumberFormat('fr-FR').format(current);
+});
+
+const formattedTotal = computed(() => {
+    return new Intl.NumberFormat('fr-FR').format(total.value);
+});
 
 </script>
 

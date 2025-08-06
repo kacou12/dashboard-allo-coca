@@ -8,6 +8,8 @@ import type {
 import { Http } from '../Http'
 import type { DashboardResponse } from './dashboard-alpha-type'
 import { DashboardRouteApi } from './dashboard-constants'
+import { env } from '@/config/env'
+import { dataAnalysisBeneficiariesResponse } from '@/mocks/data-analysis.mock.response'
 
 export async function fetchFiltersDashboardApi({
   payload,
@@ -15,6 +17,13 @@ export async function fetchFiltersDashboardApi({
   payload: DashboardFiltersPayload
 }): Promise<SuccessResponse<DashboardResponse> | undefined> {
   // Same dates
+
+    if (env.VITE_MOCK_API == 'true') {
+        // TODO: remove this once you have auth
+        return Promise.resolve(dataAnalysisBeneficiariesResponse as SuccessResponse<DashboardResponse>) ;
+    }
+
+  // dataAnalysisBeneficiariesResponse
 
   payload.dates![0].setHours(0, 0, 0, 0)
   payload.dates![1].setHours(23, 59, 59, 59)

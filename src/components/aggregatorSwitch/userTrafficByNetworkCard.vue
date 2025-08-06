@@ -11,9 +11,13 @@
         <div v-else class="bg-white p-6 rounded-lg shadow border border-neutral-70 flex flex-col justify-between gap-6">
 
             <section class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <h2 class="font-bold font-merriweathersans text-sm lg:text-xl ">Trafic des utilisateurs par réseau</h2>
+                <div class="space-y-3">
+                    <h2 class="font-bold font-merriweathersans text-sm lg:text-xl ">Évolution des approvisionnements et
+                        dépenses</h2>
+                    <p class="text-neutral-20">Affichage de la progression des montants au fil du temps</p>
+                </div>
                 <div>
-                    <CommonButton type="outline" title="Voir le rapport"></CommonButton>
+                    <!-- <CommonButton type="outline" title="Voir le rapport"></CommonButton> -->
                 </div>
             </section>
 
@@ -31,21 +35,16 @@
 </template>
 
 <script setup lang="ts">
-import type { Prop, PropType } from 'vue';
+import type { CountTxnsGroupByTypeAndMonth } from '@/services/dashboard/dashboard-alpha-type';
+import type { PropType } from 'vue';
 import CommonButton from '../buttons/commonButton.vue';
 import SwitchAgregatorBar from './SwitchAgregatorBar.vue';
-import type { CountTxnsGroupByTypeAndMonth } from '@/services/dashboard/dashboard-alpha-type';
-
-
-
-
-import { ref, computed } from 'vue'
-import type { ChartData } from 'chart.js';
 import { normalizeData } from '@/lib/utils';
+import { computed } from 'vue';
 
-import { storeToRefs } from 'pinia';
-import { useLoaderStore } from '@/stores/useLoaderStore';
 import FadeSlideAnimation from '@/components/animations/fadeSlideAnimation.vue';
+import { useLoaderStore } from '@/stores/useLoaderStore';
+import { storeToRefs } from 'pinia';
 
 const { data } = defineProps({
     data: {
@@ -69,28 +68,20 @@ const isLoadingData = computed(() => {
 
 // Mapping des types de transactions
 const typeLabels = {
-    'giftcard': 'Achat de carte cadeau',
-    'trensfert_argent': 'Transfert d\'argent',
-    // 'award': 'Award',
-    'achat_credit': 'Achat de crédit'
+    'spend': 'Dépenses',
+    'supply': 'Approvisionnements',
+
 }
 
 // Fonction pour attribuer des couleurs aux types de transactions
 const getColorForType = (type: string): string => {
     switch (type) {
-        case 'giftcard': return '#C8E6C9'  // vert clair
-        case 'trensfert_argent': return '#4CAF50'  // vert foncé
-        // case 'award': return '#81D4FA'  // bleu clair
-        case 'achat_credit': return '#B39DDB'  // violet clair
-        default: return '#E0E0E0'  // gris neutre
+        case 'spend': return '#E57373'  // vert clair
+        case 'supply': return '#81C784'  // rouge foncé
+        default: return '#E57373'
+
     }
 }
-// Générer les labels des mois
-const monthLabels = [
-    'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun',
-    'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'
-]
-
 
 
 // Transformer les données brutes
