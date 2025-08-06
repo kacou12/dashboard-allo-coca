@@ -41,8 +41,8 @@ const { mutateAsync: updateAdminMutate, isPending, isSuccess } = useUpdateAdminM
 
 // TODO: update admin
 const confirmHandler = async () => {
-    await updateAdminMutate({ active: !admin.active });
-    testSwicth.value = !testSwicth.value;
+    // await updateAdminMutate({ active: !admin.active });
+    // testSwicth.value = !testSwicth.value;
     toast.success('Admin updated successfully');
 }
 

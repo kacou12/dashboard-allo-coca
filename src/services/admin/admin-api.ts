@@ -1,4 +1,5 @@
 // import { env } from '@/config/env'
+import { env } from '@/config/env'
 import type { AdminPolicyPayload } from '../auth/auth-type'
 import type { DefaultFiltersPayload } from '../global.type'
 import { Http } from '../Http'
@@ -12,6 +13,8 @@ import type {
   PermissionRequest,
   RoleResponse,
 } from './admin-type'
+import { mockInvoiceTransactionsResponse } from '@/mocks/invoice-transaction.mock.response'
+import { mockAdminResponse } from '@/mocks/admin.mock.response'
 
 // const mock = new MockAdapter(axios.create())
 
@@ -114,6 +117,10 @@ export async function fetchFiltersAdminsApi({
 }: {
   payload: DefaultFiltersPayload
 }): Promise<SuccessResponse<PaginationResponse<AdminResponse>> | undefined> {
+   if (env.VITE_MOCK_API == "true") {
+     return Promise.resolve(mockAdminResponse as SuccessResponse<PaginationResponse<AdminResponse>>);
+    }
+  
   const result = await Http.get<SuccessResponse<PaginationResponse<AdminResponse>>>(
     AdminRouteApi.adminsFilter,
     // '/admin/api/v1/user/admins',

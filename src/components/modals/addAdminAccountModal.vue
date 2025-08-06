@@ -201,27 +201,27 @@ const addNewAdmin = async () => {
     };  // dataState.email,
     // createAdmin(payload);
 
-    try {
-        startLoadingSkeleton();
+    // try {
+    //     startLoadingSkeleton();
 
-        await createAdminAsync(payload);
-        open.value = false;
-        dataState.value = {
-            firstname: "",
-            lastname: "",
-            role_id: "",
-            email: "",
-            phone: "",
-        }
-        birthDateValue.value = undefined;
-        toast.success('Admin created successfully');
+    //     await createAdminAsync(payload);
+    //     open.value = false;
+    //     dataState.value = {
+    //         firstname: "",
+    //         lastname: "",
+    //         role_id: "",
+    //         email: "",
+    //         phone: "",
+    //     }
+    //     birthDateValue.value = undefined;
+    //     toast.success('Admin created successfully');
 
 
-    } catch (err) {
+    // } catch (err) {
 
-    } finally {
+    // } finally {
 
-    }
+    // }
 
 
 }

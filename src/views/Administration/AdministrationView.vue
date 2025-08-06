@@ -16,7 +16,7 @@
 
         <div class="flex flex-col sm:flex-row justify-between my-4">
             <section class="flex gap-2 items-center">
-                <p class="text-[18px] font-semibold">Equipe Send Chap</p>
+                <p class="text-[18px] font-semibold">Equipe d'administration</p>
                 <div>
                     <span v-if="isFetched"
                         class="text-xs font-medium px-[5px] py-[1px]  rounded-xl border text-[#633DA5] border-[#633DA5]">{{
