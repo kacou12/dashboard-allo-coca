@@ -25,7 +25,7 @@
                     </div>
                 </article>
 
-                <article
+                <!-- <article
                     class="cursor-pointer hover:bg-neutral-80 transition-all  duration-300 flex items-center gap-2 border-[2px] shadow-sm border-[#F5F5F5] rounded-lg p-2">
                     <img class="rounded-md w-[48px] h-[48px] bg-cover" src="@/assets/images/invoices/cie.png"
                         alt="canal" />
@@ -35,11 +35,13 @@
                         </p>
                         <p class="text-sm text-[#4B5675]">173210987870</p>
                     </div>
-                </article>
+                </article> -->
+                <CieStepperModal></CieStepperModal>
             </div>
         </section>
 
         <section class=" w-full">
+            <Comp334></Comp334>
             <CommonDataTable :page-size="filters.limit" ref="my-table" :default-page="filters.page"
                 :total="suppliesData?.total ?? 0" :columns="suppliesColumns" :data="suppliesData?.items ?? []"
                 @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
@@ -63,6 +65,9 @@ import { useRoute } from 'vue-router';
 import type { SupplyBank } from '@/services/supply-transactions/supply-transaction-type';
 import BankDetailModal from '@/components/main/supplies/tables/bankDetailModal.vue';
 import CanalTransactionModal from '@/components/main/invoiceTrancations/canal/canalTransactionModal.vue';
+import CieStepperModal from '@/components/main/invoiceTrancations/CIE/cieStepperModal.vue';
+import Comp334 from '@/components/comp-334.vue';
+
 
 // Définir le type pour une banque
 
