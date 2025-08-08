@@ -4,8 +4,8 @@
         <header class="flex justify-between items-center">
             <div class="mb-6 space-y-1">
 
-                <h1 class="text-xl font-bold font-merriweathersans leading-6 text-black">Transactions récentes</h1>
-                <p class="text-neutral-30 text-sm font-normal">Consultez les récentes transactions en temps réel</p>
+                <h1 class="text-xl font-bold font-merriweathersans leading-6 text-black">Historique de Transactions</h1>
+                <p class="text-neutral-30 text-sm font-normal">Consultez toutes vos transactions</p>
             </div>
 
             <div>

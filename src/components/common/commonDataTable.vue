@@ -97,7 +97,7 @@ const isLoadingData = computed(() => {
     return isLoading.value || isLoadingSkeleton.value || isFetching.value;
 })
 
-const { defaultPage = 1, data, columns, dynamicWidthColumns = true, pageSize = 10, manualPagination = true } = defineProps<{
+const { total, defaultPage = 1, data, columns, dynamicWidthColumns = true, pageSize = 10, manualPagination = true } = defineProps<{
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
     total: number,
@@ -164,7 +164,7 @@ const table = useVueTable({
     initialState: {
 
         pagination: {
-            pageSize: 5,
+            pageSize: total,
 
 
 

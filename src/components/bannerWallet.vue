@@ -3,7 +3,7 @@
 
         <div class="flex space-x-3">
             <!-- Bouton Ajouter des fonds -->
-            <button @click="handleAddFunds"
+            <button v-if="showActionButtons" @click="$router.push({ name: AppRoute.SUPPLY.name })"
                 class="flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
                 <Plus class="w-4 h-4 mr-2" />
                 Ajouter des fonds à votre portefeuille
@@ -15,7 +15,7 @@
                 <Send class="w-4 h-4 mr-2" />
                 Transfert unique
             </button> -->
-            <TransactionTransfertStepperModal></TransactionTransfertStepperModal>
+            <TransactionTransfertStepperModal v-if="showActionButtons"></TransactionTransfertStepperModal>
 
         </div>
     </section>
@@ -41,18 +41,23 @@
 import { computed } from 'vue'
 import { Wallet, Plus, Send } from 'lucide-vue-next'
 import TransactionTransfertStepperModal from './transactions-transfert-stepper/transactionTransfertStepperModal.vue';
+import { AppRoute } from '@/constants/app-route';
 
 interface Props {
     balance?: number
+    showActionButtons?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    balance: 0
+    balance: 0,
+    showActionButtons: false
+
 })
 
 const emit = defineEmits<{
     addFunds: []
-    sendPayment: []
+    sendPayment: [],
+
 }>()
 
 // Formatage du solde avec séparateurs de milliers

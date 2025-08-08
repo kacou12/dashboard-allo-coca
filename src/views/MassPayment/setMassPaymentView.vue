@@ -61,6 +61,7 @@
             </section>
 
             <section class="2xl:w-[70%] mx-auto ">
+                <p class="text-red-500 space-y-2" v-for="message in errorMessage" :key="message">{{ message }}</p>
 
                 <article v-if="jsonData.length > 0 && currentStep == 2">
                     <CommonDataTable :dynamic-width-columns="false" :total="jsonData.length ?? 0"
@@ -69,7 +70,7 @@
                     </CommonDataTable>
 
                 </article>
-                <article v-else-if="currentStep == 1" class="relative  ">
+                <article v-else-if="currentStep == 1" class="relative">
 
                     <CommonDataTable :dynamic-width-columns="false" :total="fakeJsonData.length ?? 0"
                         :manual-pagination="false" :columns="massPaymentColumn" :data="fakeJsonData"
@@ -115,7 +116,7 @@ const { startLoading, stopLoading } = useLoaderStore();
 const isConverting = ref(false);
 const currentStep = ref<1 | 2 | 3>(1);
 const localStepsLength = ref(3);
-const errorMessage = ref<string | null>(null);
+const errorMessage = ref<string[]>([]);
 const statusPayment = ref<'pending' | 'success' | 'error'>('pending');
 const localStepsData = ref([
     {
@@ -161,18 +162,48 @@ const fakeJsonData = [
         network: "Wave",
         amount: 100000,
     },
-    {
-        name: "Moussa Koné",
-        phone: "0712345678",
-        network: "MTN",
-        amount: 75000,
-    },
-    {
-        name: "Fatou Traoré",
-        phone: "0112345678",
-        network: "Orange",
-        amount: 20000,
-    },
+    // {
+    //     name: "Moussa Koné",
+    //     phone: "0712345678",
+    //     network: "MTN",
+    //     amount: 75000,
+    // },
+    // {
+    //     name: "Fatou Traoré",
+    //     phone: "0112345678",
+    //     network: "Orange",
+    //     amount: 20000,
+    // },
+    // {
+    //     name: "Watari Traoré",
+    //     phone: "0112345679",
+    //     network: "Orange",
+    //     amount: 25000,
+    // },
+    // {
+    //     name: "Johnny Patcheko",
+    //     phone: "0142345679",
+    //     network: "Wave",
+    //     amount: 55000,
+    // },
+    // {
+    //     name: "Johnny Patcheko",
+    //     phone: "0142345679",
+    //     network: "Wave",
+    //     amount: 55000,
+    // },
+    // {
+    //     name: "Johnny Patcheko",
+    //     phone: "0142345679",
+    //     network: "Wave",
+    //     amount: 55000,
+    // },
+    // {
+    //     name: "Xabi Alonso",
+    //     phone: "0142345649",
+    //     network: "Orange",
+    //     amount: 75000,
+    // },
 ];
 
 /**
@@ -224,7 +255,8 @@ const convertExcelToJson = (file: File): Promise<ExcelRowData[]> => {
 const validateAndTransformData = (rawData: any[]): MassPaymentResponse[] => {
     if (rawData.length < 2) {
         // throw new Error("Le fichier est vide ou ne contient pas d'en-têtes.");
-        errorMessage.value = "Le fichier est vide ou ne contient pas d'en-têtes.";
+        errorMessage.value = ["Le fichier est vide ou ne contient pas d'en-têtes."];
+        return [];
     }
 
     // Convertir les en-têtes en minuscules pour une vérification insensible à la casse
@@ -236,12 +268,16 @@ const validateAndTransformData = (rawData: any[]): MassPaymentResponse[] => {
     const missingHeaders = requiredHeaders.filter(h => !headers.includes(h));
     if (missingHeaders.length > 0) {
         // throw new Error(`Le fichier ne contient pas les en-têtes requis : ${missingHeaders.join(', ')}`);
-        errorMessage.value = `Le fichier ne contient pas les en-têtes requis : ${missingHeaders.join(', ')}`;
+        errorMessage.value = [`Le fichier ne contient pas les en-têtes requis : ${missingHeaders.join(', ')}`];
+
+        return [];
     }
 
     // On s'assure qu'il n'y a pas d'autres colonnes
     if (headers.length > requiredHeaders.length) {
-        errorMessage.value = "Le fichier contient des colonnes non autorisées. Veuillez ne conserver que 'Nom et prénom', 'Numéro', 'Réseau', 'Montant'.";
+        errorMessage.value = ["Le fichier contient des colonnes non autorisées. Veuillez ne conserver que 'Nom et prénom', 'Numéro', 'Réseau', 'Montant'."];
+
+        return [];
     }
 
     const dataRows = rawData.slice(1);
@@ -263,31 +299,36 @@ const validateAndTransformData = (rawData: any[]): MassPaymentResponse[] => {
         // Validation et assignation pour le Nom et prénom
         const nomComplet = row[nomCompletHeader];
         if (!nomComplet || typeof nomComplet !== 'string' || nomComplet.trim() === '') {
-            // throw new Error(`Ligne ${index + 2}: Le champ 'Nom et prénom' est invalide.`);
-            errorMessage.value = `Ligne ${index + 2}: Le champ 'Nom et prénom' est invalide.`;
+            // throw new Error(`Ligne ${index}: Le champ 'Nom et prénom' est invalide.`);
+            errorMessage.value = [...errorMessage.value, `Ligne ${index}: Le champ 'Nom et prénom' est invalide.`];
+
         }
         transformedRow.name = String(nomComplet).trim();
 
         // Validation et assignation pour le Numéro
         const phone = row[phoneHeader];
         if (!phone || typeof phone !== 'string' || phone.trim() === '') {
-            errorMessage.value = `Ligne ${index + 2}: Le champ 'Numéro' est invalide.`;
+
+            errorMessage.value = [...errorMessage.value, `Ligne ${index}: Le champ 'Numéro' est invalide.`];
         }
         transformedRow.phone = String(phone).trim();
 
         // Validation et assignation pour le Réseau
         const network = row[networkHeader];
-        if (!network || typeof network !== 'string' || network.trim() === '') {
-            errorMessage.value = `Ligne ${index + 2}: Le champ 'Réseau' est invalide.`;
+        if (!network || typeof network !== 'string' || network.trim() === '' || !['MTN', 'Orange', 'Moov', 'Wave'].includes(network)) {
+
+            errorMessage.value = [...errorMessage.value, `Ligne ${index}: Le champ 'Réseau' est invalide . les reseaux possible sont MTN, Orange, Moov, Wave`];
         }
         transformedRow.network = String(network).trim();
 
         // Validation et assignation pour le Montant
         const amount = row[amountHeader];
         if (typeof amount !== 'number' || isNaN(amount) || amount <= 0) {
-            errorMessage.value = `Ligne ${index + 2}: Le champ 'Montant' est invalide. Il doit être un nombre positif.`;
+
+            errorMessage.value = [...errorMessage.value, `Ligne ${index}: Le champ 'Montant' est invalide. Il doit être un nombre positif.`];
         }
-        transformedRow.amount = Number(amount);
+        // transformedRow.amount = Number(amount);
+        transformedRow.amount = amount;
 
         return transformedRow;
     });

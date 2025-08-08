@@ -13,7 +13,7 @@
 
                 <CanalTransactionModal></CanalTransactionModal>
 
-                <article
+                <!-- <article
                     class="cursor-pointer hover:bg-neutral-80 transition-all  duration-300 flex items-center gap-2 border-[2px] shadow-sm border-[#F5F5F5] rounded-lg p-2">
                     <img class="rounded-md w-[48px] h-[48px] bg-cover" src="@/assets/images/invoices/sodeci.png"
                         alt="canal" />
@@ -23,8 +23,9 @@
                         </p>
                         <p class="text-sm text-[#4B5675]">443210987657</p>
                     </div>
-                </article>
+                </article> -->
 
+                <SodeciStepperModal></SodeciStepperModal>
                 <CieStepperModal></CieStepperModal>
             </div>
         </section>
@@ -56,6 +57,7 @@ import BankDetailModal from '@/components/main/supplies/tables/bankDetailModal.v
 import CanalTransactionModal from '@/components/main/invoiceTrancations/canal/canalTransactionModal.vue';
 import CieStepperModal from '@/components/main/invoiceTrancations/CIE/cieStepperModal.vue';
 import Comp334 from '@/components/comp-334.vue';
+import SodeciStepperModal from '@/components/main/invoiceTrancations/SODECI/sodeciStepperModal.vue';
 
 
 // Définir le type pour une banque
