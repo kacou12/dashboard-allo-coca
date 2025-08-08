@@ -26,7 +26,9 @@ export const massPaymentColumn: ColumnDef<MassPaymentResponse>[] = [
     header: () => h('div', { class: 'text-left text-xs ' }, 'Réseau'),
     cell: ({ row }) => {
       const rowOriginal: MassPaymentResponse = row.original
-      return h('div', { class: 'text-left min-w-[150px]' }, rowOriginal.network)
+      const styledError = !['MTN', 'Orange', 'Moov', 'Wave'].includes(row.original.network)? "border-red-500": "border-transparent" ;
+      
+      return h('div', { class: `text-right min-w-[150px] ${styledError} border-2` }, rowOriginal.network)
     },
   },
   {
@@ -34,7 +36,8 @@ export const massPaymentColumn: ColumnDef<MassPaymentResponse>[] = [
     header: () => h('div', { class: 'text-right text-xs ' }, 'Montant'),
     cell: ({ row }) => {
       const rowOriginal: MassPaymentResponse = row.original
-      return h('div', { class: 'text-right min-w-[100px]' }, rowOriginal.amount)
+      const styledError = isNaN(Number(row.original.amount)) ? "border-red-500": "border-transparent" ;
+      return h('div', { class: `text-right min-w-[100px] ${styledError} border-2` }, rowOriginal.amount)
     },
   },
 ]

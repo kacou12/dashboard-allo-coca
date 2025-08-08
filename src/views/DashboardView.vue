@@ -8,7 +8,7 @@
 
 
     <!-- wallet account section -->
-    <BannerWallet></BannerWallet>
+    <BannerWallet :show-action-buttons="true"></BannerWallet>
 
     <section class="flex gap-2 items-center justify-between my-3">
       <div class="flex items-center justify-between gap-2">
@@ -23,7 +23,7 @@
 
       <div>
 
-        <CustomButton @click="() => { }" type="outline">
+        <CustomButton @click="() => { router.push({ name: AppRoute.TRANSACTIONS_HISTORY.name }) }" type="outline">
           Voir tous
         </CustomButton>
       </div>
@@ -93,9 +93,10 @@ import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactio
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
 import { useWindowSize } from '@vueuse/core';
 import { onBeforeMount, useTemplateRef } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import CustomButton from '@/components/buttons/customButton.vue';
 import BannerWallet from '@/components/bannerWallet.vue';
+import { AppRoute } from '@/constants/app-route';
 
 const { user, fullName } = useAuthStore();
 
@@ -111,6 +112,7 @@ const filters = useTransactionFiltersStore()
 const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
 
 const route = useRoute();
+const router = useRouter();
 const { width, height } = useWindowSize()
 
 
