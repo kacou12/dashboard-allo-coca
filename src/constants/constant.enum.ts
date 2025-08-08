@@ -11,5 +11,8 @@ export enum FileTypeEnum {
   WEBP = 'webp',
   SVG = 'svg',
   PDF = 'pdf',
+  XLS = 'application/vnd.ms-excel',
+  XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   // Ajoutez d'autres types d'images si nécessaire
 }
+

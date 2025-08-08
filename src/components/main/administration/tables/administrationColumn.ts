@@ -23,8 +23,9 @@ export const administrationColumn: ColumnDef<AdminResponse>[] = [
     size: 500,
     header: () => h('div', { class: 'text-left text-xs ' }, 'Utilisateur'),
 
-    cell: ({ row }) => {
+    cell: ({ row, cell }) => {
       const rowOriginal: AdminResponse = row.original
+  
 
       const firstName = rowOriginal.firstname
       const lastName = rowOriginal.lastname

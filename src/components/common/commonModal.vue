@@ -10,7 +10,7 @@
             <slot name="trigger"></slot>
 
         </DialogTrigger>
-        <DialogContent :onInteractOutside="(e) => {
+        <DialogContent :key="dialogKey" :onInteractOutside="(e) => {
             if (isPersisted) {
                 e.preventDefault();
             }
@@ -74,7 +74,7 @@ import {
 } from '@/components/ui/dialog'
 import DialogClose from '@/components/ui/dialog/DialogClose.vue'
 
-import { type PropType } from 'vue'
+import { ref, watch, type PropType } from 'vue'
 defineProps({
     backgroudColor: {
         default: 'bg-[#F5F5F5]',
@@ -110,6 +110,15 @@ defineProps({
 
 const open = defineModel({ type: Boolean, default: false });
 // const open = ref(false);
+const dialogKey = ref(0);
+
+
+watch(open, (newValue) => {
+    if (newValue) {
+        // Incrémenter la key pour forcer un nouveau rendu
+        dialogKey.value++;
+    }
+});
 
 
 

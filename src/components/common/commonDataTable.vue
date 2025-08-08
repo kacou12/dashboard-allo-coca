@@ -47,7 +47,7 @@
         </Table>
 
 
-        <FadeSlideAnimation>
+        <FadeSlideAnimation v-if="manualPagination">
             <commonPagination v-if="table.getRowModel().rows?.length" :items-per-page="pageSize"
                 :current-page="defaultPage" @go-to-page="goToPage" @next-page="goNextPage" @prev-page="goPrevPage"
                 :total="total" />

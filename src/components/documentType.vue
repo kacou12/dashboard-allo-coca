@@ -2,8 +2,14 @@
     <div class="flex justify-between p-2 border font-worksans rounded-lg items-center">
         <section class="flex gap-3">
 
+
+
             <div class="h-full" v-if="fileType == 'pdf'">
                 <img src="@/assets/images/pdf-icon.png" alt="Likambo Logo" />
+            </div>
+
+            <div class="h-full" v-else-if="fileType == FileTypeEnum.XLS || fileType == FileTypeEnum.XLSX">
+                <img src="@/assets/images/xls-icon.png" alt="Likambo Logo" />
             </div>
             <div class="h-full" v-else>
                 <img src="@/assets/images/image-icon.png" alt="Likambo Logo" />
@@ -29,7 +35,7 @@
 
 <script setup lang="ts">
 import { computed, type PropType } from 'vue';
-import type { FileTypeEnum } from '@/constants/constant.enum';
+import { FileTypeEnum } from '@/constants/constant.enum';
 
 const props = defineProps({
     fileType: {
@@ -49,6 +55,7 @@ const props = defineProps({
 const emit = defineEmits(['reset']);
 
 const formattedFileSize = computed(() => {
+
     if (props.fileSize.toString().length >= 6) {
         return `${(props.fileSize / 1000000).toFixed(2)} Mo`;
     }
