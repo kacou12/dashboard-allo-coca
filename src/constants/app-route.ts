@@ -133,6 +133,11 @@ export const AppRoute = {
     path: '/data-analysis',
     v1_object: TransactionRouteApi.default, // Assumé être le même que RECENT_TRANSACTIONS
   },
+  MASS_PAYMENT: {
+    name: 'mass-payment',
+    path: '/mass-payment',
+    v1_object: TransactionRouteApi.default, // Assumé être le même que RECENT_TRANSACTIONS
+  },
   // Administration
   ADMINISTRATION: {
     name: 'administration',

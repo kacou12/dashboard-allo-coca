@@ -33,7 +33,7 @@ const router = createRouter({
       {
       path: AppRoute.VERIFY_EMAIL.path,
       name: AppRoute.VERIFY_EMAIL.name,
-      component: () => import('@/views/guests/forgetPassword/verifyEmailView.vue'),
+      component: () => import('@/views/guests/forgetPassword/VerifyEmailView.vue'),
       // beforeEnter: (to, from) => {
       //   if(from.name === AppRoute.LOST_PASSWORD.name ) {
       //     return true;
@@ -45,7 +45,7 @@ const router = createRouter({
     {
       path: AppRoute.UPDATE_PASSWORD.path,   
       name: AppRoute.UPDATE_PASSWORD.name,
-      component: () => import('@/views/guests/forgetPassword/definePasswordView.vue'),
+      component: () => import('@/views/guests/forgetPassword/DefinePasswordView.vue'),
       // beforeEnter:Auth.authIsRequire,
       beforeEnter: (to, from) => {
         if(to.query.token) {
@@ -59,7 +59,7 @@ const router = createRouter({
     {
       path: AppRoute.SUCCESS_UPDATE_PASSWORD.path,
       name: AppRoute.SUCCESS_UPDATE_PASSWORD.name,
-      component: () => import('@/views/guests/forgetPassword/successResetPasswordView.vue'),
+      component: () => import('@/views/guests/forgetPassword/SuccessResetPasswordView.vue'),
       beforeEnter: (to, from) => {
         if(from.name === AppRoute.UPDATE_PASSWORD.name ) {
           return true;
@@ -137,6 +137,13 @@ const router = createRouter({
           path: AppRoute.DATA_ANALYSIS.path,
           name: AppRoute.DATA_ANALYSIS.name,
           component: () => import('@/views/dataAnalysis/DataAnalysisView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
+        {
+          path: AppRoute.MASS_PAYMENT.path,
+          name: AppRoute.MASS_PAYMENT.name,
+          component: () => import('@/views/MassPayment/setMassPaymentView.vue'),
           // beforeEnter:Auth.authIsRequire,
           meta: { layout: 'DefaultLayout', requiresAuth: true },
         },

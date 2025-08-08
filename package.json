@@ -59,11 +59,13 @@
     "vue-json-pretty": "^2.4.0",
     "vue-router": "^4.5.0",
     "vue-toastification": "^2.0.0-rc.5",
+    "xlsx": "^0.18.5",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.15.18",
+    "@types/xlsx": "^0.0.36",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/eslint-config-prettier": "^10.1.0",
     "@vue/eslint-config-typescript": "^14.3.0",

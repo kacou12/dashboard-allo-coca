@@ -1,7 +1,11 @@
 <template>
     <!-- hover:scale-105 transition-all duration-300 ease-in-out -->
-    <Button :disabled="isDisabled || isLoading" :variant="type"
-        :class="[type != 'default' ? 'font-medium' : 'font-normal', `py-${paddingY}`, `rounded-${roundSize}`]" class="flex-1 text-sm font-publicsans
+    <Button :disabled="isDisabled || isLoading" :variant="type" :class="[type != 'default' ? 'font-medium' : 'font-normal', `py-${paddingY}`,
+    `rounded-${roundSize}`,
+    type == 'outline' ? 'border-primary-50 text-primary-50 hover:text-primary-50' : ''
+    ]" class="flex-1 text-sm 
+        
+        font-publicsans
     " @click=" $emit('action')">
         <div v-if="isLoading" class="flex items-center gap-2">
 
