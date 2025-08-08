@@ -15,7 +15,8 @@
                 e.preventDefault();
             }
 
-        }" :class="dialogClass" class="max-w-[90%]  sm:max-w-[480px] font-worksans ">
+        }" :class="[dialogClass, isHeightFull ? 'max-h-[90%]' : '']"
+            class="max-w-[90%]  sm:max-w-[480px] font-worksans ">
             <form @submit.prevent="() => handleSubmit()">
 
                 <!-- bg-[url('/src/assets/images/hexagone.png')]  -->
@@ -44,7 +45,8 @@
 
                 </DialogHeader>
 
-                <div :class="`${textDefaulSize} px-4 py-4 ${backgroudColor} rounded-xl`">
+                <div
+                    :class="[`${textDefaulSize} px-4 py-4 ${backgroudColor} rounded-xl`, isHeightFull ? 'h-[calc(100vh-250px)]  overflow-y-auto' : '']">
                     <slot name="content"></slot>
                 </div>
 
@@ -97,7 +99,11 @@ defineProps({
     dialogClass: {
         default: '',
         type: String
-    }
+    },
+    isHeightFull: {
+        default: false,
+        type: Boolean
+    },
 })
 
 // defineEmits(['onSubmit'])
