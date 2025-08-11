@@ -20,8 +20,8 @@ const steps = [
     },
     {
         id: 2,
-        label: 'Choisir un mot de passe',
-        description: 'Choisir un mot de passe sécurisé',
+        label: 'Document administratif',
+        description: 'Importez les documents légaux de votre entreprise',
         icon: 'lucide:lock', // Example icon for password
     },
     // Add more steps as needed

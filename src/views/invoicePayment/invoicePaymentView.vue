@@ -9,7 +9,7 @@
 
         <section class="space-y-4 my-5">
             <p class="font-semibold">Choisissez votre société</p>
-            <div class="grid grid-cols-3 gap-5">
+            <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2  gap-5">
 
                 <CanalTransactionModal></CanalTransactionModal>
 

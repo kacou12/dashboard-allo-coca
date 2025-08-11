@@ -25,7 +25,7 @@
             class="p-4 border-t hover:text-red-500 hover:bg-red-100 group transition duration-300 hover:rounded-lg cursor-pointer">
             <div class="flex items-center justify-between">
                 <section class="flex gap-1">
-                    <img :src="defaultImage" alt="User" class="w-10 h-10 rounded-full mr-2" />
+                    <img src="/src/assets/images/avatar/avatar108.png" alt="User" class="w-10 h-10 rounded-full mr-2" />
                     <div>
                         <p class="text-sm text-black font-medium">{{ fullName() }}</p>
                         <p class="text-xs text-neutral-30  group-hover:text-red-500">{{ user?.email }}</p>

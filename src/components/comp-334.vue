@@ -17,58 +17,36 @@
         </AccordionTrigger>
         <AccordionContent>
           <!-- <article class="bg-[#F5F5F5]  space-y-3"> -->
-          <article class="bg-[#F5F5F5]  pt-1 pb-1 mt-1 rounded-lg">
-
-            <div class="text-sm  bg-white p-4 m-4 space-y-5 rounded-xl  border-neutral-200">
-
+          <article class="bg-[#F5F5F5]  pt-1 pb-1 mt-1 rounded-lg">
+            <div class="text-sm  bg-white p-4 m-4 space-y-5 rounded-xl  border-neutral-200">
               <section class="transaction-details space-y-3">
-                <h2 class="text-[16px] font-medium text-black font-worksans">Détails bancaire</h2>
-
+                <h2 class="text-[16px] font-medium text-black font-worksans">Détails de la facture</h2>
                 <div class="flex iems-center justify-between">
-                  <p class=" text-neutral-40">Titulaire du compte</p>
-                  <p class=" text-neutral-10 font-medium">Sendchap Pro</p>
+                  <p class=" text-neutral-40">Facture</p>
+                  <p class=" text-neutral-10 font-medium">04045050500679501</p>
                 </div>
                 <div class="flex iems-center justify-between">
-                  <p class=" text-neutral-40">Code Guichet</p>
-                  <p class=" text-neutral-10 font-medium">
-                    12345
-                  </p>
-                </div>
-
-                <div class="flex iems-center justify-between">
-                  <p class=" text-neutral-40">Code Banque</p>
-                  <p class=" text-neutral-10 font-medium">AT123</p>
+                  <p class=" text-neutral-40">Période</p>
+                  <p class=" text-neutral-10 font-medium">07/2024</p>
                 </div>
                 <div class="flex iems-center justify-between">
-                  <p class=" text-neutral-40">Numéro de Compte</p>
-                  <p class=" text-neutral-10 font-medium">
-                    123456789012
-                  </p>
+                  <p class=" text-neutral-40">Date limite</p>
+                  <p class=" text-neutral-10 font-medium">22/08/2024</p>
                 </div>
                 <div class="flex iems-center justify-between">
-                  <p class=" text-neutral-40">RIB</p>
-                  <p class=" text-neutral-10 font-medium">
-                    AT123456789012345678
-                  </p>
+                  <p class=" text-neutral-40">Montant facture</p>
+                  <p class=" text-neutral-10 font-medium">16 905 F CFA</p>
                 </div>
-
+                <div class="flex iems-center justify-between">
+                  <p class=" text-neutral-40">Pénalité</p>
+                  <p class=" text-neutral-10 font-medium">1690 F CFA</p>
+                </div>
+                <div class="flex iems-center justify-between">
+                  <p class=" text-neutral-40">Reste à payer</p>
+                  <p class=" text-neutral-10 font-medium">18 595 F CFA</p>
+                </div>
               </section>
             </div>
-
-            <!-- footer -->
-            <!-- <div class="flex gap-2 px-4 py-5 w-full bg-white">
-  
-  
-              <Button class="flex-1 py-[22px] text-sm rounded-lg font-medium" variant="outline">
-                Retour
-              </Button>
-              <Button class="flex-1 py-[22px] text-sm rounded-lg font-medium" variant="default">
-                Faire le paiement
-              </Button>
-  
-  
-            </div> -->
-
           </article>
         </AccordionContent>
       </AccordionItem>

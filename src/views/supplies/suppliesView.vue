@@ -9,17 +9,8 @@
 
         <section class="space-y-4 my-5">
             <p class="font-semibold">Choisissez votre banque</p>
-            <div class="grid grid-cols-4 gap-5">
-                <!-- <article v-for="bank in banks" :key="bank.id"
-                    class="flex items-center gap-2 border-[2px] shadow-sm border-[#F5F5F5] rounded-lg p-2">
-                    <img class="rounded-md w-[48px] h-[48px] bg-cover" :src="bank.image" :alt="bank.name" />
-                    <div class="min-w-[146px]">
-                        <p class="font-semibold font-worksans text-sm text-neutral-10">
-                            {{ bank.name }}
-                        </p>
-                        <p class="text-sm text-[#4B5675]">{{ bank.bankNumber }}</p>
-                    </div>
-                </article> -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-4 gap-5">
+
                 <BankDetailModal v-for="bank in banks" :key="bank.id" :supplyBank="bank""></BankDetailModal>
             </div>
         </section>

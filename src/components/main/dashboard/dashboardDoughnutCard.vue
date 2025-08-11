@@ -1,7 +1,7 @@
 <template>
 
     <div :key="componentKey"
-        class="bg-white p-5 rounded-lg shadow border border-neutral-70  gap-6 font-worksans h-full">
+        class="bg-white p-5 rounded-lg shadow border border-neutral-70  gap-6 font-worksans h-full flex flex-col items-center md:items-start">
 
         <p class="font-medium">Flux de trésorerie</p>
         <section

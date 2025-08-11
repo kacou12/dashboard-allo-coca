@@ -37,7 +37,8 @@
                         </div>
                         <MassPaymentFileModal @load-data="handleFileUpload"></MassPaymentFileModal>
                     </article>
-                    <article v-else-if="currentStep == 2" class="flex items-center justify-between 2xl:w-[70%] mx-auto">
+                    <article v-else-if="currentStep == 2"
+                        class="flex flex-col sm:flex-row items-center justify-between 2xl:w-[70%] mx-auto">
                         <h3 class="font-bold text-[20px] font-merriweathersans">Tableau de paiement</h3>
                         <div class="flex items-center gap-2">
                             <MassPaymentFileModal :is-updating="true" @load-data="handleFileUpload">

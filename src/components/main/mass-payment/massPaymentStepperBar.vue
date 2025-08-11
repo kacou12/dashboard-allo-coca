@@ -52,7 +52,7 @@ watch(currentStep, (n, o) => {
                 <StepperItem v-for="step, index in steps" :key="step" :step="step"
                     :class="step !== steps.length ? 'flex-1' : ''"
                     :data-loading="isLoading && step === localCurrentStep ? 'true' : undefined" class="relative  mx-1">
-                    <StepperTrigger class="p-5 text-[20px]" as-child>
+                    <StepperTrigger class="md:p-5 md:text-[20px]" as-child>
                         <StepperIndicator :is-loading="isLoading" />
                     </StepperTrigger>
 
@@ -66,8 +66,10 @@ watch(currentStep, (n, o) => {
 
             <div v-for="step, index in stepsData" :key="step.title" :class="index == steps.length - 1 ? '' : ''"
                 class="   text-center ">
-                <p :class="[localCurrentStep == index + 1 ? 'text-primary-50' : '']" class=" line-clamp-1">{{ step.title
-                }}</p>
+                <p :class="[localCurrentStep == index + 1 ? 'text-primary-50' : '']"
+                    class="text-sm md:text-md line-clamp-1">{{
+                        step.title
+                    }}</p>
 
             </div>
         </section>
