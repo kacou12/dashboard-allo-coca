@@ -20,16 +20,14 @@
 
                 <section class="flex flex-col gap-2 p-4 rounded-xl bg-white">
                     <div class="flex justify-between items-center">
-                        <img class="w-[33px] h-[33px]"
-                            :src="transaction.payer_provider_image_url ?? 'http://placehold.jp/150x150.png'" alt="">
+                        <img class="w-[33px] h-[33px]" src="@/assets/images/logos/moov.png" alt="">
                         <p class="text-neutral-10 font-bold text-xl font-merriweathersans">{{
                             formatPrice(transaction.amount)
 
                         }} </p>
                     </div>
                     <div>
-                        <p class="text-neutral-40 text-sm">Envoie à {{ transaction.payer_phone }} ({{
-                            transaction.payer_provider?.name }})</p>
+                        <p class="text-neutral-40 text-sm">Envoie à {{ transaction.payer_phone }} (Alexandre)</p>
                     </div>
 
                 </section>
@@ -43,15 +41,18 @@
         </template>
 
         <template #footer>
-            <div class="  py-3 w-full rounded-b-xl">
+            <!-- v-if="showReceiptButton" -->
+            <div class=" w-full rounded-b-xl flex items-center justify-end p-4">
 
-                <!-- 
-                <Button class="flex-1 py-[22px] text-sm rounded-lg font-medium" variant="outline" @click="open = false">
+                <!-- <Button class="flex-1 py-[22px] text-sm rounded-lg font-medium" variant="outline" @click="open = false">
                     Fermer
-                </Button>
-                <Button class="flex-1 py-[22px] text-sm rounded-lg bg-primary font-normal" variant="default">
-                    Voir le profil
                 </Button> -->
+                <div>
+
+                    <Button class="  text-sm rounded-lg bg-primary font-normal" variant="default">
+                        Télécharger le reçu
+                    </Button>
+                </div>
             </div>
 
         </template>
@@ -64,6 +65,7 @@ import { formatPrice } from '@/lib/utils';
 import type { TransactionResponse } from '@/services/transactions/transaction-type';
 import { ref, type PropType } from 'vue';
 import TransactionDetailsInfo from './transactionDetailsInfo.vue';
+import Button from '@/components/ui/button/Button.vue';
 
 const appleCard = new URL("/src/assets/images/gift/apple-card.png", import.meta.url).href;
 const open = ref(false);
@@ -72,6 +74,12 @@ const { transaction } = defineProps({
     transaction: {
         type: Object as PropType<TransactionResponse>,
         required: true
+    },
+    showReceiptButton: {
+        type: Boolean,
+        default: false
+
+
     }
 })
 

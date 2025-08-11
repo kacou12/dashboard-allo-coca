@@ -25,7 +25,7 @@
             <!-- Vue d'ensemble des transactions -->
             <section>
                 <p class="font-semibold space-y-4">Vue d'ensemble des transactions</p>
-                <article class="grid grid-cols-2 gap-5">
+                <article class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <!-- Cards principales -->
                     <SegmentationVerificationCard :is-money="true"
                         :title="`Montant total de transactions ${blocCommonText}`"
@@ -42,12 +42,9 @@
             <!-- Visualisation des données -->
             <section class="mt-4">
                 <p class="font-semibold space-y-4">Visualisation des données</p>
-                <article class="flex gap-5">
+                <article class="flex flex-col md:flex-row gap-5">
 
-                    <div class="max-w-[280px] ">
-                        <!-- <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-if="isFetched"
-                            :data="mock_collected_txns" title="Montant total collecté">
-                        </dashboardDoughnutCard> -->
+                    <div class="md:max-w-[280px] max-w-full">
                         <dashboardDoughnutCard :sub-title="`Transaction ${blocCommonText}`" v-if="isFetched"
                             :data="collectedBloc" title="Montant total collecté">
                         </dashboardDoughnutCard>
@@ -56,9 +53,6 @@
                     <UserTrafficByNetworkCard :data="dashboardData!.count_txns_group_by_type_and_month" v-if="isFetched"
                         class="flex-1">
                     </UserTrafficByNetworkCard>
-                    <!-- <UserTrafficByNetworkCard :data="mock_count_txns_group_by_type_and_month" v-if="isFetched"
-                        class="flex-1">
-                    </UserTrafficByNetworkCard> -->
 
                 </article>
             </section>

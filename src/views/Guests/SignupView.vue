@@ -46,7 +46,7 @@ const handleSubmit = () => {
 
 <template>
     <div class="min-h-screen flex bg-[bg-signup]">
-        <aside class="w-[440px] bg-neutral-90 p-6">
+        <aside class="hidden lg:block w-[440px] bg-neutral-90 p-6">
             <signupAsideNavigation :current-step="currentStep" @go-to-step="goToStep" />
         </aside>
 

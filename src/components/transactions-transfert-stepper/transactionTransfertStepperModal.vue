@@ -3,7 +3,9 @@
         :showDivider="false">
         <template #trigger>
             <button
-                class="flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 transition-colors">
+                class="flex justify-center items-center
+                w-full md:w-fit
+                px-4 py-[10px] bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 transition-colors">
                 <Send class="w-4 h-4 mr-2" />
                 Transfert unique
             </button>

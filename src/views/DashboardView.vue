@@ -10,10 +10,10 @@
     <!-- wallet account section -->
     <BannerWallet :show-action-buttons="true"></BannerWallet>
 
-    <section class="flex gap-2 items-center justify-between my-3">
-      <div class="flex items-center justify-between gap-2">
+    <section class="flex flex-col md:flex-row gap-2 md:items-center justify-between my-3">
+      <div class="flex flex-wrap items-center justify-between gap-2">
 
-        <p class="text-[18px] font-semibold">Dernières Transactions</p>
+        <p class="text-[18px]  font-semibold">Dernières Transactions</p>
         <div>
           <span class="text-xs font-medium px-[5px] py-[1px]  rounded-xl border text-[#633DA5] border-[#633DA5]"><span
               v-if="isFetched">{{ transactionsData!.total }}</span>
