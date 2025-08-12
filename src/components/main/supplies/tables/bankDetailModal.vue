@@ -3,7 +3,7 @@
         <template #trigger>
             <article
                 class="cursor-pointer hover:bg-neutral-80 transition-all  duration-300 flex items-center gap-2 border-[2px] shadow-sm border-[#F5F5F5] rounded-lg p-2">
-                <img class="rounded-md w-[48px] h-[48px] bg-cover" :src="supplyBank.image" :alt="supplyBank.name" />
+                <img class="rounded-md w-[48px] h-[48px] bg-cover" :src="currentImage" :alt="supplyBank.name" />
                 <div class="min-w-[146px]">
                     <p class="font-semibold font-worksans text-sm text-neutral-10">
                         {{ supplyBank.name }}
@@ -93,7 +93,7 @@
 import CommonModal from '@/components/common/commonModal.vue';
 import Button from '@/components/ui/button/Button.vue';
 import type { SupplyBank } from '@/services/supply-transactions/supply-transaction-type';
-import { ref, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import SupplyDepositModal from '../supplyDepositModal.vue';
 
 const appleCard = new URL("/src/assets/images/gift/apple-card.png", import.meta.url).href;
@@ -104,6 +104,12 @@ const { supplyBank } = defineProps({
         type: Object as PropType<SupplyBank>,
         required: true
     }
+})
+
+const currentImage = computed(() => {
+    return new URL(`/src/assets/images/banks/${supplyBank.image}`, import.meta.url).href;
+    // return new URL(supplyBank.image, import.meta.url).href;
+
 })
 
 </script>

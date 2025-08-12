@@ -41,8 +41,7 @@
 
         <!-- transaction filter -->
         <div class="flex xl:justify-between flex-col my-4">
-            <section class="xl:flex xl:flex-wrap grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  gap-2 "
-                v-if="isFetchedProviders">
+            <section class="xl:flex xl:flex-wrap grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  gap-2 ">
                 <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full"
                     title="Filtre par statut" :elements="[
                         { name: 'Filtre par statut', value: 'all' },
@@ -57,26 +56,22 @@
                     title="Lignes par page"
                     :elements="[{ name: 'Lignes par page', value: '10' }, { name: '20', value: '20' }, { name: '50', value: '50' }, { name: '100', value: '100' }]">
                 </CommonSelect>
+
                 <CommonSelect v-model="typeModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
                     title="Filtre par type de transaction" :elements="[
                         { name: 'Filtre par type de transaction', value: 'all' },
-                        { name: 'Achat de gift card', value: 'giftcard' },
+                        { name: 'Paiement', value: 'spend' },
                         // { name: 'Award', value: 'award' },
-                        { name: 'Transfert d\'argent', value: 'trensfert_argent' }]">
+                        { name: 'Depot', value: 'supply' }]">
                 </CommonSelect>
-                <!-- [{ name: 'Tout', value: 'all' },{ name: 'Orange', value: 'orange' }, { name: 'Moov', value: 'moov' }, { name: 'MTN', value: 'mtn' }, { name: 'Wave', value: 'wave' }] -->
-                <CommonSelect v-model="payerProviderModel" v-if="isFetchedProviders"
-                    :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Filtre par reseau debité"
-                    :elements="[{ name: 'Filtre par reseau debité', value: 'all' }, ...providersData!.items.map((provider) => ({ name: provider.name, value: provider.id }))]">
-                </CommonSelect>
+
+
                 <CommonSelect v-model="beneficiaryProviderModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
                     title="Filtre par reseau beneficiaire"
-                    :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, ...providersData!.items.map((provider) => ({ name: provider.name, value: provider.id }))]">
+                    :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, { name: 'Orange', value: 'orange', }, { name: 'Moov', value: 'Moov' }, { name: 'MTN', value: 'MTN' }, { name: 'Wave', value: 'Wave' }]">
                 </CommonSelect>
-                <CommonSelect v-if="isFetchedCounty" v-model="beneficiaryCountryProviderModel"
-                    :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Filtre par pays béneficiaire"
-                    :elements="[{ name: 'Filtre par pays béneficiaire', value: 'all' }, ...countriesData!.items.map((country) => ({ name: country.name, value: country.iso_code }))]">
-                </CommonSelect>
+
+
             </section>
             <section class="xl:w-[19%] my-5 ">
                 <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
@@ -109,26 +104,23 @@ import { recentsTransactionsColumns } from '@/components/main/recentTransactions
 import notificationIcon from '@/components/svg/notificationIcon.vue';
 import { Button } from '@/components/ui/button';
 import SearchBar from '@/components/users/SearchBar.vue';
-import { useCountryFiltersQuery } from '@/composables/queries/useCountryQueries';
-import { useProvidersFiltersQuery } from '@/composables/queries/useProviderQueries';
 import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
 import { useLoaderStore } from '@/stores/useLoaderStore';
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
 import { useWindowSize } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
-import { onBeforeMount, useTemplateRef } from 'vue';
+import { useTemplateRef } from 'vue';
 import { useRoute } from 'vue-router';
 
 
 const { data: transactionsData, isFetched, refetch, isFetching } = useTransactionsFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
-const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
+// const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
 
 const filters = useTransactionFiltersStore()
 // const { page } = storeToRefs(useTransactionFiltersStore())
 
-const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
+// const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
 
 const route = useRoute();
 const { width, height } = useWindowSize()
@@ -137,11 +129,11 @@ const { width, height } = useWindowSize()
 
 const tableRef = useTemplateRef('my-table')
 
-onBeforeMount(async () => {
+// onBeforeMount(async () => {
 
-    await refetchProviders();
+//     await refetchProviders();
 
-})
+// })
 
 const [statusModel,] = defineModel('status', {
     set(value: string) {

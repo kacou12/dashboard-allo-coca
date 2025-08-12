@@ -91,22 +91,22 @@ const userData = ref({ password: "", confirmPassword: "" });
 
 
 const updatePasswordHandler = async () => {
-    try {
-        await updateUser({
-            password: userData.value.password
-        });
-        open.value = false;
-        toast.success("Le mot de passe a été mis à jour avec succès");
+    // try {
+    //     await updateUser({
+    //         password: userData.value.password
+    //     });
+    //     open.value = false;
+    //     toast.success("Le mot de passe a été mis à jour avec succès");
 
-    } catch (err) {
-        console.log('====================================');
-        console.log(err);
-        console.log('====================================');
+    // } catch (err) {
+    //     console.log('====================================');
+    //     console.log(err);
+    //     console.log('====================================');
 
-    } finally {
+    // } finally {
 
 
-    }
+    // }
 
 
 

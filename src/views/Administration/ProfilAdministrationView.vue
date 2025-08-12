@@ -93,9 +93,10 @@
 
 
 
-                    <CommonSelect disabled v-model="userState.role_id" v-if="rolesData" border-color="border-neutral-60"
-                        default-width="w-full" class="w-full" title="Role"
-                        :elements="rolesData?.items.map((role: RoleResponse) => ({ name: role.name, value: role.id }))">
+                    <!-- :elements="rolesData?.items.map((role: RoleResponse) => ({ name: role.name, value: role.id }))"> -->
+                    <CommonSelect disabled v-model="userState.role_id" border-color="border-neutral-60"
+                        default-width="w-full" class="w-full" title="Role" :elements="[{ name: 'super_admin', value: 'e464995c-43fc-416a-987d-067647883b84' }, { name: 'user', value: 'dbde9970-19c8-4555-9984-96c3ce0169ab' },
+                        { name: 'support', value: 'a846add0-099e-4aa9-80cf-7a41a1a8e85c' }]">
                     </CommonSelect>
                 </div>
             </section>
@@ -182,10 +183,10 @@ const selectedOptions = ref<string[]>([]);
 
 onBeforeMount(async () => {
 
-    await fetchRoles().then((res) => {
-        rolesData.value = res!;
+    // await fetchRoles().then((res) => {
+    //     rolesData.value = res!;
 
-    })
+    // })
 
 });
 

@@ -47,25 +47,27 @@ const banks = ref<SupplyBank[]>([
         id: 1,
         name: 'Ecobank',
         bankNumber: '543210987654',
-        image: '/src/assets/images/banks/ecobank.png',
+        image: 'ecobank.png',
     },
     {
         id: 2,
         name: 'Société Générale',
         bankNumber: '543210987654',
-        image: '/src/assets/images/banks/societe-generale.png',
+        image: 'societe-generale.png',
+
+
     },
     {
         id: 3,
         name: 'Banque Atlantique',
         bankNumber: '543210987654',
-        image: '/src/assets/images/banks/bank-generale.jpg',
+        image: 'bank-generale.jpg',
     },
     {
         id: 4,
         name: 'Banque Générale',
         bankNumber: '543210987654',
-        image: '/src/assets/images/banks/ecobank.png', // L'image Ecobank est utilisée ici comme exemple
+        image: 'ecobank.png', // L'image Ecobank est utilisée ici comme exemple
     },
 ]);
 

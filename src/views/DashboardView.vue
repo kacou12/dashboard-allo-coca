@@ -31,8 +31,7 @@
 
     <!-- transaction filter -->
     <section class="flex xl:justify-between flex-col my-4">
-      <section class="xl:flex xl:flex-wrap grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  gap-2 "
-        v-if="isFetchedProviders">
+      <section class="xl:flex xl:flex-wrap grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  gap-2 ">
         <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full"
           title="Filtre par statut" :elements="[
             { name: 'Filtre par statut', value: 'all' },
@@ -47,18 +46,19 @@
           :elements="[{ name: 'Lignes par page', value: '10' }, { name: '20', value: '20' }, { name: '50', value: '50' }, { name: '100', value: '100' }]">
         </CommonSelect>
 
+
         <CommonSelect v-model="typeModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
           title="Filtre par type de transaction" :elements="[
             { name: 'Filtre par type de transaction', value: 'all' },
-            { name: 'Achat de gift card', value: 'giftcard' },
+            { name: 'Paiement', value: 'spend' },
             // { name: 'Award', value: 'award' },
-            { name: 'Transfert d\'argent', value: 'trensfert_argent' }]">
+            { name: 'Depot', value: 'supply' }]">
         </CommonSelect>
 
 
         <CommonSelect v-model="beneficiaryProviderModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
           title="Filtre par reseau beneficiaire"
-          :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, ...providersData!.items.map((provider) => ({ name: provider.name, value: provider.id }))]">
+          :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, { name: 'Orange', value: 'orange', }, { name: 'Moov', value: 'Moov' }, { name: 'MTN', value: 'MTN' }, { name: 'Wave', value: 'Wave' }]">
         </CommonSelect>
 
 
@@ -81,35 +81,33 @@
 </template>
 
 <script setup lang="ts">
+import BannerWallet from '@/components/bannerWallet.vue';
+import CustomButton from '@/components/buttons/customButton.vue';
 import CommonDataTable from '@/components/common/commonDataTable.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { recentsTransactionsColumns } from '@/components/main/recentTransactions/tables/TransactionsColumn';
 import SearchBar from '@/components/users/SearchBar.vue';
+import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
+import { AppRoute } from '@/constants/app-route';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
-import { useCountryFiltersQuery } from '@/composables/queries/useCountryQueries';
-import { useProvidersFiltersQuery } from '@/composables/queries/useProviderQueries';
-import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
 import { useWindowSize } from '@vueuse/core';
-import { onBeforeMount, useTemplateRef } from 'vue';
+import { useTemplateRef } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import CustomButton from '@/components/buttons/customButton.vue';
-import BannerWallet from '@/components/bannerWallet.vue';
-import { AppRoute } from '@/constants/app-route';
 
 const { user, fullName } = useAuthStore();
 
 
 const { data: transactionsData, isFetched, refetch, isFetching } = useTransactionsFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
-const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
+// const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
 
 const filters = useTransactionFiltersStore()
 // const { page } = storeToRefs(useTransactionFiltersStore())
 
-const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
+// const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
 
 const route = useRoute();
 const router = useRouter();
@@ -119,11 +117,11 @@ const { width, height } = useWindowSize()
 
 const tableRef = useTemplateRef('my-table')
 
-onBeforeMount(async () => {
+// onBeforeMount(async () => {
 
-  await refetchProviders();
+//   await refetchProviders();
 
-})
+// })
 
 const [statusModel,] = defineModel('status', {
   set(value: string) {
