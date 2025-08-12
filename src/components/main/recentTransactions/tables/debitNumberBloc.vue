@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center gap-2">
-        <img class="w-[20px] h-[20px] rounded-sm"
-            :src="transaction.payer_provider?.image_url ?? 'https://placehold.co/50x50'" alt="">
+        <!-- :src="transaction.payer_provider?.image_url ?? 'https://placehold.co/50x50'" alt=""> -->
+        <img class="w-[20px] h-[20px] rounded-sm" src="@/assets/images/logos/moov.png" alt="">
         <span class="text-sm text-neutral-20 ">{{ formatPhoneNumber(transaction.payer_phone) }}</span>
         <!-- <div class="cursor-pointer" @click="copyToClipBoard(transaction.payer_provider?.id ?? 'nothing')">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

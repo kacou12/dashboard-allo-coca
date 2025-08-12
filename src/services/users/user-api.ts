@@ -1,8 +1,10 @@
 // import { env } from '@/config/env'
+import { mockUserResponse } from '@/mocks/user.mock.response'
 import type { DefaultFiltersPayload } from '../global.type'
 import { Http } from '../Http'
 import { UserRouteApi } from './user-constants'
 import type { UserResponse, UsersStatsResponse, UserUpdatePayload } from './user-type'
+import { env } from '@/config/env'
 
 export async function fetchUsersApi(
   page: number,
@@ -21,6 +23,11 @@ export async function fetchFiltersUsersApi({
 }: {
   payload: DefaultFiltersPayload
 }): Promise<SuccessResponse<PaginationResponse<UserResponse>> | undefined> {
+  if(env.VITE_MOCK_API == 'true') {
+    // TODO: remove this once you have auth
+    return Promise.resolve(mockUserResponse as SuccessResponse<PaginationResponse<UserResponse>>) ;
+  }
+  
   const result = await Http.get<SuccessResponse<PaginationResponse<UserResponse>>>(
     UserRouteApi.default,
     payload,

@@ -70,8 +70,8 @@ const { startLoading, stopLoading, stopLoadingSkeleton } = useLoaderStore();
 async function handleLogout() {
     startLoading();
     storeLogout();
-    await logout();
-    // destroySensitiveInfo()
+    // await logout();
+    destroySensitiveInfo()
     // router.push({ name: AppRoute.LOGIN.name });
     router.push({ name: AppRoute.LOGIN.name });
     stopLoading();

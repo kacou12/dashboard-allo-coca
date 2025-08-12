@@ -42,6 +42,28 @@
         </div>
 
         <!-- transaction filter -->
+        <section class="flex xl:justify-between flex-col my-4">
+            <section class="xl:flex xl:flex-wrap grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  gap-2 ">
+
+
+
+                <CommonSelect v-model="limitModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
+                    title="Lignes par page"
+                    :elements="[{ name: 'Lignes par page', value: '10' }, { name: '20', value: '20' }, { name: '50', value: '50' }, { name: '100', value: '100' }]">
+                </CommonSelect>
+
+
+
+                <CommonSelect :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Filtre par reseau beneficiaire"
+                    :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, { name: 'Orange', value: 'orange', }, { name: 'Moov', value: 'Moov' }, { name: 'MTN', value: 'MTN' }, { name: 'Wave', value: 'Wave' }]">
+                </CommonSelect>
+
+
+            </section>
+            <section class="xl:w-[19%] my-5 ">
+                <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
+            </section>
+        </section>
 
         <!-- Transactions table -->
         <div class=" w-full ">
@@ -64,10 +86,12 @@
 
 <script setup lang="ts">
 import CommonDataTable from '@/components/common/commonDataTable.vue';
+import CommonSelect from '@/components/common/commonSelect.vue';
 import AddBeneficiaryModal from '@/components/main/beneficiaries/tables/addBeneficiaryModal.vue';
 import { beneficiariesColumns } from '@/components/main/beneficiaries/tables/beneficiariesColumn';
 import notificationIcon from '@/components/svg/notificationIcon.vue';
 import { Button } from '@/components/ui/button';
+import SearchBar from '@/components/users/SearchBar.vue';
 import { useBeneficiariesFiltersQuery } from '@/composables/queries/useBeneficiaryQueries';
 import { useLoaderStore } from '@/stores/useLoaderStore';
 import { useWindowSize } from '@vueuse/core';
@@ -76,7 +100,7 @@ import { useRoute } from 'vue-router';
 
 const { data: beneficiariesData, isFetched, isFetching, refetch, filters } = useBeneficiariesFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
-
+const { width, height } = useWindowSize()
 
 
 const route = useRoute();
@@ -95,6 +119,8 @@ const [limitModel, limitModifiers] = defineModel('limitProvider', {
     //   },
     default: undefined,
 })
+
+
 
 
 const nextPage = async () => {

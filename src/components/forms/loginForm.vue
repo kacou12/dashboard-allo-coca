@@ -112,22 +112,15 @@ const {
     mutationFn: (credential: LoginForm) => loginWithCredential(credential),
     onSuccess: async (response) => {
         if (response) {
-            // console.log("sucess login", response);
-            const roles = await fetchAdminPoliciesByRoleId(response.data!.user.role.id);
+            // const roles = await fetchAdminPoliciesByRoleId(response.data!.user.role.id);
             setUser(response.data!.user);
-            setAdminPolicies(roles!);
-            // setCurrentCountry(response.data!.user.country);
+            // setAdminPolicies(roles!);
 
             router.push({ name: AppRoute.DASHBOARD.name, replace: true }).then(() => {
 
                 toast.success(`Welcome ${response.data!.user.firstname}!`);
             });
-            //   resetForm();
-            //   if (route.query?.redirect) {
-            //     router.push({ path: route.query.redirect as string, replace: true });
-            //   } else {
-            //     router.push({ name: AppRoute.DASHBOARD, replace: true });
-            //   }
+
         }
     },
 

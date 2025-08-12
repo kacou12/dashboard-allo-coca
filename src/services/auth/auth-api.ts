@@ -11,12 +11,14 @@ import type {
   ResetPasswordRequest
 } from './auth-type'
 import { getBearerToken } from './auth-util'
+import { mockLoginResponse } from '@/mocks/login.mock.response'
+import { env } from '@/config/env'
 
 export async function loginApi(data: LoginRequest) {
-  // if (import.meta.env.VITE_MOCK_API == 'true') {
-  //   // TODO: remove this once you have auth
-  //   return { data: mockReponse.login } as any
-  // }
+  if (env.VITE_MOCK_API == "true") {
+    // TODO: remove this once you have auth
+    return Promise.resolve( {data: mockLoginResponse});
+  }
 
   return await axios.post<SuccessResponse<LoginResponse>>(
     AuthRouteApi.login,
