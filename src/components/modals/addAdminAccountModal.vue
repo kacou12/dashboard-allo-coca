@@ -97,8 +97,8 @@
                                 :elements="selectedOptions.map((role: RoleResponse) => ({ name: role.name, value: role.id }))">
                             </CommonSelect> -->
                             <SelectField name="role_id" v-model="dataState.role_id" border-color="border-neutral-60"
-                                default-width="w-full" class="w-full" title="Role"
-                                :elements="selectedOptions.map((role: RoleResponse) => ({ name: role.name, value: role.id }))">
+                                default-width="w-full" class="w-full" title="Role" :elements="[{ name: 'super_admin', value: 'e464995c-43fc-416a-987d-067647883b84' }, { name: 'user', value: 'dbde9970-19c8-4555-9984-96c3ce0169ab' },
+                                { name: 'support', value: 'a846add0-099e-4aa9-80cf-7a41a1a8e85c' }]">
                             </SelectField>
 
                             <!-- <CommonMultiselect v-model="selectedOptions" :options="options" placeholder="Choix des roles"
@@ -178,10 +178,10 @@ const { startLoading, stopLoading, startLoadingSkeleton } = useLoaderStore();
 const { mutateAsync: createAdminAsync } = useCreateAdminMutation();
 const { currentCountry } = storeToRefs(useCountryStore());
 
-onBeforeMount(async () => {
-    const rolesResults = await fetchRoles(1);
-    selectedOptions.value = rolesResults!.items;
-})
+// onBeforeMount(async () => {
+//     const rolesResults = await fetchRoles(1);
+//     selectedOptions.value = rolesResults!.items;
+// })
 
 const open = ref(false);
 

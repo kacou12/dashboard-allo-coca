@@ -10,8 +10,8 @@
         <div class="flex justify-between items-center mb-6">
             <div class="flex items-center space-x-3">
                 <!-- Icon du portefeuille -->
-                <div class="w-8 h-8 md:w-10 md:h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <Wallet class="w-4 h-4 md:w-5 md:h-5 text-orange-600" />
+                <div class="w-8 h-8 md:w-10 md:h-10 bg-primary-80 rounded-lg flex items-center justify-center">
+                    <Wallet class="w-4 h-4 md:w-5 md:h-5 text-primary-50" />
                 </div>
                 <div>
                     <p class="text-sm text-gray-600 mb-1">Solde disponible</p>

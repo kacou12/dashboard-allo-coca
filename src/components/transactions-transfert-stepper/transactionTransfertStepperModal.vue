@@ -2,13 +2,18 @@
     <CommonModal text-defaul-size="" :isPersisted="true" v-model:open="open" backgroudColor="bg-white"
         :showDivider="false">
         <template #trigger>
-            <button
+            <!-- <button
                 class="flex justify-center items-center
                 w-full md:w-fit
                 px-4 py-[10px] bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 transition-colors">
                 <Send class="w-4 h-4 mr-2" />
                 Transfert unique
-            </button>
+            </button> -->
+
+            <CustomButton class="py-2 w-full" type="outline">
+                <Send class="w-4 h-4 mr-2" />
+                Transfert unique
+            </CustomButton>
         </template>
 
         <template #title>
@@ -75,6 +80,7 @@ import CommonStepperBar from '../common/commonStepperBar.vue';
 import SelectUserStepOne from './selectUserStepOne.vue';
 import SetAmountStepTwo from './setAmountStepTwo.vue';
 import RecapStepThree from './recapStepThree.vue';
+import CustomButton from '../buttons/customButton.vue';
 
 const open = ref(false);
 const currentStep = ref<1 | 2 | 3 | 4>(1);

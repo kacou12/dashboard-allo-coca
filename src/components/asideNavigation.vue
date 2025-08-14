@@ -1,39 +1,43 @@
 <template>
     <main class="h-full flex flex-col overflow-y-auto">
         <!-- Menu principal -->
-        <section class="px-5 pb-4 pt-2  ">
-            <p class="text-xs font-medium text-neutral-30 mb-2.5">PRINCIPAL</p>
-            <ul class="space-y-2 font-medium ">
-
-
+        <section class="px-5 pb-4 pt-2">
+            <p class="text-xs font-medium text-neutral-30 mb-2.5 transition-all duration-300 ease-in-out"
+                :class="isSidebarExpanded ? 'opacity-100 delay-300' : 'opacity-0'">
+                PRINCIPAL
+            </p>
+            <ul class="space-y-2 font-medium">
                 <!-- v-for="routeLine in routeMainLines"> -->
                 <li class="items-center flex transition-all duration-300 ease-in-out"
                     v-for="routeLine in filteredRouteMainLinesByRoleAuth">
                     <!-- indicator with transition -->
-
-
-
-                    <!-- <Transition name="fadeslide"> -->
-
                     <div v-if="$route.name?.toString().includes(routeLine.name)" class="
-                            
-                            h-5 absolute -left-1  w-2 rounded-xl bg-primary-50"></div>
-                    <!-- </Transition> -->
+                            h-5 absolute -left-1 w-2 rounded-xl bg-primary-50">
+                    </div>
 
-                    <router-link :to="{ name: routeLine.name }" class="flex items-center p-2 w-full  rounded-lg 
-                hover:ml-1
-                relative
-                 overflow-hidden
-             hover:text-primary-50 transition-all duration-500 group cursor-pointer
-                " :class="[$route.name === routeLine.name ? 'bg-neutral-80 , text-neutral-10' : 'text-neutral-20']">
+                    <router-link :to="{ name: routeLine.name }" class="p-2 w-full rounded-lg 
+                        relative overflow-hidden transition-all duration-500 cursor-pointer" :class="[
+                            $route.name === routeLine.name ? 'bg-neutral-80 text-neutral-10' : 'text-neutral-20',
+                            isSidebarExpanded && 'flex items-center hover:text-primary-50 hover:ml-1 group'
+                        ]">
                         <svg :class="[$route.name === routeLine.name ? 'text-primary' : 'text-neutral-20']"
-                            class="w-5 h-5 transition duration-300 group-hover:text-primary-50" viewBox="0 0 24 24"
-                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            class="w-5 h-5 transition duration-300 group-hover:text-primary-50 flex-shrink-0"
+                            viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path :d="routeLine.icon" />
                         </svg>
                         <span aria-hidden="true"
-                            class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]"></span>
-                        <span class=" ml-3 text-sm">{{ routeLine.title }}</span>
+                            class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]">
+                        </span>
+                        <!-- <span
+                            class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
+                            :class="isSidebarExpanded ? 'max-w-xs opacity-100 delay-300' : 'max-w-0 opacity-0'">
+                            {{ routeLine.title }}
+                        </span> -->
+                        <span
+                            class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
+                            v-if="isSidebarExpanded">
+                            {{ routeLine.title }}
+                        </span>
                     </router-link>
                 </li>
 
@@ -41,106 +45,76 @@
                 <li class="items-center flex transition-all duration-300 ease-in-out"
                     v-for="routeLine in routeCommonAuthLines">
                     <!-- indicator with transition -->
-
-
-
-                    <!-- <Transition name="fadeslide"> -->
-
                     <div v-if="$route.name === routeLine.name" class="
-                            
-                            h-5 absolute -left-1  w-2 rounded-xl bg-primary-50"></div>
-                    <!-- </Transition> -->
+                            h-5 absolute -left-1 w-2 rounded-xl bg-primary-50">
+                    </div>
 
-                    <router-link :to="{ name: routeLine.name }" class="flex items-center p-2 w-full  rounded-lg 
-                hover:ml-1
-                relative
-                 overflow-hidden
-             hover:text-primary-50 transition-all duration-500 group cursor-pointer
-                " :class="[$route.name === routeLine.name ? 'bg-neutral-80 , text-neutral-10' : 'text-neutral-20']">
+                    <router-link :to="{ name: routeLine.name }"
+                        class="flex items-center p-2 w-full rounded-lg 
+                        hover:ml-1 relative overflow-hidden hover:text-primary-50 transition-all duration-500 group cursor-pointer"
+                        :class="[$route.name === routeLine.name ? 'bg-neutral-80 text-neutral-10' : 'text-neutral-20']">
                         <svg :class="[$route.name === routeLine.name ? 'text-primary' : 'text-neutral-20']"
-                            class="w-5 h-5 transition duration-300 group-hover:text-primary-50" viewBox="0 0 24 24"
-                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            class="w-5 h-5 transition duration-300 group-hover:text-primary-50 flex-shrink-0"
+                            viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path :d="routeLine.icon" />
                         </svg>
                         <span aria-hidden="true"
-                            class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]"></span>
-                        <span class=" ml-3 text-sm">{{ routeLine.title }}</span>
+                            class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]">
+                        </span>
+                        <span
+                            class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
+                            :class="isSidebarExpanded ? 'max-w-xs opacity-100 delay-300' : 'max-w-0 opacity-0'">
+                            {{ routeLine.title }}
+                        </span>
                     </router-link>
                 </li>
-
-
-                <!-- <li><Button @click="startLoading">START LOADING</Button></li>
-                <li><Button @click="stopLoading">STOP LOADING</Button></li> -->
-
             </ul>
         </section>
 
         <!-- menu autre -->
-        <section class=" px-5 pb-4" v-if="isSuperAdmin">
-            <p class="text-xs font-medium text-neutral-30 mb-2.5">AUTRES</p>
+        <section class="px-5 pb-4" v-if="isSuperAdmin && isSidebarExpanded">
+            <p class="text-xs font-medium text-neutral-30 mb-2.5 transition-all duration-300 ease-in-out"
+                :class="isSidebarExpanded ? 'opacity-100 delay-300' : 'opacity-0'">
+                AUTRES
+            </p>
             <ul class="space-y-2 font-medium">
 
-                <!-- Fin Administration -->
 
-                <MenuDropdownSideBar title="Paramètres" :icon="AppWindow">
+                <MenuDropdownSideBar :title="isSidebarExpanded ? 'paramètres' : ''" :icon="AppWindow">
                     <div class="ml-5">
                         <li class="items-center flex transition-all duration-300 ease-in-out my-1"
                             v-for="routeRequestLine in routeParametersLines">
-
-
-                            <router-link :to="{ name: routeRequestLine.name }" class="flex items-center p-2 w-full text-[#666666]  rounded-lg  hover:ml-1 relative  hover:text-primary-50  overflow-hidden transition-all duration-500 group cursor-pointer
-                    " :class="[$route.name === routeRequestLine.name ? 'bg-neutral-80 , text-primary-50' : 'text-neutral-20']">
-
+                            <router-link :to="{ name: routeRequestLine.name }"
+                                class="flex items-center p-2 w-full text-[#666666] rounded-lg hover:ml-1 relative hover:text-primary-50 overflow-hidden transition-all duration-500 group cursor-pointer"
+                                :class="[$route.name === routeRequestLine.name ? 'bg-neutral-80 text-primary-50' : 'text-neutral-20']">
 
                                 <svg :class="[$route.name === routeRequestLine.name ? 'text-primary' : 'text-neutral-20']"
-                                    class="w-5 h-5 transition duration-300 group-hover:text-primary-50"
+                                    class="w-5 h-5 transition duration-300 group-hover:text-primary-50 flex-shrink-0"
                                     viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path :d="routeRequestLine.icon" />
                                     <path v-if="routeRequestLine.icon2" :d="routeRequestLine.icon2" />
                                 </svg>
                                 <span aria-hidden="true"
-                                    class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]"></span>
-                                <span class=" ml-3 text-sm">{{ routeRequestLine.title }}</span>
+                                    class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]">
+                                </span>
+                                <span
+                                    class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
+                                    :class="isSidebarExpanded ? 'max-w-xs opacity-100 delay-300' : 'max-w-0 opacity-0'">
+                                    {{ routeRequestLine.title }}
+                                </span>
                             </router-link>
                         </li>
                     </div>
                 </MenuDropdownSideBar>
-                <!-- <MenuDropdownSideBar title="Développeurs" :icon="AppWindow">
-                    <div class="ml-5 ">
-                        <li class="items-center flex transition-all duration-300 ease-in-out my-1"
-                            v-for="routeRequestLine in routeDevelopersLines">
-
-
-                            <router-link :to="{ name: routeRequestLine.name }" class="flex items-center p-2 w-full text-[#666666]  rounded-lg  hover:ml-1 relative  hover:text-primary-50 transition-all overflow-hidden duration-500 group cursor-pointer
-                    " :class="[$route.name === routeRequestLine.name ? 'bg-neutral-80 , text-primary-50' : 'text-neutral-20']">
-
-
-                                <svg :class="[$route.name === routeRequestLine.name ? 'text-primary' : 'text-neutral-20']"
-                                    class="w-5 h-5 transition duration-300 group-hover:text-primary-50"
-                                    viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path :d="routeRequestLine.icon" />
-                                    <path v-if="routeRequestLine.icon2" :d="routeRequestLine.icon2" />
-                                </svg>
-                                <span aria-hidden="true"
-                                    class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]"></span>
-                                <span class=" ml-3 text-sm">{{ routeRequestLine.title }}</span>
-                            </router-link>
-                        </li>
-                    </div>
-                </MenuDropdownSideBar> -->
-
-
-
 
             </ul>
         </section>
-
     </main>
 </template>
 
 <script setup lang="ts">
 import { AppRoute } from '@/constants/app-route';
-import { computed, ref, watch } from 'vue';
+import { computed, inject, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import MenuDropdownSideBar from './MenuDropdownSideBar.vue';
 import { AppWindow } from 'lucide-vue-next';
@@ -155,8 +129,11 @@ import { AdminRouteApi } from '@/services/admin/admin-constants'
 import { UserRouteApi } from '@/services/users/user-constants';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { storeToRefs } from 'pinia';
+import type { InjectionKey } from 'vue'
+import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 
 
+const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 
 const route = useRoute();
 

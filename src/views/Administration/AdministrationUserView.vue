@@ -190,9 +190,6 @@ onMounted(async () => {
     userState.role_id = adminUser.value?.role_id;
     userState.active = adminUser.value?.active;
 
-    // await fetchRoles(1).then((res) => {
-    //     rolesData.value = res!;
-    // })
 
 });
 
