@@ -3,7 +3,7 @@
         <!-- Menu principal -->
         <section class="px-5 pb-4 pt-2">
             <p class="text-xs font-medium text-neutral-30 mb-2.5 transition-all duration-300 ease-in-out"
-                :class="isSidebarExpanded ? 'opacity-100 delay-300' : 'opacity-0'">
+                :class="isSidebarExpanded ? 'opacity-100 delay-500' : 'opacity-0'">
                 PRINCIPAL
             </p>
             <ul class="space-y-2 font-medium">
@@ -28,23 +28,23 @@
                         <span aria-hidden="true"
                             class="bg-gray-100 absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 z-[-1]">
                         </span>
-                        <!-- <span
-                            class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
-                            :class="isSidebarExpanded ? 'max-w-xs opacity-100 delay-300' : 'max-w-0 opacity-0'">
-                            {{ routeLine.title }}
-                        </span> -->
-                        <span
-                            class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
-                            v-if="isSidebarExpanded">
-                            {{ routeLine.title }}
-                        </span>
+
+
+                        <div
+                            class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap">
+                            <span v-if="isSidebarExpanded">
+                                {{ routeLine.title }}
+                            </span>
+
+                        </div>
+
+
                     </router-link>
                 </li>
 
                 <!-- common route auth -->
                 <li class="items-center flex transition-all duration-300 ease-in-out"
                     v-for="routeLine in routeCommonAuthLines">
-                    <!-- indicator with transition -->
                     <div v-if="$route.name === routeLine.name" class="
                             h-5 absolute -left-1 w-2 rounded-xl bg-primary-50">
                     </div>
@@ -63,7 +63,7 @@
                         </span>
                         <span
                             class="ml-3 text-sm transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
-                            :class="isSidebarExpanded ? 'max-w-xs opacity-100 delay-300' : 'max-w-0 opacity-0'">
+                            :class="isSidebarExpanded ? 'max-w-xs opacity-100 delay-500' : 'max-w-0 opacity-0'">
                             {{ routeLine.title }}
                         </span>
                     </router-link>
@@ -131,6 +131,8 @@ import { useAuthStore } from '@/stores/useAuthStore';
 import { storeToRefs } from 'pinia';
 import type { InjectionKey } from 'vue'
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
+import FadeSlideAnimation from './animations/fadeSlideAnimation.vue';
+import CustomSlideFadeAnimation from './animations/customSlideFadeAnimation.vue';
 
 
 const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!

@@ -96,10 +96,10 @@
         <!-- Transactions table -->
         <div class=" w-full ">
 
-            <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table"
-                :default-page="filters.page" :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"
-                :data="transactionsData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage"
-                @next-page="nextPage">
+            <CommonDataTable :dynamic-width-columns="false" :page-size="limitModel ? parseInt(limitModel) : 10"
+                ref="my-table" :default-page="filters.page" :total="transactionsData?.total ?? 0"
+                :columns="recentsTransactionsColumns" :data="transactionsData?.items ?? []" @go-to-page="goToPage"
+                @prev-page="prevPage" @next-page="nextPage">
             </CommonDataTable>
         </div>
 

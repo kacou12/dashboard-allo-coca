@@ -19,7 +19,7 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
   {
     accessorKey: 'user',
     // enableResizing: false,
-    header: () => h('div', { class: 'text-left text-xs' }, 'Emetteur'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[200px] ' }, 'Emetteur'),
     cell: ({ row }) => {
       // const user: UserTransactionType = row.getValue('user')
 
@@ -28,7 +28,7 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
 
       return h(
         'div',
-        { class: 'text-left min-w-[190px]' },
+        { class: 'text-left min-w-[200px]' },
         h(TransactionUserBloc, {
           transaction: transaction,
         }),
@@ -38,14 +38,14 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
     {
     accessorKey: 'beneficiary',
     // enableResizing: false,
-    header: () => h('div', { class: 'text-left text-xs' }, 'Bénéficiaire'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[100px]' }, 'Bénéficiaire'),
     cell: ({ row }) => {
       // const debitNumber = row.getValue('debitNumber') as string
       const transaction: TransactionResponse = row.original
 
       return h(
         'div',
-        { class: 'text-left  text-neutral-20 text-sm  flex items-center ' },
+        { class: 'text-left  text-neutral-20 text-sm  flex items-center min-w-[100px]' },
         h(debitNumberBloc, {
           transaction: transaction,
         }),
@@ -56,7 +56,7 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
   {
     accessorKey: 'date',
     // enableResizing: false,
-    header: () => h('div', { class: 'text-left text-xs' }, 'Date et heure'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[150px]' }, 'Date et heure'),
     cell: ({ row }) => {
       const date = row.getValue('date') as string
       const testDate = new Date(date)
@@ -69,7 +69,7 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
 
       return h(
         'div',
-        { class: 'text-left  text-neutral-20 text-sm min-w-[150px]' },
+        { class: 'text-left  text-neutral-20 text-sm ' },
         formatRelativeDate(new Date(transaction.created_at)),
       )
     },
@@ -77,7 +77,7 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
    {
     accessorKey: 'amount',
     // enableResizing: false,
-    header: () => h('div', { class: 'text-left  text-xs' }, 'Montant'),
+    header: () => h('div', { class: 'text-left  text-xs ' }, 'Montant'),
     cell: ({ row }) => {
       // const amount = Number.parseFloat(row.getValue('amount'))
 
@@ -87,27 +87,9 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
         currency: 'XOF',
       }).format(transaction.amount)
 
-      return h('div', { class: 'text-left  text-neutral-20 text-sm' }, formatted)
+      return h('div', { class: 'text-left  text-neutral-20 text-sm ' }, formatted)
     },
   },
-
-  // {
-  //   accessorKey: 'paymentStatus',
-  //   header: () => h('div', { class: 'text-left text-xs ' }, 'Statut de prélèvement'),
-  //   cell: ({ row }) => {
-  //     const transaction: TransactionResponse = row.original
-
-  //     return h(
-  //       'div',
-  //       {
-  //         class: ' text-neutral-20 text-xs min-w-[150px] flex items-center',
-  //       },
-  //       h(TransactionPaymentStatusBloc, {
-  //         transaction: transaction,
-  //       }),
-  //     )
-  //   },
-  // },
 
    {
     accessorKey: 'type',
@@ -129,7 +111,7 @@ export const recentsTransactionsColumns: ColumnDef<TransactionResponse>[] = [
     accessorKey: 'transactionStatus',
     // enableResizing: false,
 
-    header: () => h('div', { class: 'text-left text-xs ' }, 'Statut'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[80px]' }, 'Statut'),
     cell: ({ row }) => {
       const transactionStatus = row.getValue('transactionStatus')
       const transaction: TransactionResponse = row.original

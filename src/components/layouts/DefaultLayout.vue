@@ -56,12 +56,18 @@ const isOpen = ref(false);
 <style scoped>
 .transition-width-animation {
   transition: width 0.5s ease-in-out;
+
 }
 
 /* Le reste de votre code CSS */
-.fadeslide-enter-active,
+.fadeslide-enter-active {
+  transition: all 0.3s ease-in-out;
+}
+
 .fadeslide-leave-active {
   transition: all 0.3s ease-in-out;
+
+
 }
 
 .fadeslide-enter-from {
@@ -72,5 +78,6 @@ const isOpen = ref(false);
 .fadeslide-leave-to {
   opacity: 0;
   transform: translateX(-10px);
+
 }
 </style>
