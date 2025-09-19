@@ -1,89 +1,51 @@
 <template>
-  <div class="px-4 w-full ">
+  <div class="px-4 w-full space-y-7">
     <!-- Titre du tableau de bord -->
-    <header class="mb-6 flex items-center gap-2">
-      <button class="hidden xl:block p-2 -ml-2 mr-2" @click="toggleSidebarExpanded">
-        <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-          stroke-linejoin="round" class="h-6 w-6 transform" :class="isSidebarExpanded ? 'rotate-180' : 'rotate-0'">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <line x1="4" y1="6" x2="14" y2="6" />
-          <line x1="4" y1="18" x2="14" y2="18" />
-          <path d="M4 12h17l-3 -3m0 6l3 -3" />
-        </svg>
-      </button>
+    <section class="flex items-center gap-4">
 
-      <!-- <MenuSquare class="cursor-pointer" @click="toggleSidebarExpanded"></MenuSquare> -->
-      <section>
-
-        <h1 class="text-xl font-bold font-merriweathersans">Tableau de bord</h1>
-        <p class="text-sm text-[#808080]">Bienvenue, {{ fullName() }}</p>
-      </section>
-    </header>
-
-
-    <!-- wallet account section -->
-    <BannerWallet :show-action-buttons="true"></BannerWallet>
-
-    <section class="flex flex-col md:flex-row gap-2 md:items-center justify-between my-3">
-      <div class="flex flex-wrap items-center justify-between gap-2">
-
-        <p class="text-[18px]  font-semibold">Dernières Transactions</p>
+      <article class="flex items-end gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
         <div>
-          <span class="text-xs font-medium px-[5px] py-[1px]  rounded-xl border text-[#633DA5] border-[#633DA5]"><span
-              v-if="isFetched">{{ transactionsData!.total }}</span>
-            Transactions</span>
+          <p>Total des ventes</p>
+          <p class="text-clamp-h1-md">634,500,258</p>
         </div>
-      </div>
+        <div>
+          <img src="@/assets/allococa/increase-icon.png" alt="">
+        </div>
+      </article>
+      <article class="flex items-end gap-[42px] px-[35px] rounded-xl bg-[#86090A]">
+        <div>
+          <p>Meilleur vente ce mois-ci</p>
+          <div class="flex items-center gap-1">
 
-      <div>
+            <p class="text-clamp-h1-md">2,710</p>
+            <p>commandes</p>
+          </div>
+        </div>
+        <div>
+          <img src="@/assets/allococa/coca-bottle.png" alt="">
+        </div>
+      </article>
 
-        <CustomButton @click="() => { router.push({ name: AppRoute.TRANSACTIONS_HISTORY.name }) }" type="outline">
-          Voir tous
-        </CustomButton>
-      </div>
+      <article class="flex items-end gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
+        <div>
+          <p>Total des commandes</p>
+          <div class="flex items-center gap-1">
+
+            <p class="text-clamp-h1-md">547</p>
+            <p>cette semaine</p>
+          </div>
+        </div>
+        <div>
+          <img src="@/assets/allococa/increase-icon.png" alt="">
+        </div>
+      </article>
     </section>
 
-    <!-- transaction filter -->
-    <section class="flex xl:justify-between flex-col my-4">
-      <section class="xl:flex xl:flex-wrap grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  gap-2 ">
-        <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full"
-          title="Filtre par statut" :elements="[
-            { name: 'Filtre par statut', value: 'all' },
-            { name: 'En attente', value: 'Pending' },
-            { name: 'En cours', value: 'Processing' },
-            { name: 'Echouée', value: 'Failed' },
-            { name: 'Réussi', value: 'Successful' }]">
-        </CommonSelect>
 
+    <!-- dashboa table -->
+    <section class=" w-full space-y-4 ">
 
-        <CommonSelect v-model="limitModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" title="Lignes par page"
-          :elements="[{ name: 'Lignes par page', value: '10' }, { name: '20', value: '20' }, { name: '50', value: '50' }, { name: '100', value: '100' }]">
-        </CommonSelect>
-
-
-        <CommonSelect v-model="typeModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
-          title="Filtre par type de transaction" :elements="[
-            { name: 'Filtre par type de transaction', value: 'all' },
-            { name: 'Paiement', value: 'spend' },
-            // { name: 'Award', value: 'award' },
-            { name: 'Depot', value: 'supply' }]">
-        </CommonSelect>
-
-
-        <CommonSelect v-model="beneficiaryProviderModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'"
-          title="Filtre par reseau beneficiaire"
-          :elements="[{ name: 'Filtre par reseau beneficiaire', value: 'all' }, { name: 'Orange', value: 'orange', }, { name: 'Moov', value: 'Moov' }, { name: 'MTN', value: 'MTN' }, { name: 'Wave', value: 'Wave' }]">
-        </CommonSelect>
-
-
-      </section>
-      <section class="xl:w-[19%] my-5 ">
-        <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
-      </section>
-    </section>
-
-    <!-- Transactions table -->
-    <section class=" w-full ">
+      <h2 class="text-clamp-h1-md  font-merriweathersans">Commandes récentes</h2>
 
       <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
         :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"
@@ -108,11 +70,35 @@ import { useLoaderStore } from "@/stores/useLoaderStore";
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
 import { useWindowSize } from '@vueuse/core';
 import { ArrowDownToDotIcon, MenuSquare } from 'lucide-vue-next';
-import { inject, useTemplateRef } from 'vue';
+import { inject, ref, useTemplateRef } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import type { InjectionKey } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
+import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
+import {
+  CalendarDate
+} from '@internationalized/date';
+import type { DateRange } from "radix-vue";
+import CommonStatisticCard from '@/components/common/commonStatisticCard.vue';
+import { ArrowDownLeftIcon, ArrowUpRightIcon, Database } from 'lucide-vue-next';
+import moment from 'moment';
 
+
+let date = new Date()
+const dates = ref({
+  start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
+  end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
+}) as Ref<DateRange>
+
+
+
+const updateData = () => {
+
+
+  const startDate = dates.value.start!.toDate('Africa/Abidjan')
+  const endDate = dates.value.end!.toDate('Africa/Abidjan')
+  // filters.dates = [dates.value.start!.toDate('Africa/Abidjan'), dates.value.end!.toDate('Africa/Abidjan')]
+}
 
 
 const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
@@ -159,35 +145,7 @@ const [statusModel,] = defineModel('status', {
 })
 
 
-const [typeModel, typeModifiers] = defineModel('type', {
-  set(value: string) {
-    if (value == "all") {
-      filters.type = undefined;
-    } else {
-      filters.type = value;
-    }
-    return value
-  },
-  //   get(v) {
-  //     return v;
-  //   },
-  default: undefined,
-})
 
-const [payerProviderModel, payerProviderModifiers] = defineModel('payerProvider', {
-  set(value: string) {
-    if (value == "all") {
-      filters.type = undefined;
-    } else {
-      filters.payer_provider = value;
-    }
-    return value
-  },
-  //   get(v) {
-  //     return v;
-  //   },
-  default: undefined,
-})
 
 const [limitModel, limitModifiers] = defineModel('limitProvider', {
   type: String,
@@ -202,34 +160,6 @@ const [limitModel, limitModifiers] = defineModel('limitProvider', {
   default: undefined,
 })
 
-const [beneficiaryProviderModel, beneficiaryProviderModifiers] = defineModel('beneficiaryProvider', {
-  set(value: string) {
-    if (value == "all") {
-      filters.beneficiary_provider = '';
-    } else {
-      filters.beneficiary_provider = value;
-    }
-    return value
-  },
-  //   get(v) {
-  //     return v;
-  //   },
-  default: undefined,
-})
-const [beneficiaryCountryProviderModel, beneficiaryCountyProviderModifiers] = defineModel('beneficiaryCountryProvider', {
-  set(value: string) {
-    if (value == "all") {
-      filters.beneficiary_country_iso_code = '';
-    } else {
-      filters.beneficiary_country_iso_code = value;
-    }
-    return value
-  },
-  //   get(v) {
-  //     return v;
-  //   },
-  default: undefined,
-})
 
 
 const nextPage = async () => {

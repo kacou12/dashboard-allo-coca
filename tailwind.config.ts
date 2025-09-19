@@ -37,9 +37,14 @@ module.exports = {
         merriweathersans: ["Merriweather Sans", "sans-serif"],
       },
       fontSize: {
-        "clamp-sm": ["clamp(1.25rem, 3vw, 1.5rem)", "1.5rem"],
-        "clamp-md": ["clamp(1.25rem, 4vw, 1.5rem)", "1.5rem"],
-        "clamp-lg": ["clamp(1.25rem, 5vw, 1.5rem)", "1.5rem"],
+       // Pour un H1 grand (max 60px)
+      'clamp-h1-lg': ['clamp(2.5rem, 7vw, 3.75rem)', '1'], // 40px à 65px, line-height 1
+      // Pour un H1 plus petit ou un H2 (max 40px)
+      'clamp-h1-md': ['clamp(1.875rem, 5vw, 2.5rem)', '1.2'], // 30px à 40px, line-height 1.2
+      // Vos clamps existants, ajustés pour la cohérence ou les besoins spécifiques
+      'clamp-sm': ['clamp(1.25rem, 3vw, 1.5rem)', '1.5rem'], // 20px à 24px
+      'clamp-md': ['clamp(1.25rem, 4vw, 1.875rem)', '1.5rem'], // 20px à 30px (j'ai légèrement augmenté le max pour md)
+      'clamp-lg': ['clamp(1.25rem, 5vw, 2.25rem)', '1.5rem'], // 20px à 36px
       },
       colors: {
         border: "hsl(var(--border))",

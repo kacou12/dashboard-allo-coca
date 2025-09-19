@@ -1,20 +1,30 @@
 <template>
-  <div class="flex pt-[75px] xl:pt-0 h-screen">
-    <!-- DEBUT NAVBAR -->
-    <NavBar></NavBar>
-    <!-- FIN NAVBAR -->
+  <div class="relative h-screen">
+    <section class="flex flex-col ">
+      <div class="flex-1 bg-red-600"></div>
+      <div class="flex-1 bg-white"></div>
+    </section>
+    <section class="absolute top-[129px] right-[113px] border">
 
-    <!-- DEBUT BARRE DES MENUS -->
-    <AsideBar class="hidden xl:block"
-      :class="[isSidebarExpanded ? 'w-[290px]' : 'w-[85px]', 'transition-width-animation']">
-    </AsideBar>
-    <!-- FIN BARRE DES MENUS -->
 
-    <!-- DEBUT DES PAGES DU ROUTER -->
-    <div class="p-[2px] lg:p-4  xl:flex-1 w-full overflow-y-scroll">
-      <router-view></router-view>
-    </div>
-    <!-- FIN DES PAGES DU ROUTER -->
+      <!-- DEBUT NAVBAR -->
+      <NavBar></NavBar>
+      <!-- FIN NAVBAR -->
+      <section class="flex items-center gap-5">
+
+        <!-- DEBUT BARRE DES MENUS -->
+        <AsideBar>
+        </AsideBar>
+        <!-- FIN BARRE DES MENUS -->
+
+        <!-- DEBUT DES PAGES DU ROUTER -->
+        <div class="border ">
+          <router-view></router-view>
+        </div>
+        <!-- FIN DES PAGES DU ROUTER -->
+      </section>
+
+    </section>
   </div>
 </template>
 <script setup lang="ts">
