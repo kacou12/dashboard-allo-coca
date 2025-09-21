@@ -1,21 +1,22 @@
 <template>
 
 
-    <aside class="px-4 py-9 h-full shadow-md">
 
-        <section class="rounded-xl flex flex-col items-center justify-center gap-2 bg-red-500">
+    <aside class="px-4 py-9 h-full shadow-md bg-green-400">
+
+        <section class="rounded-xl flex flex-col items-center justify-center gap-2 bg-red-500 p-6">
             <img src="@/assets/allococa/aside-icons/dashboard-icon.svg" alt="">
             <p class="text-xs">DASHBOARD</p>
         </section>
-        <section class="rounded-xl flex flex-col items-center justify-center gap-2">
+        <section class="rounded-xl flex flex-col items-center justify-center gap-2  p-6">
             <img src="@/assets/allococa/aside-icons/order-icon.svg" alt="">
             <p class="text-xs">COMMANDES</p>
         </section>
-        <section class="rounded-xl flex flex-col items-center justify-center gap-2">
+        <section class="rounded-xl flex flex-col items-center justify-center gap-2  p-6">
             <img src="@/assets/allococa/aside-icons/user-icon.svg" alt="">
             <p class="text-xs">CLIENTS</p>
         </section>
-        <section class="rounded-xl flex flex-col items-center justify-center gap-2">
+        <section class="rounded-xl flex flex-col items-center justify-center gap-2  p-6">
             <img src="@/assets/allococa/aside-icons/stock-icon.svg" alt="">
             <p class="text-xs">STOCKS</p>
         </section>
@@ -23,6 +24,7 @@
 
 
     </aside>
+
 
 </template>
 

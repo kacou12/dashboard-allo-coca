@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 w-full space-y-7">
+  <div class="px-4 w-full space-y-7 h-full ">
     <!-- Titre du tableau de bord -->
     <section class="flex items-center gap-4">
 

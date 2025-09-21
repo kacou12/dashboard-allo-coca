@@ -1,30 +1,34 @@
 <template>
-  <div class="relative h-screen">
-    <section class="flex flex-col ">
+  <div class="relative h-screen bg-orange-600">
+    <section class="z-[-1] absolute top-[0px] bottom-0 left-0 right-0 flex flex-col h-full">
       <div class="flex-1 bg-red-600"></div>
       <div class="flex-1 bg-white"></div>
     </section>
-    <section class="absolute top-[129px] right-[113px] border">
+
+    <section class="z-50  border w-full h-full  flex flex-col">
 
 
       <!-- DEBUT NAVBAR -->
       <NavBar></NavBar>
       <!-- FIN NAVBAR -->
-      <section class="flex items-center gap-5">
+      <section class="flex-1 flex items-center gap-5  h-full bg-orange-900">
 
         <!-- DEBUT BARRE DES MENUS -->
-        <AsideBar>
+        <AsideBar class=" h-full bg-purple-400">
         </AsideBar>
         <!-- FIN BARRE DES MENUS -->
 
         <!-- DEBUT DES PAGES DU ROUTER -->
-        <div class="border ">
+        <div class="border w-full h-full overflow-y-scroll">
           <router-view></router-view>
         </div>
         <!-- FIN DES PAGES DU ROUTER -->
       </section>
 
     </section>
+
+
+
   </div>
 </template>
 <script setup lang="ts">
