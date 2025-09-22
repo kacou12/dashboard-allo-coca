@@ -32,9 +32,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        worksans: ["Work Sans", "sans-serif"],
-        merriweather: ["Merriweather", "serif"],
-        merriweathersans: ["Merriweather Sans", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+      
       },
       fontSize: {
        // Pour un H1 grand (max 60px)

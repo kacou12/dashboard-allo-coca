@@ -1,7 +1,7 @@
 <template>
     <div class="px-4 w-full ">
         <!-- Titre du tableau de bord -->
-        <header class="mb-6 flex items-center gap-2 text-white">
+        <header class="flex items-center gap-2 text-white">
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Commandes</h1>

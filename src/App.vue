@@ -7,7 +7,7 @@
     </transition>
 
 
-    <RouterView class="font-worksans" />
+    <RouterView class="font-roboto" />
     <!-- <router-view class="font-worksans" v-slot="{ Component }">
       <Transition name="fade" :appear="true">
         <component :is="Component" />

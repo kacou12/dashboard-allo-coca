@@ -1,5 +1,5 @@
 <template>
-    <nav class=" w-full  px-3 py-3 lg:px-5 lg:pl-3">
+    <nav class=" w-full   py-3 ">
         <div class="">
             <div class="flex items-center justify-between">
                 <!-- <section class="flex items-center justify-start">
