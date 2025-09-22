@@ -67,31 +67,21 @@
 </template>
 
 <script setup lang="ts">
-import BannerWallet from '@/components/bannerWallet.vue';
-import CustomButton from '@/components/buttons/customButton.vue';
 import CommonDataTable from '@/components/common/commonDataTable.vue';
-import CommonSelect from '@/components/common/commonSelect.vue';
+import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import { recentsTransactionsColumns } from '@/components/main/recentTransactions/tables/TransactionsColumn';
-import SearchBar from '@/components/users/SearchBar.vue';
 import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
-import { AppRoute } from '@/constants/app-route';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
-import { useWindowSize } from '@vueuse/core';
-import { ArrowDownToDotIcon, MenuSquare } from 'lucide-vue-next';
-import { inject, ref, useTemplateRef } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import type { InjectionKey, Ref } from 'vue'
-import { sidebarStateKey } from '@/components/layouts/provide-state-key';
-import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
 import {
   CalendarDate
 } from '@internationalized/date';
+import { useWindowSize } from '@vueuse/core';
 import type { DateRange } from "radix-vue";
-import CommonStatisticCard from '@/components/common/commonStatisticCard.vue';
-import { ArrowDownLeftIcon, ArrowUpRightIcon, Database } from 'lucide-vue-next';
-import moment from 'moment';
+import type { Ref } from 'vue';
+import { inject, ref, useTemplateRef } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 
 let date = new Date()
