@@ -1,25 +1,25 @@
 <template>
-  <div class="relative h-screen bg-orange-600">
+  <div class="relative h-screen">
     <section class="z-[-1] absolute top-[0px] bottom-0 left-0 right-0 flex flex-col h-full">
-      <div class="flex-1 bg-red-600"></div>
+      <div class="flex-1 bg-[#b72423]"></div>
       <div class="flex-1 bg-white"></div>
     </section>
 
-    <section class="z-50  border w-full h-full  flex flex-col">
+    <section class="z-50 relative   w-full h-full pt-[100px] flex flex-col maxContain3xl">
 
 
       <!-- DEBUT NAVBAR -->
-      <NavBar></NavBar>
+      <NavBar class="absolute top-0 left-0 right-0 "></NavBar>
       <!-- FIN NAVBAR -->
-      <section class="flex-1 flex items-center gap-5  h-full bg-orange-900">
+      <section class="flex-1 flex items-center gap-8 h-full ">
 
         <!-- DEBUT BARRE DES MENUS -->
-        <AsideBar class=" h-full bg-purple-400">
+        <AsideBar class=" ">
         </AsideBar>
         <!-- FIN BARRE DES MENUS -->
 
         <!-- DEBUT DES PAGES DU ROUTER -->
-        <div class="border w-full h-full overflow-y-scroll">
+        <div class=" w-full h-full overflow-y-scroll">
           <router-view></router-view>
         </div>
         <!-- FIN DES PAGES DU ROUTER -->

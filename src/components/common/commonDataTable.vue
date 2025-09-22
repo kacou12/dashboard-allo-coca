@@ -2,13 +2,13 @@
     <!-- tablde -->
 
 
-    <div class="border rounded-xl ">
-        <Table class="border-b">
-            <TableHeader class=" bg-neutral-90">
+    <div class="bg-white rounded-3xl px-[45px] py-3 shadow-lg">
+        <Table>
+            <TableHeader class="">
                 <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
                     <TableHead v-for="header in headerGroup.headers" :key="header.id">
-                        <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header"
-                            :props="header.getContext()" />
+                        <FlexRender class="font-semibold" v-if="!header.isPlaceholder"
+                            :render="header.column.columnDef.header" :props="header.getContext()" />
                     </TableHead>
                 </TableRow>
             </TableHeader>
