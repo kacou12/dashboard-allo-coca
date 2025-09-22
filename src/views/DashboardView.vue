@@ -1,42 +1,52 @@
 <template>
-  <div class="px-4 w-full space-y-7 h-full ">
+  <div class="px-4 w-full space-y-16 h-full ">
     <!-- Titre du tableau de bord -->
-    <section class="flex items-center gap-4">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-8">
 
-      <article class="flex items-end gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
+      <article class="flex text-white items-center gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
         <div>
           <p>Total des ventes</p>
           <p class="text-clamp-h1-md">634,500,258</p>
         </div>
-        <div>
-          <img src="@/assets/allococa/increase-icon.png" alt="">
+        <div class="mt-7">
+
+          <div class="">
+            <img src="@/assets/allococa/increase-icon.png" alt="">
+          </div>
         </div>
       </article>
-      <article class="flex items-end gap-[42px] px-[35px] rounded-xl bg-[#86090A]">
-        <div>
-          <p>Meilleur vente ce mois-ci</p>
+
+      <article class="relative text-white flex items-end gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
+        <div class="space-y-2">
+          <p class="text-sm">Meilleur vente ce mois-ci</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-h1-md">2,710</p>
+            <p class="text-clamp-md">2,710</p>
             <p>commandes</p>
           </div>
         </div>
-        <div>
+
+
+        <div class="absolute right-5 bottom-5 ">
           <img src="@/assets/allococa/coca-bottle.png" alt="">
         </div>
       </article>
 
-      <article class="flex items-end gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
+      <article class="flex text-white items-center justify-between  gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
         <div>
-          <p>Total des commandes</p>
+          <p class="text-sm">Total des commandes</p>
           <div class="flex items-center gap-1">
 
             <p class="text-clamp-h1-md">547</p>
-            <p>cette semaine</p>
+            <p class="text-sm">cette semaine</p>
           </div>
         </div>
-        <div>
-          <img src="@/assets/allococa/increase-icon.png" alt="">
+
+        <div class="mt-5">
+
+          <div class="">
+            <img src="@/assets/allococa/increase-icon.png" alt="">
+          </div>
         </div>
       </article>
     </section>
@@ -45,7 +55,7 @@
     <!-- dashboa table -->
     <section class=" w-full space-y-4 ">
 
-      <h2 class="text-clamp-h1-md  font-merriweathersans">Commandes récentes</h2>
+      <h2 class="text-clamp-md  text-white font-merriweathersans">Commandes récentes</h2>
 
       <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
         :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"

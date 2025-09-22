@@ -96,4 +96,8 @@
   .customHead {
     @apply bg-primary text-primary-foreground;
   }
+
+    .maxContain3xl {
+    @apply 2xl:max-w-[1440px] mx-auto;
+  }
 }
