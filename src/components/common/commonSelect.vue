@@ -5,7 +5,7 @@
 
     <Select v-model="currentSelected">
         <!-- <SelectTrigger class="min-w-[120px] max-w-[350px]  "> -->
-        <SelectTrigger class="space-x-1"
+        <SelectTrigger class="space-x-1 h-[40px]"
             :class="[`${borderColor}`, open ? 'ring-4 ring-primary-70 transition-all duration-300' : '', `${defaultWidth}`]">
             <slot name="icon"></slot>
             <SelectValue :placeholder="title" class="text-[#525866]">

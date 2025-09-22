@@ -2,7 +2,7 @@
     <Popover v-model:open="open">
         <PopoverTrigger as-child>
             <Button variant="outline" :class="cn(
-                'w-full xl:w-[240px] h-full justify-start text-left font-normal ',
+                'w-full xl:w-[240px] h-full justify-start text-left font-normal px-2',
                 !dates && 'text-muted-foreground',
             )
                 ">
