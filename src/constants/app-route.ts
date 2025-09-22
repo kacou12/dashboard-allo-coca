@@ -19,6 +19,28 @@ import { ProviderRouteApi } from '@/services/providers/provider-constants'
 export const AppRoute = {
   // APP_MOBILE: { name: 'App mobile' },
   // UNAUTHORIZE: '/unauthorize',
+  // ALLO COCA 
+
+
+  ORDERS: {
+    name: 'orders',
+    path: '/orders',
+    v1_object: DashboardRouteApi.default,
+  },
+
+  CLIENTS: {
+    name: 'clients',
+    path: '/clients',
+    v1_object: DashboardRouteApi.default,
+  },
+  STOCKS: {
+    name: 'stocks',
+    path: '/stocks',
+    v1_object: DashboardRouteApi.default,
+  },
+
+
+
 
   LOGIN: {
     name: 'login',

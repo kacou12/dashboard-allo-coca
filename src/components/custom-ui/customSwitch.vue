@@ -24,11 +24,11 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 
 <template>
     <SwitchRoot v-bind="forwarded" :class="cn(
-        'peer inline-flex w-[40px] h-[23px] shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-neutral-60',
+        'peer inline-flex  h-[24px] shrink-0 cursor-pointer items-center rounded-[11px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-neutral-60',
         props.class,
     )">
         <SwitchThumb
-            :class="cn(' pointer-events-none block h-[14px] w-[14px] rounded-full bg-white  ring-0 transition-transform data-[state=checked]:translate-x-[21px]')">
+            :class="cn(' pointer-events-none block h-full w-1/2 rounded-[11px] bg-white  ring-0 transition-transform data-[state=checked]:translate-x-[90px]')">
             <slot name="thumb" />
         </SwitchThumb>
     </SwitchRoot>

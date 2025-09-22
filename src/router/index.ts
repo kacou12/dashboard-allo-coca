@@ -84,6 +84,27 @@ const router = createRouter({
           // beforeEnter:Auth.authIsRequire,
           meta: { layout: 'DefaultLayout', requiresAuth: true },
         },
+        {
+          path: AppRoute.ORDERS.path,
+          name: AppRoute.ORDERS.name,
+          component: () => import('@/views/Allococa/OrdersView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
+        {
+          path: AppRoute.CLIENTS.path,
+          name: AppRoute.CLIENTS.name,
+          component: () => import('@/views/Allococa/ClientsView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
+        {
+          path: AppRoute.STOCKS.path,
+          name: AppRoute.STOCKS.name,
+          component: () => import('@/views/Allococa/StocksView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
 
         //DEBUT Gestion des utilisateurs =============== **************
        

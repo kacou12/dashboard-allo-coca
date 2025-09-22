@@ -1,11 +1,11 @@
 <template>
     <div class="px-4 w-full ">
         <!-- Titre du tableau de bord -->
-        <header class="mb-6 flex items-center gap-2 text-white">
+        <header class="mb-6 flex items-center gap-2  text-white">
             <section class="spacep-y-1">
 
-                <h1 class="text-clamp-md font-semibold font-merriweathersans">Commandes</h1>
-                <p class="text-sm text-white">28 commandes trouvées</p>
+                <h1 class="text-clamp-md font-semibold font-merriweathersans">Produits en stock</h1>
+                <p class="text-sm text-white">18 Produits</p>
             </section>
         </header>
 
@@ -38,24 +38,37 @@
         </section>
 
         <!-- commandes recentes table -->
-        <section class=" w-full ">
+        <section class=" w-full bg-white rounded-3xl p-10">
 
-            <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table"
+            <!-- <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table"
                 :default-page="filters.page" :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"
                 :data="transactionsData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage"
                 @next-page="nextPage">
-            </CommonDataTable>
+            </CommonDataTable> -->
+
+            <div class="grid grid-cols-5 gap-4">
+
+                <ProductCard></ProductCard>
+                <ProductCard></ProductCard>
+                <ProductCard></ProductCard>
+                <ProductCard></ProductCard>
+                <ProductCard></ProductCard>
+                <ProductCard></ProductCard>
+                <ProductCard></ProductCard>
+
+            </div>
+
+
         </section>
 
     </div>
 </template>
 
 <script setup lang="ts">
-import CommonDataTable from '@/components/common/commonDataTable.vue';
+import ProductCard from '@/components/allococa/productCard.vue';
 import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
-import { recentsTransactionsColumns } from '@/components/main/recentTransactions/tables/TransactionsColumn';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
@@ -67,7 +80,7 @@ import {
 import { useWindowSize } from '@vueuse/core';
 import type { DateRange } from "radix-vue";
 import type { Ref } from 'vue';
-import { inject, ref, useTemplateRef } from 'vue';
+import { inject, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 
@@ -108,7 +121,7 @@ const { width, height } = useWindowSize()
 
 
 
-const tableRef = useTemplateRef('my-table')
+// const tableRef = useTemplateRef('my-table')
 
 // onBeforeMount(async () => {
 
@@ -175,4 +188,6 @@ const prevPage = async () => {
 
 </script>
 
-<style></style>
+<style>
+/* Ajoutez des styles personnalisés si nécessaire */
+</style>

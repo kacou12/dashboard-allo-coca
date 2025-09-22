@@ -1,41 +1,39 @@
 <template>
     <div>
 
-        <Switch :disabled="disabled" :checked="defaultActive" @update:checked="$emit('update:modelValue', $event)">
+        <CustomSwitch :defaultChecked="defaultActive" :checked="isActive" class="w-full"
+            @update:checked="$emit('update:modelValue', $event)">
             <template #thumb>
                 <div class="w-full h-full  relative">
 
-                    <div v-if="defaultActive" class="w-[4px] h-[4px] 
-                        absolute
-                        top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                        rounded-full flex  bg-primary">
+                    <div v-if="isActive" class="  w-full 
+                       flex  bg-primary">
+                        <p class="text-[8px] text-[#888888]">Disponible</p>
                     </div>
 
 
-                    <div v-else class="w-[4px] h-[4px] 
-                        absolute
-                        top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                        rounded-full flex  bg-neutral-60">
+                    <div v-else class="  w-full 
+                        bg-neutral-60">
+
+                        <p class="text-[8px] text-[#888888]">Indisponible</p>
                     </div>
                 </div>
             </template>
-        </Switch>
+        </CustomSwitch>
     </div>
+
 
 </template>
 <script setup lang="ts">
 import { Switch } from '@/components/ui/switch';
+import CustomSwitch from '../custom-ui/customSwitch.vue';
 
 // import { Icon } from 'lucide-vue-next';
 
-// const isActive = defineModel({ type: Boolean })
+const isActive = defineModel({ type: Boolean })
 const { defaultActive } = defineProps({
     defaultActive: {
         type: Boolean, default: false
-    },
-    disabled: {
-        type: Boolean,
-        default: false
     }
 })
 

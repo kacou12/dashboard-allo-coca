@@ -1,10 +1,10 @@
 <template>
     <div class="px-4 w-full ">
         <!-- Titre du tableau de bord -->
-        <header class="mb-6 flex items-center gap-2">
+        <header class="mb-1 flex items-center gap-2 text-white">
             <section class="spacep-y-1">
 
-                <h1 class="text-clamp-h1-md font-semibold font-merriweathersans">Clients</h1>
+                <h1 class="text-clamp-md font-semibold font-merriweathersans">Clients</h1>
                 <p class="text-sm text-white">75 clients trouvées</p>
             </section>
         </header>
@@ -12,10 +12,11 @@
 
 
         <!-- transaction filter -->
-        <section class="flex xl:justify-between flex-col my-4">
+        <section class="flex xl:justify-between items-center">
             <section class="flex items-center gap-2">
 
-                <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full"
+
+                <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full "
                     title="Filtre par statut" :elements="[
                         { name: 'Filtre par statut', value: 'all' },
                         { name: 'En attente', value: 'Pending' },
@@ -25,7 +26,8 @@
                 </CommonSelect>
 
 
-                <section class="xl:w-[19%] my-5 ">
+
+                <section class=" my-5 ">
                     <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
                 </section>
 
