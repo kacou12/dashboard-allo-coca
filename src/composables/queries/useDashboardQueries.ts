@@ -1,6 +1,6 @@
 import { getMidnightToday } from '@/lib/utils'
+import { fetchFiltersDashboard } from '@/services/allococa/dashboard/dashboard-service'
 import { dashboardQueryKeys } from '@/services/dashboard/dashboard-query-keys'
-import { fetchFiltersDashboard } from '@/services/dashboard/dashboard-service'
 
 import type { DashboardFiltersPayload } from '@/services/global.type'
 import { useCountryStore } from '@/stores/useCountryStore'

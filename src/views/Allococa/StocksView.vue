@@ -46,17 +46,20 @@
                 @next-page="nextPage">
             </CommonDataTable> -->
 
-            <div class="grid grid-cols-5 gap-4">
+            <div class="grid grid-cols-5 gap-4" v-if="isFetched">
 
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
-                <ProductCard></ProductCard>
+                <ProductCard v-for="stock in stocksData?.items" :key="stock.id" :stock="stock"></ProductCard>
+
 
             </div>
+
+            <FadeSlideAnimation>
+                <CommonPagination v-if="isFetched" :items-per-page="10" :current-page="defaultPage"
+                    @go-to-page="goToPage" @next-page="nextPage" @prev-page="prevPage" :total="stocksData?.total" />
+                <div v-else-if="isLoadingData">
+                    <div class="animate-pulse bg-gray-200 h-[72px] rounded-b-xl"></div>
+                </div>
+            </FadeSlideAnimation>
 
 
         </section>
@@ -66,11 +69,13 @@
 
 <script setup lang="ts">
 import ProductCard from '@/components/allococa/productCard.vue';
+import FadeSlideAnimation from '@/components/animations/fadeSlideAnimation.vue';
 import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
+import CommonPagination from '@/components/common/commonPagination.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import SearchBar from '@/components/users/SearchBar.vue';
-import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
+import { useAllococaStocksFiltersQuery } from '@/composables/queries/allococa/useAllococaStocksQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
@@ -78,10 +83,22 @@ import {
     CalendarDate
 } from '@internationalized/date';
 import { useWindowSize } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
 import type { DateRange } from "radix-vue";
 import type { Ref } from 'vue';
-import { inject, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
+const { isLoading, isLoadingSkeleton } = storeToRefs(useLoaderStore());
+const isLoadingData = computed(() => {
+    return isLoading.value || isLoadingSkeleton.value || isFetching.value;
+})
+
+
+const { data: stocksData, isFetched, refetch, isFetching } = useAllococaStocksFiltersQuery();
+const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
+
+const defaultPage = ref(1)
 
 
 let date = new Date()
@@ -105,8 +122,6 @@ const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 const { user, fullName } = useAuthStore();
 
 
-const { data: transactionsData, isFetched, refetch, isFetching } = useTransactionsFiltersQuery();
-const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 // const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
 

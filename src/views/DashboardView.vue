@@ -1,12 +1,12 @@
 <template>
   <div class="px-4 w-full space-y-16 h-full ">
     <!-- Titre du tableau de bord -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-8">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 xl:gap-8" v-if="isFetchedDashboardStats">
 
       <article class="flex text-white items-center gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
         <div>
           <p>Total des ventes</p>
-          <p class="text-clamp-h1-md">634,500,258</p>
+          <p class="text-clamp-h1-md">{{ dashboardStatsData?.total_sales }}</p>
         </div>
         <div class="mt-7">
 
@@ -21,7 +21,7 @@
           <p class="text-sm">Meilleur vente ce mois-ci</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-md">2,710</p>
+            <p class="text-clamp-md">{{ dashboardStatsData?.best_seller.orders_count }}</p>
             <p>commandes</p>
           </div>
         </div>
@@ -37,7 +37,7 @@
           <p class="text-sm">Total des commandes</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-h1-md">547</p>
+            <p class="text-clamp-h1-md">{{ dashboardStatsData?.total_orders }}</p>
             <p class="text-sm">cette semaine</p>
           </div>
         </div>
@@ -58,8 +58,8 @@
       <h2 class="text-clamp-md  text-white font-merriweathersans">Commandes récentes</h2>
 
       <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
-        :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"
-        :data="transactionsData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
+        :total="dashboardOrdersData?.total ?? 0" :columns="allococadashboardOrdersColumns"
+        :data="dashboardOrdersData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
       </CommonDataTable>
     </section>
 
@@ -69,8 +69,9 @@
 <script setup lang="ts">
 import CommonDataTable from '@/components/common/commonDataTable.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
-import { recentsTransactionsColumns } from '@/components/main/recentTransactions/tables/TransactionsColumn';
-import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
+import { allococadashboardOrdersColumns } from '@/components/main/allococa/allococa-dashboard/allococaDashboard';
+import { useAllococaDashboardStatsQuery } from '@/composables/queries/allococa/useAllococaDashboardQueries';
+import { useDashBoardFiltersQuery } from '@/composables/queries/useDashboardQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
@@ -105,7 +106,7 @@ const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 const { user, fullName } = useAuthStore();
 
 
-const { data: transactionsData, isFetched, refetch, isFetching } = useTransactionsFiltersQuery();
+const { data: dashboardOrdersData, isFetched, refetch, isFetching } = useDashBoardFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 // const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
@@ -113,7 +114,7 @@ const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 const filters = useTransactionFiltersStore()
 // const { page } = storeToRefs(useTransactionFiltersStore())
 
-// const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
+const { data: dashboardStatsData, isFetched: isFetchedDashboardStats, refetch: refetchDashboardStats } = useAllococaDashboardStatsQuery();
 
 const route = useRoute();
 const router = useRouter();

@@ -41,6 +41,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import TestSwitch from '../common/testSwitch.vue';
+import type { StockResponse } from '@/services/allococa/stocks/stock-type';
 
 // État d'activation du produit
 const isActive = ref(true);
@@ -48,6 +49,7 @@ const isActive = ref(true);
 // Props (optionnel - pour pouvoir contrôler l'état depuis le parent)
 interface Props {
     initialActive?: boolean;
+    stock: StockResponse
 }
 
 const props = withDefaults(defineProps<Props>(), {

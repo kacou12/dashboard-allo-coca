@@ -23,13 +23,20 @@ export enum OrderStatusEnum {
   CANCELED = 'Annulée'
 }
 
-export const OrderStatusConfig = Object.freeze({
+export const OrderStatusConfigEnum = Object.freeze({
   AFFECTED: { value: 'Affecté', name: 'Affecté', color: '#6c757d', textColor: '#ffffff' },
   IN_PROGRESS: { value: 'En cours', name: 'En cours', color: '#ffc107', textColor: '#000000' },
   DELIVERED: { value: 'Livrée', name: 'Livrée', color: '#28a745', textColor: '#ffffff' },
   CANCELED: { value: 'Annulée', name: 'Annulée', color: '#dc3545', textColor: '#ffffff' },
 })
 
+
+// export const orderStatusColors = Object.freeze({
+//   AFFECTED: { name: 'Affecté', value: "Affected" , color: '#B0BEC5', textColor: '#455A64' },
+//   IN_PROGRESS: { name: 'En cours', value: "In_progress" ,  color: '#FFF3E0', textColor: '#E65100' },
+//   DELIVERED: { name: 'Livrée', value: "Delivered" ,   color: '#C8E6C9', textColor: '#2E7D32' },
+//   CANCELED: { name: 'Annulée', value: "Canceled" , color: '#FFCDD2', textColor: '#C62828' },
+// });
 
 export type OrderFiltersPayload = {
   q?: string;

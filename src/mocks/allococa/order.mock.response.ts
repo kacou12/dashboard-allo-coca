@@ -5,12 +5,20 @@ export enum OrderStatus {
   CANCELED = 'Annulée'
 }
 
-export const orderStatusColors: { [key in OrderStatus]: string } = {
-  [OrderStatus.AFFECTED]: '#6c757d', // Grey
-  [OrderStatus.IN_PROGRESS]: '#ffc107', // Orange
-  [OrderStatus.DELIVERED]: '#28a745', // Green
-  [OrderStatus.CANCELED]: '#dc3545' // Red
-};
+// export const orderStatusColors: { [key in OrderStatus]: string } = {
+//   [OrderStatus.AFFECTED]: '#6c757d', // Grey
+//   [OrderStatus.IN_PROGRESS]: '#ffc107', // Orange
+//   [OrderStatus.DELIVERED]: '#28a745', // Green
+//   [OrderStatus.CANCELED]: '#dc3545' // Red
+// };
+
+
+export const orderStatusColors = Object.freeze({
+  AFFECTED: { name: 'Affecté', value: "Affected" , color: '#B0BEC5', textColor: '#455A64' },
+  IN_PROGRESS: { name: 'En cours', value: "In_progress" ,  color: '#FFF3E0', textColor: '#E65100' },
+  DELIVERED: { name: 'Livrée', value: "Delivered" ,   color: '#C8E6C9', textColor: '#2E7D32' },
+  CANCELED: { name: 'Annulée', value: "Canceled" , color: '#FFCDD2', textColor: '#C62828' },
+});
 
 export const mockOrdersResponse: {
   code: number;

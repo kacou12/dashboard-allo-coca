@@ -41,9 +41,8 @@
         <section class=" w-full ">
 
             <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table"
-                :default-page="filters.page" :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"
-                :data="transactionsData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage"
-                @next-page="nextPage">
+                :default-page="filters.page" :total="ordersData?.total ?? 0" :columns="allococaOrdersColumns"
+                :data="ordersData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
             </CommonDataTable>
         </section>
 
@@ -55,9 +54,9 @@ import CommonDataTable from '@/components/common/commonDataTable.vue';
 import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
-import { recentsTransactionsColumns } from '@/components/main/recentTransactions/tables/TransactionsColumn';
+import { allococaOrdersColumns } from '@/components/main/allococa/orders/allococaOrders';
 import SearchBar from '@/components/users/SearchBar.vue';
-import { useTransactionsFiltersQuery } from '@/composables/queries/useTransactionQueries';
+import { useAllococaOrdersFiltersQuery } from '@/composables/queries/allococa/useAllococaOrdersQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
@@ -92,7 +91,7 @@ const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 const { user, fullName } = useAuthStore();
 
 
-const { data: transactionsData, isFetched, refetch, isFetching } = useTransactionsFiltersQuery();
+const { data: ordersData, isFetched, refetch, isFetching } = useAllococaOrdersFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 // const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
