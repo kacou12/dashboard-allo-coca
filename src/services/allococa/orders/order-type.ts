@@ -36,7 +36,7 @@ export type OrderFiltersPayload = {
   page?: number;
   limit?: number;
   dates?: [Date, Date];
-  status: string;
+  status?: string;
 };
 
 export type OrderResponse = {
