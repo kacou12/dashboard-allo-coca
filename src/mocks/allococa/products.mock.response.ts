@@ -14,7 +14,8 @@ export const mockProductsResponse: {
       product_name: string;
       volume: string;
       image_url: string;
-      status: ProductStatus;
+      status: string;
+      created_at: string;
     }[];
   };
 } = {
@@ -30,6 +31,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/coca-cola-classique.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:00:00Z',
       },
       {
         id: 'prod-002',
@@ -37,6 +39,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/coca-cola-zero.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:05:00Z',
       },
       {
         id: 'prod-003',
@@ -44,6 +47,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/fanta-orange.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:10:00Z',
       },
       {
         id: 'prod-004',
@@ -51,6 +55,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/fanta-cocktail.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:15:00Z',
       },
       {
         id: 'prod-005',
@@ -58,6 +63,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/fanta-fruits-rouge.png',
         status: ProductStatus.INDISPONIBLE,
+        created_at: '2023-10-27T10:20:00Z',
       },
       {
         id: 'prod-006',
@@ -65,6 +71,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/fanta-pommes.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:25:00Z',
       },
       {
         id: 'prod-007',
@@ -72,6 +79,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/sprite.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:30:00Z',
       },
       {
         id: 'prod-008',
@@ -79,6 +87,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/schweppes-tonic.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:35:00Z',
       },
       {
         id: 'prod-009',
@@ -86,6 +95,7 @@ export const mockProductsResponse: {
         volume: '30cl',
         image_url: '/assets/images/fanta-cocktail-2.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:40:00Z',
       },
       {
         id: 'prod-010',
@@ -93,6 +103,7 @@ export const mockProductsResponse: {
         volume: 'Pack de 6',
         image_url: '/assets/images/celeste-naturelle.png',
         status: ProductStatus.DISPONIBLE,
+        created_at: '2023-10-27T10:45:00Z',
       },
     ],
   },

@@ -1,3 +1,5 @@
+import type { DashboardOrderResponse } from "@/services/allococa/dashboard/dashboard-alpha-type";
+
 export enum OrderStatus {
   AFFECTED = 'Affecté',
   IN_PROGRESS = 'En cours',
@@ -18,14 +20,14 @@ export const mockDashboardResponse: {
   data: {
     total: number;
     has_next: boolean;
-    items: any[];
+    items: DashboardOrderResponse[];
   };
 } = {
   code: 200,
   msg: 'orders successfully retrieved',
   data: {
-    total: 15,
-    has_next: true,
+    total: 6,
+    has_next: false,
     items: [
       {
         id: 'ord-001',
@@ -81,87 +83,7 @@ export const mockDashboardResponse: {
         commune: 'Plateau',
         status: OrderStatus.CANCELED,
       },
-      {
-        id: 'ord-007',
-        customer_name: 'Ahmadou',
-        order_number: 100,
-        contact_client: '07 00 00 00 06',
-        order_date: '2025-09-10T00:00:00Z',
-        commune: 'Treichville',
-        status: OrderStatus.DELIVERED,
-      },
-      {
-        id: 'ord-008',
-        customer_name: 'Kone',
-        order_number: 99,
-        contact_client: '07 00 00 00 07',
-        order_date: '2025-09-09T00:00:00Z',
-        commune: 'Adjamé',
-        status: OrderStatus.IN_PROGRESS,
-      },
-      {
-        id: 'ord-009',
-        customer_name: 'Diakité',
-        order_number: 98,
-        contact_client: '07 00 00 00 08',
-        order_date: '2025-09-08T00:00:00Z',
-        commune: 'Anyama',
-        status: OrderStatus.AFFECTED,
-      },
-      {
-        id: 'ord-010',
-        customer_name: 'Kouassi',
-        order_number: 97,
-        contact_client: '07 00 00 00 09',
-        order_date: '2025-09-07T00:00:00Z',
-        commune: 'Abobo',
-        status: OrderStatus.IN_PROGRESS,
-      },
-      {
-        id: 'ord-011',
-        customer_name: 'Lia',
-        order_number: 96,
-        contact_client: '07 00 00 00 10',
-        order_date: '2025-09-06T00:00:00Z',
-        commune: 'Marcory',
-        status: OrderStatus.DELIVERED,
-      },
-      {
-        id: 'ord-012',
-        customer_name: 'Touré',
-        order_number: 95,
-        contact_client: '07 00 00 00 11',
-        order_date: '2025-09-05T00:00:00Z',
-        commune: 'Cocody',
-        status: OrderStatus.CANCELED,
-      },
-      {
-        id: 'ord-013',
-        customer_name: 'Diarra',
-        order_number: 94,
-        contact_client: '07 00 00 00 12',
-        order_date: '2025-09-04T00:00:00Z',
-        commune: 'Yopougon',
-        status: OrderStatus.DELIVERED,
-      },
-      {
-        id: 'ord-014',
-        customer_name: 'Fofana',
-        order_number: 93,
-        contact_client: '07 00 00 00 13',
-        order_date: '2025-09-03T00:00:00Z',
-        commune: 'Koumassi',
-        status: OrderStatus.IN_PROGRESS,
-      },
-      {
-        id: 'ord-015',
-        customer_name: 'Kouadio',
-        order_number: 92,
-        contact_client: '07 00 00 00 14',
-        order_date: '2025-09-02T00:00:00Z',
-        commune: 'Abobo',
-        status: OrderStatus.AFFECTED,
-      }
+     
     ],
   },
 };
