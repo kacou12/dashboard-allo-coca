@@ -1,6 +1,6 @@
 // import type { AdminFiltersPayload } from './country-type'
 
-import type { DashboardFiltersPayload, DefaultFiltersPayload } from '../global.type'
+import type { DashboardFiltersPayload } from "@/services/global.type";
 
 export const dashboardQueryKeys = {
   // admins: (country: string) => ['admins', country],
