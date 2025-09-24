@@ -1,12 +1,13 @@
 <template>
     <div class="px-4 w-full ">
         <!-- Titre du tableau de bord -->
-        <header class="mb-6 flex items-center gap-2  text-white">
+        <header class="mb-6 flex justify-between items-center gap-2  text-white">
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Produits en stock</h1>
                 <p class="text-sm text-white">18 Produits</p>
             </section>
+            <AddProductStock></AddProductStock>
         </header>
 
 
@@ -74,6 +75,7 @@ import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
 import CommonPagination from '@/components/common/commonPagination.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
+import AddProductStock from '@/components/main/allococa/stock/addProductStock.vue';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useAllococaStocksFiltersQuery } from '@/composables/queries/allococa/useAllococaStocksQueries';
 import { useAuthStore } from '@/stores/useAuthStore';

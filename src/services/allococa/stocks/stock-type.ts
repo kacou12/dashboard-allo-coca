@@ -13,10 +13,9 @@ export type StockUpdatePayload = {
 export type StockCreatePayload = {
   product_name: string
   volume: string
-  image_url: string
-  quantity: number
-  min_threshold?: number
-  max_threshold?: number
+  image_url?: File
+  price: number
+
 }
 
 export type StockStatusUpdatePayload = {
@@ -51,6 +50,7 @@ export type StockResponse = {
     product_name: string;
     volume: string;
     image_url: string;
+    price: number;
     status: ProductStatusEnum;
     created_at?: string
 }
