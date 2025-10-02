@@ -5,6 +5,8 @@ export type DefaultFiltersPayload = {
   dates?: [Date, Date];
   limit?: number;
 };
+
+export type StatusConfigEnum = { value: string; name: string; color: string; textColor: string }
 export type DefaultFiltersRequest = {
   q?: string;
   page: number;

@@ -1,3 +1,5 @@
+import type { StatusConfigEnum } from "@/services/global.type"
+
 export type OrderUpdatePayload = {
   customer_name?: string
   contact_client?: string
@@ -23,20 +25,14 @@ export enum OrderStatusEnum {
   CANCELED = 'Annulée'
 }
 
-export const OrderStatusConfigEnum = Object.freeze({
-  AFFECTED: { value: 'Affecté', name: 'Affecté', color: '#6c757d', textColor: '#ffffff' },
-  IN_PROGRESS: { value: 'En cours', name: 'En cours', color: '#ffc107', textColor: '#000000' },
-  DELIVERED: { value: 'Livrée', name: 'Livrée', color: '#28a745', textColor: '#ffffff' },
-  CANCELED: { value: 'Annulée', name: 'Annulée', color: '#dc3545', textColor: '#ffffff' },
-})
 
-
-// export const orderStatusColors = Object.freeze({
-//   AFFECTED: { name: 'Affecté', value: "Affected" , color: '#B0BEC5', textColor: '#455A64' },
-//   IN_PROGRESS: { name: 'En cours', value: "In_progress" ,  color: '#FFF3E0', textColor: '#E65100' },
-//   DELIVERED: { name: 'Livrée', value: "Delivered" ,   color: '#C8E6C9', textColor: '#2E7D32' },
-//   CANCELED: { name: 'Annulée', value: "Canceled" , color: '#FFCDD2', textColor: '#C62828' },
-// });
+// export const OrderStatusConfigEnum ={
+//   name:"PENDING", 
+//   data: { value: 'pending', name: 'En attente', color: '#6c757d', textColor: '#ffffff' },
+//   PROCESSING: { value: 'processing', name: 'En traitement', color: '#ffc107', textColor: '#000000' },
+//   PAID: { value: 'paid', name: 'Payée', color: '#28a745', textColor: '#ffffff' },
+//   CANCELLED: { value: 'cancelled', name: 'Annulée', color: '#dc3545', textColor: '#ffffff' },
+// };
 
 export type OrderFiltersPayload = {
   q?: string;
@@ -46,14 +42,69 @@ export type OrderFiltersPayload = {
   status?: string;
 };
 
+export const orderStatusConfigEnumData: StatusConfigEnum[] =[
+  { value: 'pending', name: 'En attente', color: '#6c757d', textColor: '#ffffff' },
+  { value: 'processing', name: 'En traitement', color: '#ffc107', textColor: '#000000' },
+  { value: 'paid', name: 'Payée', color: '#28a745', textColor: '#ffffff' },
+  { value: 'canceled', name: 'Annulée', color: '#dc3545', textColor: '#ffffff' },
+];
+
+
 export type OrderResponse = {
   id: string
-  customer_name: string
-  order_number: number
-  contact_client: string
+  delivery: Delivery
+  reference?: string
+  status: string
+  total_amount: number
+  items: OrderLine[]
+  user_id: string
+  user: User
   order_date: string
-  commune: string
-  status: OrderStatusEnum
-  created_at?: string
-  updated_at?: string
+}
+
+type Delivery ={
+  id: string
+  full_name: string
+  phone_number: string
+  municipality: string
+  address: string
+  notes: string
+  created_at: string
+  updated_at: string
+}
+
+type OrderLine = {
+  id: string
+  type: string
+  variant: Variant
+  quantity: number
+  unit_price: number
+  line_total: number
+}
+
+type Variant = {
+  id: string
+  name: string
+  product: Product
+}
+
+ type Product = {
+  id: string
+  name: string
+}
+
+
+
+ type User = {
+  name: string
+  email: string
+  phone: string
+  address: string
+  role: string
+  id: string
+  created_at: string
+  updated_at: string
+  last_login: string
+  created_by: string
+  updated_by: string
 }

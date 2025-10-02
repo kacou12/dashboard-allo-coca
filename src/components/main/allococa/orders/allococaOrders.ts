@@ -1,48 +1,49 @@
 import { h } from 'vue';
 import type { ColumnDef } from '@tanstack/vue-table'
-import { formatRelativeDate } from '@/myUtils';
+import { formatPhoneNumber, formatRelativeDate } from '@/myUtils';
 import type { OrderResponse } from '@/services/allococa/orders/order-type';
 import OrderStatusBloc from './orderStatusBloc.vue';
+import OrderActionsBloc from './orderActionsBloc.vue';
 
 export const allococaOrdersColumns: ColumnDef<OrderResponse>[] = [
   {
     accessorKey: 'customer_name',
     header: () => h('div', { class: 'text-left text-xs min-w-[200px]' }, 'Nom du client'),
     cell: ({ row }) => {
-      const client = row.original;
-      return h('div', { class: 'text-left min-w-[200px]' }, client.customer_name);
+      const order = row.original;
+      return h('div', { class: 'text-left min-w-[200px]' }, order.delivery.full_name);
     },
   },
   {
     accessorKey: 'order_number',
-    header: () => h('div', { class: 'text-left text-xs min-w-[100px]' }, 'Numéro de commande'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[200px]' }, 'Numéro de commande'),
     cell: ({ row }) => {
-      const client = row.original;
-      return h('div', { class: 'text-left text-neutral-20 text-sm flex items-center min-w-[100px]' }, client.order_number);
+      const order = row.original;
+      return h('div', { class: 'text-left text-neutral-20 text-sm flex items-center min-w-[100px]' }, order.reference ?? "#000000");
     },
   },
   {
     accessorKey: 'contact_client',
     header: () => h('div', { class: 'text-left text-xs min-w-[150px]' }, 'Contact client'),
     cell: ({ row }) => {
-      const client = row.original;
-      return h('div', { class: 'text-left text-neutral-20 text-sm' }, client.contact_client);
+      const order = row.original;
+      return h('div', { class: 'text-left text-neutral-20 text-sm' }, formatPhoneNumber(order.delivery.phone_number));
     },
   },
   {
     accessorKey: 'order_date',
-    header: () => h('div', { class: 'text-left text-xs' }, 'Date de commande'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[150px]' }, 'Date de commande'),
     cell: ({ row }) => {
-      const client = row.original;
-      return h('div', { class: 'text-left text-neutral-20 text-sm' }, formatRelativeDate(new Date(client.order_date)));
+      const order = row.original;
+      return h('div', { class: 'text-left text-neutral-20 text-sm' }, formatRelativeDate(new Date(order.order_date)));
     },
   },
   {
     accessorKey: 'commune',
-    header: () => h('div', { class: 'text-left text-xs' }, 'Commune'),
+    header: () => h('div', { class: 'text-left text-xs ' }, 'Commune'),
     cell: ({ row }) => {
-      const client = row.original;
-      return h('div', { class: 'text-left text-sm font-medium' }, client.commune);
+      const order = row.original;
+      return h('div', { class: 'text-left text-sm font-medium' }, order.delivery.municipality);
     },
   },
   {
@@ -51,16 +52,16 @@ export const allococaOrdersColumns: ColumnDef<OrderResponse>[] = [
     cell: ({ row }) => {
       const order = row.original;
       // Remplacez `ClientStatusBloc` par votre composant Vue pour afficher le statut
-      return h(OrderStatusBloc, { orderTransaction: order });
+      return h(OrderStatusBloc, { order: order });
     },
   },
   // ACTIONS
   {
     id: 'actions',
     cell: ({ row }) => {
-      const client = row.original;
+      const order = row.original;
       // Remplacez `ClientDetailModal` par votre composant Vue pour le modal de détails
-      return h('div', { class: 'text-left' }, h('div', { class: 'cursor-pointer' }, ''));
+      return h(OrderActionsBloc, { order: order });
     },
   },
 ];

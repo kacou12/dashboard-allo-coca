@@ -15,37 +15,41 @@ export async function fetchFiltersDashboardApi({
 }): Promise<SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined> {
  
 
-    if (env.VITE_MOCK_API == 'true') {
-        // TODO: remove this once you have auth
-        return Promise.resolve(mockDashboardResponse as SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined) ;
-    }
+  //   if (env.VITE_MOCK_API == 'true') {
+  //       // TODO: remove this once you have auth
+  //       return Promise.resolve(mockDashboardResponse as SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined) ;
+  //   }
 
 
 
-  const result = await Http.get<SuccessResponse<PaginationResponse<DashboardOrderResponse>>>(
-    DashboardRouteApi.default,
-    payload,
-  )
+  // const result = await Http.get<SuccessResponse<PaginationResponse<DashboardOrderResponse>>>(
+  //   DashboardRouteApi.default,
+  //   payload,
+  // )
 
-  return result
+  // return result
+
+  return Promise.resolve(mockDashboardResponse as SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined) ;
 }
 
 export async function fetchDashboardStatsApi(): Promise<SuccessResponse<DashboardStatsResponse> | undefined> {
  
 
-    if (env.VITE_MOCK_API == 'true') {
-        // TODO: remove this once you have auth
-        return Promise.resolve(mockStatsResponse as SuccessResponse<DashboardStatsResponse>) ;
-    }
+  //   if (env.VITE_MOCK_API == 'true') {
+  //       // TODO: remove this once you have auth
+  //       return Promise.resolve(mockStatsResponse as SuccessResponse<DashboardStatsResponse>) ;
+  //   }
 
 
 
 
 
-  const result = await Http.get<SuccessResponse<DashboardStatsResponse>>(
-    DashboardRouteApi.stats,
+  // const result = await Http.get<SuccessResponse<DashboardStatsResponse>>(
+  //   DashboardRouteApi.stats,
     
-  )
+  // )
 
-  return result
+  // return result
+
+  return Promise.resolve(mockStatsResponse as SuccessResponse<DashboardStatsResponse>) ;
 }

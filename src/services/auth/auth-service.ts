@@ -25,7 +25,7 @@ export async function loginWithCredential({ email, password }: LoginForm) {
     const { access_token, duration } = res.data?.data! ?? {}
     saveToken(access_token)
 
-    return res.data
+    return res.data.data
   } catch (error: any) {
     const localError = (error as AxiosError)
     // toast.error((error as AxiosError).message)
