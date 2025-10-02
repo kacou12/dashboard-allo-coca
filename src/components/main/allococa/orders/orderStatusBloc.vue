@@ -2,27 +2,29 @@
     <div>
         <!-- background-color':${getTransactionStatusData} -->
         <span
-            :style="{ backgroundColor: getTransactionStatusData()!.color, color: getTransactionStatusData()!.textColor }"
+            :style="{ backgroundColor: getTransactionStatusData(orderStatusConfigEnumData)!.color, color: getTransactionStatusData(orderStatusConfigEnumData)!.textColor }"
             class="text-xs text-center font-medium px-2 py-[1px] rounded-2xl ">
-            {{ getTransactionStatusData()!.name }}</span>
+            {{ getTransactionStatusData(orderStatusConfigEnumData)!.name }}</span>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { DashboardOrderResponse } from '@/services/allococa/dashboard/dashboard-alpha-type';
-import { OrderStatusConfigEnum, type OrderResponse } from '@/services/allococa/orders/order-type';
+import { orderStatusConfigEnumData, type OrderResponse } from '@/services/allococa/orders/order-type';
+import type { StatusConfigEnum } from '@/services/global.type';
 import type { PropType } from 'vue';
 
-const getTransactionStatusData: () => { value: string; name: string; color: string; textColor: string; } | undefined = () => {
-    for (const [key, value] of Object.entries(OrderStatusConfigEnum)) {
-        if (orderTransaction.status.toLowerCase() === value.value.toLowerCase()) {
-            return value;
+const getTransactionStatusData = (dataConfigEnums: StatusConfigEnum[]) => {
+    for (let index = 0; index < dataConfigEnums.length; index++) {
+        const itemEnum = dataConfigEnums[index];
+        if (order.status.toLowerCase() === itemEnum.value.toLowerCase()) {
+            return itemEnum;
         }
+
     }
 }
 
-const { orderTransaction } = defineProps({
-    orderTransaction: {
+const { order } = defineProps({
+    order: {
         type: Object as PropType<OrderResponse>,
         required: true
     }

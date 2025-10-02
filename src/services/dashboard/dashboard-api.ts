@@ -16,34 +16,30 @@ export async function fetchFiltersDashboardApi({
 }: {
   payload: DashboardFiltersPayload
 }): Promise<SuccessResponse<DashboardResponse> | undefined> {
-  // Same dates
 
-    if (env.VITE_MOCK_API == 'true') {
-        // TODO: remove this once you have auth
-        return Promise.resolve(dataAnalysisBeneficiariesResponse as SuccessResponse<DashboardResponse>) ;
-    }
+  //    if (env.VITE_MOCK_API == 'true') {
+  //       // TODO: remove this once you have auth
+  //       return Promise.resolve(dataAnalysisBeneficiariesResponse as SuccessResponse<DashboardResponse>) ;
+  //   }
 
-  // dataAnalysisBeneficiariesResponse
 
-  payload.dates![0].setHours(0, 0, 0, 0)
-  payload.dates![1].setHours(23, 59, 59, 59)
 
-  const formatPayload: DashboardFiltersRequest = {
-    start_date: payload.dates![0].toISOString(),
-    end_date: payload.dates![1].toISOString(),
-    country_iso_code: payload.country_iso_code,
-  }
+  // payload.dates![0].setHours(0, 0, 0, 0)
+  // payload.dates![1].setHours(23, 59, 59, 59)
 
   // const formatPayload: DashboardFiltersRequest = {
-  //   start_date: '2025-04-20T00:00:00.000Z',
-  //   end_date: '2025-04-21T23:59:59.059Z',
-  //   country_iso_code: 'CI',
+  //   start_date: payload.dates![0].toISOString(),
+  //   end_date: payload.dates![1].toISOString(),
+  //   country_iso_code: payload.country_iso_code,
   // }
+  // const result = await Http.get<SuccessResponse<DashboardResponse>>(
+  //   DashboardRouteApi.default,
+  //   formatPayload,
+  // )
 
-  const result = await Http.get<SuccessResponse<DashboardResponse>>(
-    DashboardRouteApi.default,
-    formatPayload,
-  )
+  // return result
 
-  return result
+  return Promise.resolve(dataAnalysisBeneficiariesResponse as SuccessResponse<DashboardResponse>) ;
+
+ 
 }

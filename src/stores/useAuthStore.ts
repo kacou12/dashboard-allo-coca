@@ -30,7 +30,7 @@ export const useAuthStore = defineStore(
 
    
     const isSuperAdmin = computed(() => {
-      return user.value?.role.name === 'super_admin'
+      return user.value?.role === 'super_admin'
     })
 
     const setAdminPolicies = (policies: AdminPolicyResponse[]) => {
@@ -38,12 +38,11 @@ export const useAuthStore = defineStore(
     }
 
     const fullName = () => {
-      return `${user.value?.firstname} ${user.value?.lastname}`
+      return user.value?.name
     }
 
     const logout = () => {
       user.value = null
-      //   t    oken.value = null
     }
 
     return {

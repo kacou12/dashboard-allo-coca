@@ -53,7 +53,7 @@
 import { AppRoute } from '@/constants/app-route';
 import { loginSchema } from '@/services/auth/auth-schema';
 import { fetchAdminPoliciesByRoleId, loginWithCredential } from '@/services/auth/auth-service';
-import type { LoginForm } from '@/services/auth/auth-type';
+import type { LoginForm, LoginResponse } from '@/services/auth/auth-type';
 import { useMutation } from '@tanstack/vue-query';
 
 import { useAuthStore } from '@/stores/useAuthStore';
@@ -74,8 +74,8 @@ const rememberMe = ref(false)
 // const password = ref(import.meta.env.PROD ? '' : 'e4zJNfZx');
 // const email = ref(import.meta.env.PROD ? '' : 'jwt@sendchap.ci');
 
-const password = ref(import.meta.env.PROD ? '' : 'WA4VENEx');
-const email = ref(import.meta.env.PROD ? '' : 'admin@sendchap.ci');
+const password = ref(import.meta.env.PROD ? '' : 'palacio');
+const email = ref(import.meta.env.PROD ? '' : 'admin@gmail.com');
 
 
 // const password = ref(import.meta.env.PROD ? '' : '8YpQItTa');
@@ -110,15 +110,15 @@ const {
     mutateAsync
 } = useMutation({
     mutationFn: (credential: LoginForm) => loginWithCredential(credential),
-    onSuccess: async (response) => {
+    onSuccess: async (response: LoginResponse) => {
         if (response) {
             // const roles = await fetchAdminPoliciesByRoleId(response.data!.user.role.id);
-            setUser(response.data!.user);
+            setUser(response!.user);
             // setAdminPolicies(roles!);
 
             router.push({ name: AppRoute.DASHBOARD.name, replace: true }).then(() => {
 
-                toast.success(`Welcome ${response.data!.user.firstname}!`);
+                toast.success(`Welcome ${response!.user.name}!`);
             });
 
         }

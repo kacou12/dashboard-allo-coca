@@ -33,13 +33,14 @@ export class Http {
         const query = queryString.stringify(queryParams)
         url = url.indexOf('?') == -1 ? `${url}?${query}` : `${url}&${query}`
       }
+      
       const res = await axios.get<T>(url, config)
       return res?.data
     } catch (error: any) {
       // Http.getError(error)
       const toast = useToast()
       // @ts-ignore
-      toast.error(error.response.data.msg)
+      toast.error((error as AxiosError).response.data.msg)
       throw error
     }
   }
