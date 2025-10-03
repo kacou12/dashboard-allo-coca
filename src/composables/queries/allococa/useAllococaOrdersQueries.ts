@@ -1,24 +1,25 @@
 import { getMidnightToday } from '@/lib/utils'
 import { orderQueryKeys } from '@/services/allococa/orders/order-query-keys'
-import { fetchFiltersOrders } from '@/services/allococa/orders/order-service'
+import { fetchFiltersOrders, updateOrderStatus } from '@/services/allococa/orders/order-service'
 
 import type { OrderFiltersPayload } from '@/services/allococa/orders/order-type'
-import { useQuery } from '@tanstack/vue-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, reactive, watch } from 'vue'
 
+const initialFilters: OrderFiltersPayload = {
+  q: undefined,
+  page: 1,
+  limit: 10,
+  dates: [getMidnightToday(), new Date()],
+  status: undefined,
+}
+
+const filters = reactive<OrderFiltersPayload>({
+  ...initialFilters,
+})
 export function useAllococaOrdersFiltersQuery() {
-  const initialFilters: OrderFiltersPayload = {
-    q: undefined,
-    page: 1,
-    limit: 10,
-    dates: [getMidnightToday(), new Date()],
-    status: undefined,
-  }
-
-  const filters = reactive<OrderFiltersPayload>({
-    ...initialFilters,
-  })
-
+  const queryClient = useQueryClient()
+  
   const query = useQuery({
     queryKey: computed(() => {
       return orderQueryKeys.orderFilters(filters)
@@ -28,6 +29,12 @@ export function useAllococaOrdersFiltersQuery() {
       return fetchFiltersOrders(filters)
     },
   })
+
+    const invalidateQuery = () => {
+      queryClient.invalidateQueries({
+        queryKey: orderQueryKeys.orderFilters(filters),
+      })
+    }
 
   watch(
     () => ({
@@ -45,5 +52,20 @@ export function useAllococaOrdersFiltersQuery() {
   return {
     ...query,
     filters,
+    invalidateQuery
   }
+}
+
+export function useUpdateOrderStatusMutation(order_id: string) {
+  const { invalidateQuery } = useAllococaOrdersFiltersQuery()
+  return useMutation({
+    mutationFn: (status: string) =>
+      updateOrderStatus({status, order_id}),
+
+    onSuccess: () => {
+      console.log('update order status successfully')
+
+      invalidateQuery()
+    },
+  })
 }

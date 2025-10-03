@@ -27,7 +27,7 @@
 
 
 
-                <section class=" my-5 ">
+                <section class=" my-5 xl:min-w-[300px] min-w-[200px] mx-1">
                     <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
                 </section>
 

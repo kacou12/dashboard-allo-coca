@@ -1,6 +1,7 @@
 
 import {
-    fetchFiltersOrdersApi
+    fetchFiltersOrdersApi,
+    updateOrderStatusApi
 } from './order-api'
 import type {
     OrderFiltersPayload,
@@ -25,6 +26,25 @@ export async function fetchFiltersOrders(
     })
 
     return customData
+  } catch (error: any) {
+    throw Error(error.response.data.message)
+  }
+}
+
+export async function updateOrderStatus({
+  status,
+  order_id
+}: {
+  status: string
+  order_id: string
+}): Promise<any | undefined> {
+  try {
+    const res = await updateOrderStatusApi({
+      status: status,
+      order_id: order_id
+    })
+
+    return res?.data
   } catch (error: any) {
     throw Error(error.response.data.message)
   }

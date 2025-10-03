@@ -5,7 +5,7 @@
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Commandes</h1>
-                <p class="text-sm text-white" v-if=isFetched>{{ ordersData?.total }} commandes trouvées</p>
+                <p class="text-sm text-white"><span v-if=isFetched>{{ ordersData?.total }}</span> commandes trouvées</p>
             </section>
         </header>
 
@@ -19,23 +19,19 @@
                 <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full "
                     title="Filtre par statut" :elements="[
                         { name: 'Filtre par statut', value: 'all' },
-                        { name: 'En attente', value: 'Pending' },
-                        { name: 'En cours', value: 'Processing' },
-                        { name: 'Echouée', value: 'Failed' },
-                        { name: 'Réussi', value: 'Successful' }]">
+                        ...orderStatusConfigEnumData.map((item) => ({ name: item.name, value: item.value }))]">
                 </CommonSelect>
 
 
 
-                <section class=" my-5 ">
+                <section class=" my-5 xl:min-w-[300px] min-w-[200px] mx-1">
                     <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
                 </section>
 
             </section>
 
-            <CommonDatesFilter :can-reset-filter="true" :update-handler="updateData" @reset-filter="resetFilter"
-                v-model="dates">
-            </commonDatesFilter>
+            <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter>
+
 
         </section>
 
@@ -59,6 +55,7 @@ import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import { allococaOrdersColumns } from '@/components/main/allococa/orders/allococaOrders';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useAllococaOrdersFiltersQuery } from '@/composables/queries/allococa/useAllococaOrdersQueries';
+import { orderStatusConfigEnumData } from '@/services/allococa/orders/order-type';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
@@ -74,11 +71,10 @@ import { useRoute, useRouter } from 'vue-router';
 
 let date = new Date()
 
+
 const dates = ref({
-    start: undefined,
-    end: undefined,
-    // start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
-    // end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
+    start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
+    end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
 }) as Ref<DateRange>
 
 const resetFilter = () => {
@@ -87,7 +83,7 @@ const resetFilter = () => {
         start: undefined,
         end: undefined,
     };
-    // filters.dates = [];
+    filters.dates! = [];
 }
 
 
@@ -97,7 +93,7 @@ const updateData = () => {
 
     const startDate = dates.value.start!.toDate('Africa/Abidjan')
     const endDate = dates.value.end!.toDate('Africa/Abidjan')
-    // filters.dates = [dates.value.start!.toDate('Africa/Abidjan'), dates.value.end!.toDate('Africa/Abidjan')]
+    filters.dates = [dates.value.start!.toDate('Africa/Abidjan'), dates.value.end!.toDate('Africa/Abidjan')]
 }
 
 
@@ -105,12 +101,12 @@ const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 const { user, fullName } = useAuthStore();
 
 
-const { data: ordersData, isFetched, refetch, isFetching } = useAllococaOrdersFiltersQuery();
+const { data: ordersData, isFetched, refetch, isFetching, filters } = useAllococaOrdersFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 // const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
 
-const filters = useTransactionFiltersStore()
+// const filters = useTransactionFiltersStore()
 // const { page } = storeToRefs(useTransactionFiltersStore())
 
 // const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
@@ -163,7 +159,7 @@ const [limitModel, limitModifiers] = defineModel('limitProvider', {
 
 
 const nextPage = async () => {
-    filters.page = filters.page + 1;
+    filters.page = filters.page! + 1;
     startLoadingSkeleton();
     // refetch();
 
@@ -179,9 +175,9 @@ const goToPage = async (page: number) => {
 
 const prevPage = async () => {
 
-    filters.page = filters.page - 1;
+    filters.page = filters.page! - 1;
     startLoadingSkeleton();
-    refetch();
+    // refetch();
 
 }
 

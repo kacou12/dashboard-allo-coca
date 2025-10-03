@@ -60,7 +60,30 @@
                     </DialogFooter>
                 </article>
 
-                <article v-else-if="contentModalAction == 'SHOW'" class="relative">
+                <article v-if="contentModalAction == 'PAID'">
+                    <DialogHeader class="flex flex-row justify-between items-center">
+                        <DialogTitle>marquer la commande comme payé</DialogTitle>
+                        <DialogClose
+                            class="w-fit rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                            <close-icon></close-icon>
+                        </DialogClose>
+                    </DialogHeader>
+                    <div class="text-sm px-6 my-8 text-center">
+                        <p>Êtes-vous sûr de vouloir marquer la commande comme payée ?</p>
+                    </div>
+                    <DialogFooter class="flex gap-2 px-6 pb-6">
+                        <Button class="flex-1 py-[22px] text-sm rounded-lg font-medium" variant="outline"
+                            @click="open = false">
+                            Annuler
+                        </Button>
+                        <Button @click="paidOrderHandler"
+                            class="flex-1 py-[22px] text-sm rounded-lg bg-primary font-normal" variant="default">
+                            Confirmer
+                        </Button>
+                    </DialogFooter>
+                </article>
+
+                <article v-if="contentModalAction == 'SHOW'" class="relative">
                     <div v-if="isLoading"
                         class="absolute top-0 left-0 right-0 bottom-0  bg-white/40 flex items-center justify-center">
                         <div role="status">
@@ -130,15 +153,21 @@ import {
 } from '@/components/ui/dialog';
 import DialogClose from '@/components/ui/dialog/DialogClose.vue';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { type OrderResponse } from '@/services/allococa/orders/order-type';
+import { orderStatusConfigEnumData, type OrderResponse } from '@/services/allococa/orders/order-type';
 import { MoreHorizontal } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import OrderDetailsInfo from './orderDetailsInfo.vue';
+import { useUpdateOrderStatusMutation } from '@/composables/queries/allococa/useAllococaOrdersQueries';
+
 
 const { order } = defineProps<{
     order: OrderResponse
 }>();
+
+
+const { mutateAsync: updateOrderStatus } = useUpdateOrderStatusMutation(order.id)
+
 
 
 const toast = useToast();
@@ -149,14 +178,23 @@ const isLoading = ref(false);
 
 
 const processingOrderHandler = async () => {
-    // await deleteRoleAdmin(roleState.value.id);
-    // open.value = false;
-    // toast.success("Le rôle a bien été supprimé");
+    await updateOrderStatus(orderStatusConfigEnumData[1].value)
+    open.value = false;
+    toast.success("La transaction a bien été mise en processing");
+
 }
+const paidOrderHandler = async () => {
+    await updateOrderStatus(orderStatusConfigEnumData[2].value)
+    open.value = false;
+    toast.success("La transaction a bien été mise en payé");
+
+}
+
+
 const canceledOrderHandler = async () => {
-    // await deleteRoleAdmin(roleState.value.id);
-    // open.value = false;
-    // toast.success("Le rôle a bien été supprimé");
+    await updateOrderStatus(orderStatusConfigEnumData[3].value)
+    open.value = false;
+    toast.success("La transaction a bien été annulée");
 }
 
 const open = ref(false);

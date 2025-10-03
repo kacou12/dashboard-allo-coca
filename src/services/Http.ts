@@ -68,6 +68,17 @@ export class Http {
       throw error
     }
   }
+  static async patch<T = any, D = any>(url: string, data: D, config?: AxiosRequestConfig) {
+    try {
+      const res = await axios.patch<T>(url, data, config)
+      return res?.data
+    } catch (error: any) {
+      const toast = useToast()
+      // @ts-ignore
+      toast.error(res?.data.msg)
+      throw error
+    }
+  }
 
   static async delete<T = any>(url: string, config?: AxiosRequestConfig) {
     try {

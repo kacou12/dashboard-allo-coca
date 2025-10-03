@@ -8,6 +8,7 @@ import type {
   OrderUpdatePayload,
   OrderCreatePayload,
   OrderFiltersPayload,
+  OrderFiltersRequest,
 } from './order-type'
 import { mockOrdersResponse } from '@/mocks/allococa/order.mock.response'
 import { Http } from '@/services/Http'
@@ -22,11 +23,39 @@ export async function fetchFiltersOrdersApi({
     // TODO: remove this once you have auth
     return Promise.resolve(mockOrdersResponse as SuccessResponse<PaginationResponse<OrderResponse>>) ;
   }
+
+  let startDate = new Date()
+  let endDate = new Date()
+  if(payload.dates != null) {
+     startDate = payload.dates![0]!
+     endDate = payload.dates![1]!
+    
+      startDate.setHours(0, 0, 0, 0)
+      endDate.setHours(23, 59, 59)
+  }
+
+  const data : OrderFiltersRequest = {
+    search: payload.q,
+    page: payload.page!,
+    limit: payload.limit!,
+    date_from: payload.dates == null ? undefined : startDate.toISOString(),
+    date_to: payload.dates == null ? undefined : endDate.toISOString(),
+    status: payload.status,
+  }
   const result = await Http.get<SuccessResponse<PaginationResponse<OrderResponse>>>(
     OrderRouteApi.filter,
-    payload,
+    data,
   )
 
   return result
 }
 
+export async function updateOrderStatusApi({
+  status,
+  order_id
+}: {
+  status: string
+  order_id: string
+}): Promise<SuccessResponse<any> | undefined> {
+  return await Http.patch<SuccessResponse<any>>(OrderRouteApi.updateStatus(order_id), {status})
+}

@@ -38,7 +38,16 @@ export type OrderFiltersPayload = {
   q?: string;
   page?: number;
   limit?: number;
-  dates?: [Date, Date];
+  dates?: [Date?, Date?];
+  status?: string;
+};
+
+export type OrderFiltersRequest = {
+  page: number;
+  limit: number;
+  search?: string;
+  date_from?: string;
+  date_to?: string;
   status?: string;
 };
 
@@ -46,7 +55,7 @@ export const orderStatusConfigEnumData: StatusConfigEnum[] =[
   { value: 'pending', name: 'En attente', color: '#6c757d', textColor: '#ffffff' },
   { value: 'processing', name: 'En traitement', color: '#ffc107', textColor: '#000000' },
   { value: 'paid', name: 'Payée', color: '#28a745', textColor: '#ffffff' },
-  { value: 'canceled', name: 'Annulée', color: '#dc3545', textColor: '#ffffff' },
+  { value: 'cancelled', name: 'Annulée', color: '#dc3545', textColor: '#ffffff' },
 ];
 
 
