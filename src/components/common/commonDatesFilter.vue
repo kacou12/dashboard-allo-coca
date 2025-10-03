@@ -2,12 +2,9 @@
     <Popover v-model:open="open">
         <PopoverTrigger as-child>
             <Button variant="outline" :class="cn(
-                'w-full xl:w-[240px] h-full justify-start text-left font-normal px-2',
-                !dates && 'text-muted-foreground',
-            )
-                ">
-                <!-- <CalendarIcon class="mr-2 h-4 w-4" /> -->
-
+                'w-full xl:w-[240px] h-full justify-start text-left font-normal ',
+                !dates?.start && 'text-muted-foreground',
+            )">
                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-inside-1_14895_5830" fill="white">
                         <path
@@ -18,28 +15,25 @@
                         fill="#808080" stroke="#808080" stroke-width="3" mask="url(#path-1-inside-1_14895_5830)" />
                 </svg>
 
-
-                <template v-if="dates!.start">
-                    <template v-if="dates!.end">
+                <template v-if="dates?.start">
+                    <template v-if="dates?.end">
                         <div class="font-medium">
-
                             {{
-                                formatter.custom(toDate(dates!.start), {
+                                formatter.custom(toDate(dates.start), {
                                     dateStyle: "medium",
                                 })
                             }}
                             -
                             {{
-                                formatter.custom(toDate(dates!.end), {
+                                formatter.custom(toDate(dates.end), {
                                     dateStyle: "medium",
                                 })
                             }}
                         </div>
                     </template>
-
                     <template v-else>
                         {{
-                            formatter.custom(toDate(dates!.start), {
+                            formatter.custom(toDate(dates.start), {
                                 dateStyle: "medium",
                             })
                         }}
@@ -51,16 +45,15 @@
             </Button>
         </PopoverTrigger>
         <PopoverContent class="w-auto p-0">
-            <RangeCalendarRoot :max-value="today(getLocalTimeZone())" v-slot="{ weekDays }" v-model="dates"
-                v-model:placeholder="placeholder" class="p-3">
+            <RangeCalendarRoot ref="target" :max-value="today(getLocalTimeZone())" v-slot="{ weekDays }"
+                v-model="internalDates" v-model:placeholder="placeholder" class="p-3">
                 <div class="flex flex-col gap-y-4 mt-4 sm:flex-row sm:gap-x-4 sm:gap-y-0">
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center justify-between">
                             <button :class="cn(
                                 buttonVariants({ variant: 'outline' }),
                                 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-                            )
-                                " @click="updateMonth('first', -1)">
+                            )" @click="updateMonth('first', -1)">
                                 <ChevronLeft class="h-4 w-4" />
                             </button>
                             <div :class="cn('text-sm font-medium')">
@@ -73,8 +66,7 @@
                             <button :class="cn(
                                 buttonVariants({ variant: 'outline' }),
                                 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-                            )
-                                " @click="updateMonth('first', 1)">
+                            )" @click="updateMonth('first', 1)">
                                 <ChevronRight class="h-4 w-4" />
                             </button>
                         </div>
@@ -87,9 +79,8 @@
                                 </RangeCalendarGridRow>
                             </RangeCalendarGridHead>
                             <RangeCalendarGridBody>
-                                <RangeCalendarGridRow v-for="(
-weekDates, index
-                  ) in firstMonth.rows" :key="`weekDate-${index}`" class="mt-2 w-full">
+                                <RangeCalendarGridRow v-for="(weekDates, index) in firstMonth.rows"
+                                    :key="`weekDate-${index}`" class="mt-2 w-full">
                                     <RangeCalendarCell v-for="weekDate in weekDates" :key="weekDate.toString()"
                                         :date="weekDate">
                                         <RangeCalendarCellTrigger :day="weekDate" :month="firstMonth.value" />
@@ -103,8 +94,7 @@ weekDates, index
                             <button :class="cn(
                                 buttonVariants({ variant: 'outline' }),
                                 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-                            )
-                                " @click="updateMonth('second', -1)">
+                            )" @click="updateMonth('second', -1)">
                                 <ChevronLeft class="h-4 w-4" />
                             </button>
                             <div :class="cn('text-sm font-medium')">
@@ -114,12 +104,10 @@ weekDates, index
                                     )
                                 }}
                             </div>
-
                             <button :class="cn(
                                 buttonVariants({ variant: 'outline' }),
                                 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-                            )
-                                " @click="updateMonth('second', 1)">
+                            )" @click="updateMonth('second', 1)">
                                 <ChevronRight class="h-4 w-4" />
                             </button>
                         </div>
@@ -132,9 +120,8 @@ weekDates, index
                                 </RangeCalendarGridRow>
                             </RangeCalendarGridHead>
                             <RangeCalendarGridBody>
-                                <RangeCalendarGridRow v-for="(
-weekDates, index
-                  ) in secondMonth.rows" :key="`weekDate-${index}`" class="mt-2 w-full">
+                                <RangeCalendarGridRow v-for="(weekDates, index) in secondMonth.rows"
+                                    :key="`weekDate-${index}`" class="mt-2 w-full">
                                     <RangeCalendarCell v-for="weekDate in weekDates" :key="weekDate.toString()"
                                         :date="weekDate">
                                         <RangeCalendarCellTrigger :day="weekDate" :month="secondMonth.value" />
@@ -144,28 +131,30 @@ weekDates, index
                         </RangeCalendarGrid>
                     </div>
                 </div>
-                <!-- <div class="mt-2 flex justify-center"> -->
-                <div class="w-full text-center mt-4">
-                    <CommonButton @click="validateAction" class="md:w-1/2 w-full " title="Appliquer">
+                <div class="w-full flex items-center gap-4 text-center">
+
+
+                    <CommonButton @click="validateAction" class="" title="Appliquer">
                     </CommonButton>
+                    <CommonButton v-if="canResetFilter" @click="resetFilterAction" type="outline" class=""
+                        title="Annuler le fitre">
+                    </CommonButton>
+
                 </div>
-
-                <!-- </div> -->
             </RangeCalendarRoot>
-
-
-
         </PopoverContent>
     </Popover>
 </template>
+
 <script setup lang="ts">
 import { Button, buttonVariants } from '@/components/ui/button'
-
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from '@/components/ui/popover'
+import { onClickOutside } from '@vueuse/core'
+import { useTemplateRef } from 'vue'
 import {
     RangeCalendarCell,
     RangeCalendarCellTrigger,
@@ -175,7 +164,6 @@ import {
     RangeCalendarGridRow,
     RangeCalendarHeadCell,
 } from '@/components/ui/range-calendar'
-
 import { cn } from '@/lib/utils'
 import {
     CalendarDate,
@@ -184,58 +172,90 @@ import {
     today,
     getLocalTimeZone
 } from '@internationalized/date'
-import {
-    Calendar as CalendarIcon,
-    ChevronLeft,
-    ChevronRight,
-} from 'lucide-vue-next'
+import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import { type DateRange, RangeCalendarRoot, useDateFormatter } from 'reka-ui'
 import { createMonth, type Grid, toDate } from 'reka-ui/date'
-import { onMounted, type PropType, type Ref, ref, watch } from 'vue'
+import { computed, type PropType, type Ref, ref, watch } from 'vue'
 import CommonButton from '../buttons/commonButton.vue'
 
-const open = ref(false);
-// let date = new Date()
 
-
-const dates = defineModel<DateRange>({
-    type: Object as PropType<DateRange>,
-    default: {
-        start: new CalendarDate((new Date()).getFullYear(), (new Date()).getMonth(), (new Date()).getDay()),
-        end: new CalendarDate((new Date()).getFullYear(), (new Date()).getMonth(), (new Date()).getDay()),
-    }
-});
-
-// const emits = defineEmits<{
-//     'updateDates': [start: Date, end: Date]
-// }>()
-
-const validateAction = () => {
-
-    open.value = false;
-
-    updateHandler();
-
-}
-
-
-
-const { updateHandler } = defineProps({
+const { canResetFilter, updateHandler } = defineProps({
+    canResetFilter: {
+        type: Boolean,
+        default: false,
+        required: false
+    },
     updateHandler: {
         type: Function,
         required: true
     }
 })
 
+const open = ref(false)
 
+const hasLocalDate = ref(false);
 
-// const isDisabledSubmit = ref(true)
+const emit = defineEmits(['resetFilter'])
+
+const target = useTemplateRef<HTMLElement>('target')
+
+// Modification du v-model pour permettre null
+const dates = defineModel<DateRange | null>({
+    type: Object as PropType<DateRange | null>,
+    default: null
+})
+
+// Variable interne pour gérer le calendrier
+const internalDates = ref<DateRange>({
+    start: undefined,
+    end: undefined
+}) as Ref<DateRange>
+
+// Synchronisation entre dates externes et internes
+watch(dates, (newDates) => {
+    if (newDates) {
+        internalDates.value = newDates
+    }
+}, { immediate: true })
+
+watch(internalDates, (newInternalDates) => {
+    dates.value = newInternalDates
+}, { deep: true })
+
+const validateAction = () => {
+    open.value = false
+    hasLocalDate.value = true;
+    updateHandler()
+}
+const resetFilterAction = () => {
+    open.value = false
+
+    emit('resetFilter');
+}
+
+onClickOutside(target, event => {
+    if (canResetFilter && !hasLocalDate.value) {
+        console.log('clicked outside');
+
+        emit('resetFilter');
+        hasLocalDate.value = false;
+    }
+});
 
 const locale = ref('fr-FR')
 const formatter = useDateFormatter(locale.value)
 
-const placeholder = ref(dates.value!.start) as Ref<DateValue>
-const secondMonthPlaceholder = ref(dates.value!.end) as Ref<DateValue>
+// Calcul du placeholder par défaut
+const currentDate = new CalendarDate(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    new Date().getDate()
+)
+
+const placeholder = ref(dates.value?.start || currentDate) as Ref<DateValue>
+const secondMonthPlaceholder = ref(
+    dates.value?.end || currentDate.add({ months: 1 })
+) as Ref<DateValue>
 
 const firstMonth = ref(
     createMonth({
@@ -245,6 +265,7 @@ const firstMonth = ref(
         weekStartsOn: 0,
     }),
 ) as Ref<Grid<DateValue>>
+
 const secondMonth = ref(
     createMonth({
         dateObj: secondMonthPlaceholder.value,
@@ -257,8 +278,7 @@ const secondMonth = ref(
 function updateMonth(reference: 'first' | 'second', months: number) {
     if (reference === 'first') {
         placeholder.value = placeholder.value.add({ months })
-    }
-    else {
+    } else {
         secondMonthPlaceholder.value = secondMonthPlaceholder.value.add({
             months,
         })

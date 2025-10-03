@@ -5,7 +5,7 @@
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Commandes</h1>
-                <p class="text-sm text-white">28 commandes trouvées</p>
+                <p class="text-sm text-white" v-if=isFetched>{{ ordersData?.total }} commandes trouvées</p>
             </section>
         </header>
 
@@ -33,7 +33,9 @@
 
             </section>
 
-            <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter>
+            <CommonDatesFilter :can-reset-filter="true" :update-handler="updateData" @reset-filter="resetFilter"
+                v-model="dates">
+            </commonDatesFilter>
 
         </section>
 
@@ -71,10 +73,22 @@ import { useRoute, useRouter } from 'vue-router';
 
 
 let date = new Date()
+
 const dates = ref({
-    start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
-    end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
+    start: undefined,
+    end: undefined,
+    // start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
+    // end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
 }) as Ref<DateRange>
+
+const resetFilter = () => {
+    console.log("reset");
+    dates.value = {
+        start: undefined,
+        end: undefined,
+    };
+    // filters.dates = [];
+}
 
 
 

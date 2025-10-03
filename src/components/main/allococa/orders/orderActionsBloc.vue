@@ -17,11 +17,6 @@
                         </DropdownMenuItem>
                     </DialogTrigger>
 
-                    <DialogTrigger as-child>
-                        <DropdownMenuItem>
-                            Modifier</DropdownMenuItem>
-                    </DialogTrigger>
-
                     <DialogTrigger as-child v-if="order.status != 'canceled'">
                         <DropdownMenuItem @click="contentModalAction = 'CANCELLED'">Annuler la commande
                         </DropdownMenuItem>

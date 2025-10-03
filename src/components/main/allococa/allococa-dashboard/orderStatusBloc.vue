@@ -2,9 +2,9 @@
     <div>
         <!-- background-color':${getTransactionStatusData} -->
         <span
-            :style="{ backgroundColor: getTransactionStatusData(orderStatusConfigEnumData)!.color, color: getTransactionStatusData(orderStatusConfigEnumData)!.textColor }"
+            :style="{ backgroundColor: getTransactionStatusData(orderStatusConfigEnumData)?.color, color: getTransactionStatusData(orderStatusConfigEnumData)?.textColor }"
             class="text-xs text-center font-medium px-2 py-[1px] rounded-2xl ">
-            {{ getTransactionStatusData(orderStatusConfigEnumData)!.name }}</span>
+            {{ getTransactionStatusData(orderStatusConfigEnumData)?.name }}</span>
     </div>
 </template>
 
