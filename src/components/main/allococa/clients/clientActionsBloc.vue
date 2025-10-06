@@ -139,19 +139,6 @@ const isLoading = ref(false);
 
 
 
-const roleState = ref<{
-    id: string;
-    name: string;
-    description: string;
-
-}>({
-    id: client.id,
-    name: client.customer_name || '',
-    description: client.contact_client || '',
-
-});
-
-
 const deleteRoleHandler = async () => {
     // await deleteRoleAdmin(roleState.value.id);
     // open.value = false;

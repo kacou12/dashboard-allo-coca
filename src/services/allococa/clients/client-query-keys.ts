@@ -6,7 +6,7 @@ export const clientQueryKeys = {
     'clients',
     { limit: payload.limit },
     { page: payload.page },
-    { q: payload.q },
+    { search: payload.search },
     { status: payload.status },
     { dates: payload.dates },
   ],

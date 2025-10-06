@@ -61,13 +61,12 @@
 import CommonButton from '@/components/buttons/commonButton.vue';
 import CommonModal from '@/components/common/commonModal.vue';
 import { Button } from '@/components/ui/button';
-// Assurez-vous d'importer la bonne mutation pour la création de produits
+import { Input } from '@/components/ui/input';
+import FileField from '@/components/vee-validate/fileField.vue';
+import { useCreateAllococaStockMutation } from '@/composables/queries/allococa/useAllococaStocksQueries';
+import type { StockCreatePayload } from '@/services/allococa/stocks/stock-type';
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
-import { Input } from '@/components/ui/input';
-import type { StockCreatePayload } from '@/services/allococa/stocks/stock-type';
-import { useCreateAllococaStockMutation } from '@/composables/queries/allococa/useAllococaStocksQueries';
-import FileField from '@/components/vee-validate/fileField.vue';
 
 const open = ref(false);
 const toast = useToast();

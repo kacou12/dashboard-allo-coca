@@ -35,7 +35,7 @@ export async function fetchFiltersOrdersApi({
   }
 
   const data : OrderFiltersRequest = {
-    search: payload.q,
+    search: payload.search,
     page: payload.page!,
     limit: payload.limit!,
     date_from: payload.dates == null ? undefined : startDate.toISOString(),

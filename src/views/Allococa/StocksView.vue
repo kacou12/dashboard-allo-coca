@@ -4,7 +4,7 @@
         <header class="mb-6 flex justify-between items-center gap-2  text-white">
             <section class="spacep-y-1">
 
-                <h1 class="text-clamp-md font-semibold font-merriweathersans">Produits en stock</h1>
+                <h1 class="text-clamp-md font-semibold font-merriweathersans">Categories de produits en stock</h1>
                 <p class="text-sm text-white">18 Produits</p>
             </section>
             <AddProductStock></AddProductStock>
@@ -29,7 +29,8 @@
 
 
                 <section class=" my-5 xl:min-w-[300px] min-w-[200px] mx-1">
-                    <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
+                    <SearchBar :is-loading="isFetching && filters.search !== undefined" v-model="filters.search">
+                    </SearchBar>
                 </section>
 
             </section>
@@ -39,43 +40,24 @@
         </section>
 
         <!-- commandes recentes table -->
-        <section class=" w-full bg-white rounded-3xl p-10">
+        <section class=" w-full ">
 
-            <!-- <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table"
-                :default-page="filters.page" :total="transactionsData?.total ?? 0" :columns="recentsTransactionsColumns"
-                :data="transactionsData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage"
-                @next-page="nextPage">
-            </CommonDataTable> -->
-
-            <div class="grid grid-cols-5 gap-4" v-if="isFetched">
-
-                <ProductCard v-for="stock in stocksData?.items" :key="stock.id" :stock="stock"></ProductCard>
-
-
-            </div>
-
-            <FadeSlideAnimation>
-                <CommonPagination v-if="isFetched" :items-per-page="10" :current-page="defaultPage"
-                    @go-to-page="goToPage" @next-page="nextPage" @prev-page="prevPage" :total="stocksData?.total" />
-                <div v-else-if="isLoadingData">
-                    <div class="animate-pulse bg-gray-200 h-[72px] rounded-b-xl"></div>
-                </div>
-            </FadeSlideAnimation>
-
-
+            <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table"
+                :default-page="filters.page" :total="stocksData?.total ?? 0" :columns="stockColumns"
+                :data="stocksData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
+            </CommonDataTable>
         </section>
 
     </div>
 </template>
 
 <script setup lang="ts">
-import ProductCard from '@/components/allococa/productCard.vue';
-import FadeSlideAnimation from '@/components/animations/fadeSlideAnimation.vue';
+import CommonDataTable from '@/components/common/commonDataTable.vue';
 import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
-import CommonPagination from '@/components/common/commonPagination.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import AddProductStock from '@/components/main/allococa/stock/addProductStock.vue';
+import { stockColumns } from '@/components/main/allococa/stock/stockColumn';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useAllococaStocksFiltersQuery } from '@/composables/queries/allococa/useAllococaStocksQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
@@ -97,7 +79,7 @@ const isLoadingData = computed(() => {
 })
 
 
-const { data: stocksData, isFetched, refetch, isFetching } = useAllococaStocksFiltersQuery();
+const { data: stocksData, isFetched, refetch, isFetching, filtersStock: filters } = useAllococaStocksFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 
 const defaultPage = ref(1)
@@ -124,27 +106,10 @@ const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 const { user, fullName } = useAuthStore();
 
 
-// const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
-
-
-const filters = useTransactionFiltersStore()
-// const { page } = storeToRefs(useTransactionFiltersStore())
-
-// const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
-
 const route = useRoute();
 const router = useRouter();
 const { width, height } = useWindowSize()
 
-
-
-// const tableRef = useTemplateRef('my-table')
-
-// onBeforeMount(async () => {
-
-//   await refetchProviders();
-
-// })
 
 const [statusModel,] = defineModel('status', {
     set(value: string) {
@@ -198,7 +163,7 @@ const prevPage = async () => {
 
     filters.page = filters.page - 1;
     startLoadingSkeleton();
-    refetch();
+    // refetch();
 
 }
 

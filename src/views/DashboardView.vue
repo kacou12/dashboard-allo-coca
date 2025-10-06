@@ -37,7 +37,7 @@
           <p class="text-sm">Total des commandes</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-h1-md">{{ dashboardStatsData?.total_orders }}</p>
+            <p class="text-clamp-h1-md">{{ dashboardStatsData?.weekly_orders }}</p>
             <p class="text-sm">cette semaine</p>
           </div>
         </div>
@@ -57,7 +57,7 @@
 
       <h2 class="text-clamp-md  text-white font-merriweathersans">Commandes récentes</h2>
 
-      <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
+      <CommonDataTable :show-pagination="false" :page-size="pageSize" ref="my-table" :default-page="1"
         :total="dashboardOrdersData?.total ?? 0" :columns="allococadashboardOrdersColumns"
         :data="dashboardOrdersData?.items ?? []" @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
       </CommonDataTable>
@@ -91,16 +91,7 @@ const dates = ref({
   end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
 }) as Ref<DateRange>
 
-
-
-const updateData = () => {
-
-
-  const startDate = dates.value.start!.toDate('Africa/Abidjan')
-  const endDate = dates.value.end!.toDate('Africa/Abidjan')
-  // filters.dates = [dates.value.start!.toDate('Africa/Abidjan'), dates.value.end!.toDate('Africa/Abidjan')]
-}
-
+const pageSize = ref(7);
 
 const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 const { user, fullName } = useAuthStore();
@@ -108,11 +99,7 @@ const { user, fullName } = useAuthStore();
 
 const { data: dashboardOrdersData, isFetched, refetch, isFetching } = useDashBoardFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
-// const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
-
-const filters = useTransactionFiltersStore()
-// const { page } = storeToRefs(useTransactionFiltersStore())
 
 const { data: dashboardStatsData, isFetched: isFetchedDashboardStats, refetch: refetchDashboardStats } = useAllococaDashboardStatsQuery();
 
@@ -130,59 +117,20 @@ const tableRef = useTemplateRef('my-table')
 
 // })
 
-const [statusModel,] = defineModel('status', {
-  set(value: string) {
-    if (value == "all") {
-      filters.status = undefined;
-    } else {
-      filters.status = value;
-    }
-    return value
-  },
-  //   get(v) {
-  //     return v;
-  //   },
-  default: undefined,
-})
-
-
-
-
-const [limitModel, limitModifiers] = defineModel('limitProvider', {
-  type: String,
-
-  set(value: string) {
-    filters.limit = parseInt(value);
-    return value
-  },
-  //   get(v) {
-  //     return v;
-  //   },
-  default: undefined,
-})
-
 
 
 const nextPage = async () => {
-  filters.page = filters.page + 1;
-  startLoadingSkeleton();
-  // refetch();
+
 
 }
 const goToPage = async (page: number) => {
 
-  filters.page = page
-  startLoadingSkeleton();
-  // refetch();
+
 
 
 }
 
 const prevPage = async () => {
-
-  filters.page = filters.page - 1;
-  startLoadingSkeleton();
-  refetch();
 
 }
 

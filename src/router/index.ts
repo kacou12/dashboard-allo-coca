@@ -105,6 +105,13 @@ const router = createRouter({
           // beforeEnter:Auth.authIsRequire,
           meta: { layout: 'DefaultLayout', requiresAuth: true },
         },
+        {
+          path: AppRoute.STOCKS_PRODUCTS.path,
+          name: AppRoute.STOCKS_PRODUCTS.name,
+          component: () => import('@/views/Allococa/StocksProductsView.vue'),
+          // beforeEnter:Auth.authIsRequire,
+          meta: { layout: 'DefaultLayout', requiresAuth: true },
+        },
 
         //DEBUT Gestion des utilisateurs =============== **************
        

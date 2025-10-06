@@ -1,6 +1,6 @@
 export enum ProductStatus {
   DISPONIBLE = 'Disponible',
-  INDISPONIBLE = 'Indisponible'
+  INDISPONIBLE = 'Indisponible',
 }
 
 export const mockProductsResponse: {
@@ -11,11 +11,12 @@ export const mockProductsResponse: {
     has_next: boolean;
     items: {
       id: string;
-      product_name: string;
-      volume: string;
+      name: string;
+      description: string;
       image_url: string;
-      status: string;
+      category_id: string;
       created_at: string;
+      status: boolean;
     }[];
   };
 } = {
@@ -27,83 +28,93 @@ export const mockProductsResponse: {
     items: [
       {
         id: 'prod-001',
-        product_name: 'Coca-Cola Classique',
-        volume: '30cl',
+        name: 'Coca-Cola Classique',
+        description: 'Boisson gazeuse classique au goût unique',
         image_url: '/assets/images/coca-cola-classique.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:00:00Z',
+        status: true,
       },
       {
         id: 'prod-002',
-        product_name: 'Coca-Cola Zéro',
-        volume: '30cl',
+        name: 'Coca-Cola Zéro',
+        description: 'Boisson gazeuse sans sucre avec goût coca-cola',
         image_url: '/assets/images/coca-cola-zero.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:05:00Z',
+        status: true,
       },
       {
         id: 'prod-003',
-        product_name: 'Fanta Orange',
-        volume: '30cl',
+        name: 'Fanta Orange',
+        description: "Boisson gazeuse parfum orange, rafraîchissante",
         image_url: '/assets/images/fanta-orange.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:10:00Z',
+        status: true,
       },
       {
         id: 'prod-004',
-        product_name: 'Fanta Cocktail',
-        volume: '30cl',
+        name: 'Fanta Cocktail',
+        description: 'Mélange de fruits pour une saveur unique',
         image_url: '/assets/images/fanta-cocktail.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:15:00Z',
+        status: true,
       },
       {
         id: 'prod-005',
-        product_name: 'Fanta Fruits rouge',
-        volume: '30cl',
+        name: 'Fanta Fruits rouge',
+        description: 'Saveur fruits rouges, boisson fruitée',
         image_url: '/assets/images/fanta-fruits-rouge.png',
-        status: ProductStatus.INDISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:20:00Z',
+        status: false,
       },
       {
         id: 'prod-006',
-        product_name: 'Fanta Pommes',
-        volume: '30cl',
+        name: 'Fanta Pommes',
+        description: 'Boisson goût pomme fruitée',
         image_url: '/assets/images/fanta-pommes.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:25:00Z',
+        status: true,
       },
       {
         id: 'prod-007',
-        product_name: 'Sprite',
-        volume: '30cl',
+        name: 'Sprite',
+        description: "Boisson gazeuse citron-lime, rafraîchissante",
         image_url: '/assets/images/sprite.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:30:00Z',
+        status: true,
       },
       {
         id: 'prod-008',
-        product_name: 'Schweppes Tonic',
-        volume: '30cl',
+        name: 'Schweppes Tonic',
+        description: 'Boisson tonic amère et rafraîchissante',
         image_url: '/assets/images/schweppes-tonic.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:35:00Z',
+        status: true,
       },
       {
         id: 'prod-009',
-        product_name: 'Fanta Cocktail',
-        volume: '30cl',
+        name: 'Fanta Cocktail',
+        description: 'Une autre variante de cocktail fruité',
         image_url: '/assets/images/fanta-cocktail-2.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'beverages',
         created_at: '2023-10-27T10:40:00Z',
+        status: true,
       },
       {
         id: 'prod-010',
-        product_name: 'Céleste Naturelle 1.5L',
-        volume: 'Pack de 6',
+        name: 'Céleste Naturelle 1.5L',
+        description: 'Pack de 6 eaux minérales naturelles',
         image_url: '/assets/images/celeste-naturelle.png',
-        status: ProductStatus.DISPONIBLE,
+        category_id: 'water',
         created_at: '2023-10-27T10:45:00Z',
+        status: true,
       },
     ],
   },
