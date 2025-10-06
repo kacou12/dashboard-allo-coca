@@ -2,6 +2,7 @@ import { getMidnightToday } from '@/lib/utils'
 import { stockQueryKeys } from '@/services/allococa/stocks/stock-query-keys'
 import {
   createStock,
+  fetchFiltersProductVariantStock,
   fetchFiltersStock,
   updateStock,
   updateStockStatus,
@@ -10,47 +11,59 @@ import {
 import type {
   StockCreatePayload,
   StockFiltersPayload,
+  StockProductVariantFiltersPayload,
   StockStatusUpdatePayload,
   StockUpdatePayload,
 } from '@/services/allococa/stocks/stock-type'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, reactive, watch } from 'vue'
 
+const initialFiltersStock: StockFiltersPayload = {
+  search: undefined,
+  page: 1,
+  limit: 10,
+  dates: [getMidnightToday(), new Date()],
+  status: undefined,
+}
+const initialFiltersProductVariantStock: StockProductVariantFiltersPayload = {
+  search: undefined,
+  page: 1,
+  limit: 10,
+  product_id: undefined,
+  dates: [getMidnightToday(), new Date()],
+  status: undefined,
+}
+
+const filtersStock = reactive<StockFiltersPayload>({
+  ...initialFiltersStock,
+})
+const filtersProductVariantStock = reactive<StockProductVariantFiltersPayload>({
+  ...initialFiltersProductVariantStock,
+})
 export function useAllococaStocksFiltersQuery() {
   const queryClient = useQueryClient()
 
-  const initialFilters: StockFiltersPayload = {
-    q: undefined,
-    page: 1,
-    limit: 10,
-    dates: [getMidnightToday(), new Date()],
-    status: undefined,
-  }
-
-  const filters = reactive<StockFiltersPayload>({
-    ...initialFilters,
-  })
 
   const invalidateQuery = () => {
     queryClient.invalidateQueries({
-      queryKey: stockQueryKeys.stockFilters(filters),
+      queryKey: stockQueryKeys.stockFilters(filtersStock),
     })
   }
 
   const query = useQuery({
-    queryKey: computed(() => stockQueryKeys.stockFilters(filters)),
+    queryKey: computed(() => stockQueryKeys.stockFilters(filtersStock)),
 
-    queryFn: ({ signal }) => fetchFiltersStock(filters),
+    queryFn: ({ signal }) => fetchFiltersStock(filtersStock),
   })
 
   watch(
     () => ({
-      q: filters.q,
-      dates: filters.dates,
-      status: filters.status,
+      search: filtersStock.search,
+      dates: filtersStock.dates,
+      status: filtersStock.status,
     }),
     () => {
-      filters.page = 1
+      filtersStock.page = 1
       query.refetch()
     },
     { deep: true },
@@ -58,7 +71,44 @@ export function useAllococaStocksFiltersQuery() {
 
   return {
     ...query,
-    filters,
+    filtersStock,
+    invalidateQuery,
+  }
+}
+
+export function useAllococaPoductVariantStocksFiltersQuery(productId: string) {
+  const queryClient = useQueryClient()
+  filtersProductVariantStock.product_id = productId
+
+
+  const invalidateQuery = () => {
+    queryClient.invalidateQueries({
+      queryKey: stockQueryKeys.productVariantStockFilters(filtersProductVariantStock),
+    })
+  }
+
+  const query = useQuery({
+    queryKey: computed(() => stockQueryKeys.productVariantStockFilters(filtersProductVariantStock)),
+
+    queryFn: ({ signal }) => fetchFiltersProductVariantStock(filtersProductVariantStock),
+  })
+
+  watch(
+    () => ({
+      search: filtersProductVariantStock.search,
+      dates: filtersProductVariantStock.dates,
+      status: filtersProductVariantStock.status,
+    }),
+    () => {
+      filtersProductVariantStock.page = 1
+      query.refetch()
+    },
+    { deep: true },
+  )
+
+  return {
+    ...query,
+    filtersProductVariantStock,
     invalidateQuery,
   }
 }

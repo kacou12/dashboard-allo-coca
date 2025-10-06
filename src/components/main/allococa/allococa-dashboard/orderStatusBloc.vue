@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+import type { DashboardOrderResponse } from '@/services/allococa/dashboard/dashboard-alpha-type';
 import { orderStatusConfigEnumData, type OrderResponse } from '@/services/allococa/orders/order-type';
 import type { StatusConfigEnum } from '@/services/global.type';
 import type { PropType } from 'vue';
@@ -25,7 +26,7 @@ const getTransactionStatusData = (dataConfigEnums: StatusConfigEnum[]) => {
 
 const { orderTransaction } = defineProps({
     orderTransaction: {
-        type: Object as PropType<OrderResponse>,
+        type: Object as PropType<OrderResponse | DashboardOrderResponse>,
         required: true
     }
 })

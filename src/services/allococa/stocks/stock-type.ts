@@ -38,20 +38,54 @@ export const ProductStatusConfig = Object.freeze({
 })
 
 export type StockFiltersPayload = {
-  q?: string;
+  search?: string;
   page: number;
+  status?: string;
+  dates?: [Date, Date];
+  limit?: number;
+};
+export type StockProductVariantFiltersPayload = {
+  search?: string;
+  page: number;
+  product_id?: string
   status?: string;
   dates?: [Date, Date];
   limit?: number;
 };
 
 export type StockResponse = {
-    id: string;
-    product_name: string;
-    volume: string;
-    image_url: string;
-    price: number;
-    status: ProductStatusEnum;
-    created_at?: string
+  id: string
+  name: string
+  description: string
+  image_url: string
+  category_id: string
+  created_at: string
+  updated_at: string
+  status: boolean
+}
+export type StockProductVariantResponse = {
+  product_id: string
+  size: string
+  label: string
+  quantity: number
+  unit_price: number
+  image_url: string
+  icon_url: string
+  sort_order: number
+  id: string
+  created_at: string
+  updated_at: string
+  status: boolean
+  product: Product
+}
+
+interface Product {
+  id: string
+  name: string
+  description: string
+  image_url: string
+  category_id: string
+  created_at: string
+  status: boolean
 }
 

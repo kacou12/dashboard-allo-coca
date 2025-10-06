@@ -16,10 +16,10 @@ export interface DashboardOrderResponse {
 export interface DashboardStatsResponse{
   total_sales: number;
   best_seller: {
-    id:string
+    product_id:string
     product_name: string;
-    image_url: string;
+    product_image_url: string;
     orders_count: number;
   };
-  total_orders: number;
+  weekly_orders: number;
 }

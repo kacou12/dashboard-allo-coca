@@ -19,7 +19,7 @@ export function useAllococaClientsFiltersQuery() {
   const queryClient = useQueryClient()
 
   const initialFilters: ClientFiltersPayload = {
-    q: undefined,
+    search: undefined,
     page: 1,
     limit: 10,
     dates: [getMidnightToday(), new Date()],
@@ -44,7 +44,7 @@ export function useAllococaClientsFiltersQuery() {
 
   watch(
     () => ({
-      q: filters.q,
+      q: filters.search,
       dates: filters.dates,
       status: filters.status,
     }),

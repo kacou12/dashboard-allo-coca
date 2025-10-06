@@ -3,14 +3,13 @@ export const mockStatsResponse: {
   msg: string;
   data: {
     total_sales: number;
-   
     best_seller: {
-      id:string
+      product_id: string;
       product_name: string;
-      image_url: string;
+      product_image_url: string;
       orders_count: number;
     };
-    total_orders: number;
+    weekly_orders: number;
   };
 } = {
   code: 200,
@@ -19,11 +18,14 @@ export const mockStatsResponse: {
     total_sales: 634500258,
 
     best_seller: {
-      id: 'prod-001',
+      // Correspondance : 'id' est devenu 'product_id'
+      product_id: 'prod-001', 
       product_name: 'Coca-Cola Classique',
-      image_url: '/assets/images/coca-cola-classique.png',
-      orders_count: 2710,
+      // Correspondance : 'image_url' est devenu 'product_image_url'
+      product_image_url: '/assets/images/coca-cola-classique.png', 
+      orders_count: 547, // La commande a été supprimé
     },
-    total_orders: 547,
+    // Correspondance : 'total_orders' est devenu 'weekly_orders'
+    weekly_orders: 547, 
   },
 };

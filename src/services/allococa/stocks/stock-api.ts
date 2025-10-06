@@ -2,10 +2,12 @@ import { env } from '@/config/env';
 
 import { mockProductsResponse } from '@/mocks/allococa/products.mock.response';
 import { Http } from '@/services/Http';
-import { StockRouteApi } from './stock-constants';
+import { StockProductVariantApi, StockRouteApi } from './stock-constants';
 import type {
     StockCreatePayload,
     StockFiltersPayload,
+    StockProductVariantFiltersPayload,
+    StockProductVariantResponse,
     StockQuantityUpdatePayload,
     StockResponse,
     StockStatusUpdatePayload,
@@ -24,6 +26,22 @@ export async function fetchFiltersStockApi({
   }
   const result = await Http.get<SuccessResponse<PaginationResponse<StockResponse>>>(
     StockRouteApi.filter,
+    payload,
+  )
+
+  return result
+}
+export async function fetchFiltersProductVariantStockApi({
+  payload,
+}: {
+  payload: StockProductVariantFiltersPayload
+}): Promise<SuccessResponse<PaginationResponse<StockProductVariantResponse>> | undefined> {
+  // if (env.VITE_MOCK_API == 'true') {
+  //   // TODO: remove this once you have auth
+  //   return Promise.resolve(mockProductsResponse as SuccessResponse<PaginationResponse<StockResponse>>) ;
+  // }
+  const result = await Http.get<SuccessResponse<PaginationResponse<StockProductVariantResponse>>>(
+    StockProductVariantApi.default,
     payload,
   )
 
@@ -58,15 +76,6 @@ export async function updateStockStatusApi({
   return await Http.put<SuccessResponse<any>>(`${StockRouteApi.updateStatus(id)}`, data)
 }
 
-export async function updateStockQuantityApi({
-  id,
-  data,
-}: {
-  id: string
-  data: StockQuantityUpdatePayload
-}): Promise<SuccessResponse<any> | undefined> {
-  return await Http.put<SuccessResponse<any>>(`${StockRouteApi.updateQuantity(id)}`, data)
-}
 
 export async function fetchStockByIdApi({
   id,

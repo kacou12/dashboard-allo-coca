@@ -8,7 +8,7 @@ import OrderActionsBloc from './orderActionsBloc.vue';
 export const allococaOrdersColumns: ColumnDef<OrderResponse>[] = [
   {
     accessorKey: 'customer_name',
-    header: () => h('div', { class: 'text-left text-xs min-w-[200px]' }, 'Nom du client'),
+    header: () => h('div', { class: 'text-left text-xs truncate  min-w-[200px]' }, 'Nom du client'),
     cell: ({ row }) => {
       const order = row.original;
       return h('div', { class: 'text-left min-w-[200px]' }, order.delivery.full_name);
@@ -16,7 +16,7 @@ export const allococaOrdersColumns: ColumnDef<OrderResponse>[] = [
   },
   {
     accessorKey: 'order_number',
-    header: () => h('div', { class: 'text-left text-xs min-w-[200px]' }, 'Numéro de commande'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[100px]' }, 'référence'),
     cell: ({ row }) => {
       const order = row.original;
       return h('div', { class: 'text-left text-neutral-20 text-sm flex items-center min-w-[100px]' }, order.reference ?? "#000000");
@@ -40,7 +40,7 @@ export const allococaOrdersColumns: ColumnDef<OrderResponse>[] = [
   },
   {
     accessorKey: 'commune',
-    header: () => h('div', { class: 'text-left text-xs ' }, 'Commune'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[100px]' }, 'Commune'),
     cell: ({ row }) => {
       const order = row.original;
       return h('div', { class: 'text-left text-sm font-medium' }, order.delivery.municipality);
@@ -48,7 +48,7 @@ export const allococaOrdersColumns: ColumnDef<OrderResponse>[] = [
   },
   {
     accessorKey: 'status',
-    header: () => h('div', { class: 'text-left text-xs min-w-[80px]' }, 'Statut'),
+    header: () => h('div', { class: 'text-left text-xs min-w-[100px]' }, 'Statut'),
     cell: ({ row }) => {
       const order = row.original;
       // Remplacez `ClientStatusBloc` par votre composant Vue pour afficher le statut

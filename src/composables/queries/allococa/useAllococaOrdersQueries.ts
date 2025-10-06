@@ -7,7 +7,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, reactive, watch } from 'vue'
 
 const initialFilters: OrderFiltersPayload = {
-  q: undefined,
+  search: undefined,
   page: 1,
   limit: 10,
   dates: [getMidnightToday(), new Date()],
@@ -38,7 +38,7 @@ export function useAllococaOrdersFiltersQuery() {
 
   watch(
     () => ({
-      q: filters.q,
+      q: filters.search,
       dates: filters.dates,
       status: filters.status,
     }),

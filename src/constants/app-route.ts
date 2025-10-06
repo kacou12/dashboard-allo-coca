@@ -38,6 +38,11 @@ export const AppRoute = {
     path: '/stocks',
     v1_object: DashboardRouteApi.default,
   },
+  STOCKS_PRODUCTS: {
+    name: 'stocks-products',
+    path: '/stock/:stockId/products',
+    v1_object: DashboardRouteApi.default,
+  },
 
 
 

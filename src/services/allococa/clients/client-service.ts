@@ -18,7 +18,17 @@ export async function fetchClients(
     const res = await fetchClientsApi({
       payload,
     });
-    return res?.data;
+
+    let customData = res?.data
+
+    // Sort orders by order date (most recent first)
+    customData?.items.sort((a, b) => {
+      const dateA = new Date(a.created_at)
+      const dateB = new Date(b.created_at)
+      return dateB.getTime() - dateA.getTime()
+    })
+
+    return customData;
   } catch (error: any) {
     throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la récupération des clients');
   }

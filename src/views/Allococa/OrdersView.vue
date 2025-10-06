@@ -25,7 +25,8 @@
 
 
                 <section class=" my-5 xl:min-w-[300px] min-w-[200px] mx-1">
-                    <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
+                    <SearchBar :is-loading="isFetching && filters.search !== undefined" v-model="filters.search">
+                    </SearchBar>
                 </section>
 
             </section>
@@ -104,12 +105,6 @@ const { user, fullName } = useAuthStore();
 const { data: ordersData, isFetched, refetch, isFetching, filters } = useAllococaOrdersFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 // const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
-
-
-// const filters = useTransactionFiltersStore()
-// const { page } = storeToRefs(useTransactionFiltersStore())
-
-// const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);
 
 const route = useRoute();
 const router = useRouter();

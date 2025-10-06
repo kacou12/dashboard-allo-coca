@@ -47,7 +47,7 @@
         </Table>
 
 
-        <FadeSlideAnimation v-if="manualPagination">
+        <FadeSlideAnimation v-if="manualPagination && showPagination">
             <commonPagination v-if="table.getRowModel().rows?.length" :items-per-page="pageSize"
                 :current-page="defaultPage" @go-to-page="goToPage" @next-page="goNextPage" @prev-page="goPrevPage"
                 :total="total" />
@@ -97,13 +97,14 @@ const isLoadingData = computed(() => {
     return isLoading.value || isLoadingSkeleton.value || isFetching.value;
 })
 
-const { total, defaultPage = 1, data, columns, dynamicWidthColumns = true, pageSize = 10, manualPagination = true } = defineProps<{
+const { total, defaultPage = 1, data, columns, dynamicWidthColumns = true, pageSize = 10, manualPagination = true, showPagination = true } = defineProps<{
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
     total: number,
     defaultPage?: number
     pageSize?: number
     manualPagination?: boolean
+    showPagination?: boolean
     // onNextPage: () => void,
     // onPrevPage: () => void,
     dynamicWidthColumns?: boolean

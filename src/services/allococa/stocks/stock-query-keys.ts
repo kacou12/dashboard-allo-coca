@@ -1,6 +1,6 @@
 // import type { StockFiltersPayload, StockMovementFiltersPayload } from '../global.type'
 
-import type { StockFiltersPayload } from "./stock-type";
+import type { StockFiltersPayload, StockProductVariantFiltersPayload } from "./stock-type";
 
 export const stockQueryKeys = {
   stock: ({ id, product_name }: { id: string; product_name: string }) => [
@@ -13,7 +13,17 @@ export const stockQueryKeys = {
     'stockFilters',
     { limit: payload.limit },
     { page: payload.page },
-    { q: payload.q },
+    { search: payload.search },
+    { status: payload.status },
+    { dates: payload.dates },
+   
+  ],
+  productVariantStockFilters: (payload: StockProductVariantFiltersPayload) => [
+    'productVariantStockFilters',
+    { limit: payload.limit },
+    { page: payload.page },
+    { product_id: payload.product_id },
+    { search: payload.search },
     { status: payload.status },
     { dates: payload.dates },
    

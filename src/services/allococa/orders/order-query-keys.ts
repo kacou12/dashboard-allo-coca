@@ -12,7 +12,7 @@ export const orderQueryKeys = {
     'orderFilters',
     { limit: payload.limit },
     { page: payload.page },
-    { q: payload.q },
+    { search: payload.search },
     { dates: payload.dates },
     { status: payload.status },
   ],

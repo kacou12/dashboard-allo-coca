@@ -1,6 +1,7 @@
 
 import {
     createStockApi,
+    fetchFiltersProductVariantStockApi,
     fetchFiltersStockApi,
     updateStockApi,
     updateStockStatusApi
@@ -8,6 +9,8 @@ import {
 import type {
     StockCreatePayload,
     StockFiltersPayload,
+    StockProductVariantFiltersPayload,
+    StockProductVariantResponse,
     StockResponse,
     StockStatusUpdatePayload,
     StockUpdatePayload
@@ -21,14 +24,39 @@ export async function fetchFiltersStock(
       payload,
     })
 
-    let customData = res?.data
+let customData = res?.data
 
-    // Sort stock by product name alphabetically
+    // Sort orders by order date (most recent first)
     customData?.items.sort((a, b) => {
-      return a.product_name.localeCompare(b.product_name)
+      const dateA = new Date(a.created_at!)
+      const dateB = new Date(b.created_at!)
+      return dateB.getTime() - dateA.getTime()
     })
 
-    return customData
+    return customData;
+
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la récupération du stock')
+  }
+}
+export async function fetchFiltersProductVariantStock(
+  payload: StockProductVariantFiltersPayload,
+): Promise<PaginationResponse<StockProductVariantResponse> | undefined> {
+  try {
+    const res = await fetchFiltersProductVariantStockApi({
+      payload,
+    })
+
+    let customData = res?.data
+
+    // Sort orders by order date (most recent first)
+    customData?.items.sort((a, b) => {
+      const dateA = new Date(a.created_at)
+      const dateB = new Date(b.created_at)
+      return dateB.getTime() - dateA.getTime()
+    })
+
+    return customData;
   } catch (error: any) {
     throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la récupération du stock')
   }

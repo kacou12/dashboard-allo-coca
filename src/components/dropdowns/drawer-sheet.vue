@@ -277,7 +277,7 @@ const filteredRouteMainLinesByRoleAuth = computed(() => {
 const defaultImage = computed(() => {
     if (user.value) {
 
-        return new URL(`/src/assets/images/avatar/${user.value!.avatar.split(".")[0]}.png`, import.meta.url).href;
+        return new URL(`/src/assets/images/avatar/26.png`, import.meta.url).href;
     }
     return '';
 });

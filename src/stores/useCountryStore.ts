@@ -18,7 +18,7 @@ export const useCountryStore = defineStore(
       () => user.value,
       (n, o) => {
         if(n != null && currentCountry.value == null) {
-          currentCountry.value = n.country;
+          // currentCountry.value = n.country;
         }
         
       })
