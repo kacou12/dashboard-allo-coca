@@ -8,7 +8,7 @@ enum AdminRole {
 }
 
 export const StockRouteApi = {
-  default: '/admin/api/v1/product/',
+  default: '/admin/api/v1/product',
   getOne: (id: string) => `/admin/api/v1/product/${id}`,
   create: '/admin/api/v1/product',
   getOneName: `/admin/api/v1/product/*`,
@@ -16,16 +16,17 @@ export const StockRouteApi = {
   updateQuantity: (id: string) => `/admin/api/v1/product/${id}/quantity`,
   updateStatusName: `/admin/api/v1/product/*/status`,
   updateQuantityName: `/admin/api/v1/product/*/quantity`,
-  filter: '/admin/api/v1/product/',
+  filter: '/admin/api/v1/product',
   movements: '/admin/api/v1/product/movements',
   movementsByProduct: (productId: string) => `/admin/api/v1/product/${productId}/movements`,
 
 }
 export const StockProductVariantApi = {
   default: '/admin/api/v1/product-variant',
-  getOne: (idProduct: string) => `/admin/api/v1/product-variant/${idProduct}`,
+  getOne: (idProductVariant: string) => `/admin/api/v1/product-variant/${idProductVariant}`,
   create: '/admin/api/v1/product-variant',
   getOneName: `/admin/api/v1/product-variant/*`,
+  updateStatus: (idProductVariant: string) => `/admin/api/v1/product-variant/${idProductVariant}/status`,
 
 }
 

@@ -6,8 +6,10 @@ import { StockProductVariantApi, StockRouteApi } from './stock-constants';
 import type {
     StockCreatePayload,
     StockFiltersPayload,
+    StockProductVariantCreatePayload,
     StockProductVariantFiltersPayload,
     StockProductVariantResponse,
+    StockProductVariantUpdatePayload,
     StockQuantityUpdatePayload,
     StockResponse,
     StockStatusUpdatePayload,
@@ -56,6 +58,7 @@ export async function createStockApi({
   return await Http.post<SuccessResponse<StockResponse>>(StockRouteApi.create, data)
 }
 
+
 export async function updateStockApi({
   id,
   data,
@@ -68,12 +71,12 @@ export async function updateStockApi({
 
 export async function updateStockStatusApi({
   id,
-  data,
+  data,     
 }: {
   id: string
   data: StockStatusUpdatePayload
 }): Promise<SuccessResponse<any> | undefined> {
-  return await Http.put<SuccessResponse<any>>(`${StockRouteApi.updateStatus(id)}`, data)
+  return await Http.patch<SuccessResponse<any>>(`${StockRouteApi.updateStatus(id)}`, data)
 }
 
 
@@ -97,4 +100,64 @@ export async function fetchStockByIdApi({
   return await Http.get<SuccessResponse<StockResponse>>(
     StockRouteApi.getOne(id),
   )
+}
+
+
+export async function createProductVariantStockApi({
+  data,
+}: {
+  data: StockProductVariantCreatePayload
+}): Promise<SuccessResponse<StockProductVariantResponse> | undefined> {
+  return await Http.post<SuccessResponse<StockProductVariantResponse>>(StockProductVariantApi.create, data)
+}
+
+// AJOUTS CI-DESSOUS ▼
+
+/**
+ * Récupère une variante de produit en stock par son ID.
+ */
+export async function fetchProductVariantStockByIdApi({
+  id,
+}: {
+  id: string
+}): Promise<SuccessResponse<StockProductVariantResponse> | undefined> {
+  return await Http.get<SuccessResponse<StockProductVariantResponse>>(
+    StockProductVariantApi.getOne(id), // Note : Assurez-vous que getOne(id) existe dans vos constantes
+  )
+}
+
+/**
+ * Met à jour les informations d'une variante de produit en stock.
+ */
+export async function updateProductVariantStockApi({
+  id,
+  data,
+}: {
+  id: string
+  data: StockProductVariantUpdatePayload // Note : Assurez-vous que ce type est défini
+}): Promise<SuccessResponse<any> | undefined> {
+  return await Http.put<SuccessResponse<any>>(`${StockProductVariantApi.default}/${id}`, data)
+}
+
+export async function updateProductVariantStockStatusApi({
+  id,
+  data,
+}: {
+  id: string
+  data: StockStatusUpdatePayload
+}): Promise<SuccessResponse<any> | undefined> {
+  return await Http.patch<SuccessResponse<any>>(`${StockProductVariantApi.updateStatus(id)}`, data)
+}
+
+
+
+/**
+ * Supprime une variante de produit du stock.
+ */
+export async function deleteProductVariantStockApi({
+  id,
+}: {
+  id: string
+}): Promise<SuccessResponse<any> | undefined> {
+  return await Http.delete<SuccessResponse<any>>(`${StockProductVariantApi.default}/${id}`)
 }

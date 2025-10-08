@@ -1,22 +1,29 @@
 import type { ProductStatus } from "@/mocks/allococa/products.mock.response"
 
 export type StockUpdatePayload = {
-  product_name?: string
-  volume?: string
-  image_url?: string
-  status?: string
-  quantity?: number
-  min_threshold?: number
-  max_threshold?: number
+  name?: string
+  description?: string
+  category_id?: string
+  image?: File
 }
 
 export type StockCreatePayload = {
-  product_name: string
-  volume: string
-  image_url?: File
-  price: number
-
+  name: string
+  description: string
+  category_id: string
+  image?: File
 }
+
+export type StockProductVariantCreatePayload = {
+  product_id:string 
+  size: string
+  label: string
+  quantity: number //0
+  unit_price: number
+  images?: File[]
+  sort_order?: number //0
+}
+export type StockProductVariantUpdatePayload = Partial<StockProductVariantCreatePayload>
 
 export type StockStatusUpdatePayload = {
   status?: string

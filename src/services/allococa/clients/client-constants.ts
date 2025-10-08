@@ -11,10 +11,10 @@ export enum AdminRole {
 }
 
 export const ClientRouteApi = {
-  default: '/admin/api/v1/user/',
+  default: '/admin/api/v1/user',
   getOne: (id: string) => `/admin/api/v1/user/${id}`,
-  create: '/admin/api/v1/clients',
-  filter: '/admin/api/v1/clients',
+  create: '/admin/api/v1/user',
+  filter: '/admin/api/v1/user',
   update: (id: string) => `/admin/api/v1/user/${id}`,
   delete: (id: string) => `/admin/api/v1/user/${id}`,
 };

@@ -16,8 +16,8 @@
             </span>
         </div>
 
-        <section class="h-[124px] flex items-center justify-center">
-            <img :src="stock.image_url" :alt="stock.label" class="transition-opacity duration-300"
+        <section class="h-[130px] flex items-center justify-center">
+            <img :src="stock.image_url" :alt="stock.label" class="transition-opacity duration-300  h-full"
                 :class="{ 'opacity-50': !isActive }">
         </section>
 
@@ -26,8 +26,7 @@
             <p :class="{ 'text-gray-500': !isActive }">{{ stock.product.name }}</p>
             <div class="divide-x-[1px] divide-[#D1D1D1] space-x-2 mt-1 flex items-center gap-2">
                 <p class="text-sm text-[#888888]">{{ stock.size }}</p>
-                <p class="text-sm pl-2" :class="{ 'text-gray-500': !isActive }">{{ formatPrice(stock.unit_price) }} FCFA
-                </p>
+                <p class="text-sm pl-2" :class="{ 'text-gray-500': !isActive }">{{ formatPrice(stock.unit_price) }} </p>
             </div>
 
             <TestSwitch v-model="isActive"></TestSwitch>

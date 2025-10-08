@@ -1,15 +1,23 @@
 
 import {
     createStockApi,
+    createProductVariantStockApi,
+    deleteProductVariantStockApi,
     fetchFiltersProductVariantStockApi,
     fetchFiltersStockApi,
+    fetchStockByIdApi,
     updateStockApi,
-    updateStockStatusApi
+    updateStockStatusApi,
+    updateProductVariantStockApi,
+    updateProductVariantStockStatusApi,
+    fetchProductVariantStockByIdApi
 } from './stock-api'
 import type {
     StockCreatePayload,
     StockFiltersPayload,
+    StockProductVariantCreatePayload,
     StockProductVariantFiltersPayload,
+    StockProductVariantUpdatePayload,
     StockProductVariantResponse,
     StockResponse,
     StockStatusUpdatePayload,
@@ -113,5 +121,81 @@ export async function updateStockStatus({
     return res?.data
   } catch (error: any) {
     throw Error(error.response?.data?.message || 'Une erreur est survenue durant la mise à jour du statut')
+  }
+}
+
+export async function fetchStockById(
+  id: string,
+): Promise<StockResponse | undefined> {
+  try {
+    const res = await fetchStockByIdApi({ id });
+    return res?.data;
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la récupération du produit');
+  }
+}
+
+export async function createProductVariantStock({
+  data,
+}: {
+  data: StockProductVariantCreatePayload
+}): Promise<StockProductVariantResponse | undefined> {
+  try {
+    const res = await createProductVariantStockApi({ data });
+    return res?.data;
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue durant la création de la variante du produit');
+  }
+}
+
+export async function fetchProductVariantStockById(
+  id: string,
+): Promise<StockProductVariantResponse | undefined> {
+  try {
+    const res = await fetchProductVariantStockByIdApi({ id });
+    return res?.data;
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la récupération de la variante du produit');
+  }
+}
+
+export async function updateProductVariantStock({
+  id,
+  data,
+}: {
+  id: string
+  data: StockProductVariantUpdatePayload
+}): Promise<any | undefined> {
+  try {
+    const res = await updateProductVariantStockApi({ id, data });
+    return res?.data;
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue durant la mise à jour de la variante du produit');
+  }
+}
+
+export async function updateProductVariantStockStatus({
+  id,
+  data,
+}: {
+  id: string
+  data: StockStatusUpdatePayload
+}): Promise<any | undefined> {
+  try {
+    const res = await updateProductVariantStockStatusApi({ id, data });
+    return res?.data;
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue durant la mise à jour du statut de la variante');
+  }
+}
+
+export async function deleteProductVariantStock(
+  id: string,
+): Promise<any | undefined> {
+  try {
+    const res = await deleteProductVariantStockApi({ id });
+    return res?.data;
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la suppression de la variante du produit');
   }
 }

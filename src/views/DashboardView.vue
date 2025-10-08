@@ -6,7 +6,7 @@
       <article class="flex text-white items-center gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
         <div>
           <p>Total des ventes</p>
-          <p class="text-clamp-h1-md">{{ dashboardStatsData?.total_sales }}</p>
+          <p class="text-clamp-h1-md">{{ dashboardStatsData?.total_sales ?? 0 }}</p>
         </div>
         <div class="mt-7">
 
@@ -16,12 +16,13 @@
         </div>
       </article>
 
-      <article class="relative text-white flex items-end gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
+      <article v-if="dashboardStatsData?.best_seller"
+        class="relative text-white flex items-end gap-[42px] p-[35px] rounded-xl bg-[#86090A]">
         <div class="space-y-2">
           <p class="text-sm">Meilleur vente ce mois-ci</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-md">{{ dashboardStatsData?.best_seller.orders_count }}</p>
+            <p class="text-clamp-md">{{ dashboardStatsData?.best_seller.orders_count ?? 0 }}</p>
             <p>commandes</p>
           </div>
         </div>
@@ -37,7 +38,7 @@
           <p class="text-sm">Total des commandes</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-h1-md">{{ dashboardStatsData?.weekly_orders }}</p>
+            <p class="text-clamp-h1-md">{{ dashboardStatsData?.weekly_orders ?? 0 }}</p>
             <p class="text-sm">cette semaine</p>
           </div>
         </div>

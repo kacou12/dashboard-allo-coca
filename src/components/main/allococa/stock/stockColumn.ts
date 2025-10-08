@@ -80,15 +80,15 @@ export const stockColumns: ColumnDef<StockResponse>[] = [
       return h('div', { class: 'text-left text-neutral-700 text-sm' }, formatRelativeDate(new Date(stock.created_at)));
     },
   },
-  {
-    accessorKey: 'updated_at',
-    header: () => h('div', { class: 'text-left text-xs min-w-150px' }, 'Dernière mise à jour'),
-    cell: ({ row }) => {
-      const stock: StockResponse = row.original;
-      if (!stock.updated_at) return h('div', '-');
-      return h('div', { class: 'text-left text-neutral-700 text-sm' }, formatRelativeDate(new Date(stock.updated_at)));
-    },
-  },
+  // {
+  //   accessorKey: 'updated_at',
+  //   header: () => h('div', { class: 'text-left text-xs min-w-150px' }, 'Dernière mise à jour'),
+  //   cell: ({ row }) => {
+  //     const stock: StockResponse = row.original;
+  //     if (!stock.updated_at) return h('div', '-');
+  //     return h('div', { class: 'text-left text-neutral-700 text-sm' }, formatRelativeDate(new Date(stock.updated_at)));
+  //   },
+  // },
   {
     id: 'actions',
     cell: ({ row }) => {

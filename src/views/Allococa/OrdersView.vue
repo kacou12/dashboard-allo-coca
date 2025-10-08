@@ -31,7 +31,8 @@
 
             </section>
 
-            <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter>
+            <CommonDatesFilter :update-handler="updateData" v-model="dates">
+            </commonDatesFilter>
 
 
         </section>

@@ -7,7 +7,7 @@
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Categories de produits en stock</h1>
                 <p class="text-sm text-white">18 Produits</p>
             </section>
-            <AddProductStock></AddProductStock>
+            <AddStock></AddStock>
         </header>
 
 
@@ -35,7 +35,7 @@
 
             </section>
 
-            <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter>
+            <!-- <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter> -->
 
         </section>
 
@@ -57,6 +57,7 @@ import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import AddProductStock from '@/components/main/allococa/stock/addProductStock.vue';
+import AddStock from '@/components/main/allococa/stock/addStock.vue';
 import { stockColumns } from '@/components/main/allococa/stock/stockColumn';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useAllococaStocksFiltersQuery } from '@/composables/queries/allococa/useAllococaStocksQueries';

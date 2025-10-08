@@ -2,16 +2,23 @@ import { getMidnightToday } from '@/lib/utils'
 import { stockQueryKeys } from '@/services/allococa/stocks/stock-query-keys'
 import {
   createStock,
+  createProductVariantStock,
+  deleteProductVariantStock,
   fetchFiltersProductVariantStock,
   fetchFiltersStock,
+  fetchProductVariantStockById,
   updateStock,
   updateStockStatus,
+  updateProductVariantStock,
+  updateProductVariantStockStatus,
 } from '@/services/allococa/stocks/stock-service'
 
 import type {
   StockCreatePayload,
   StockFiltersPayload,
+  StockProductVariantCreatePayload,
   StockProductVariantFiltersPayload,
+  StockProductVariantUpdatePayload,
   StockStatusUpdatePayload,
   StockUpdatePayload,
 } from '@/services/allococa/stocks/stock-type'
@@ -113,6 +120,15 @@ export function useAllococaPoductVariantStocksFiltersQuery(productId: string) {
   }
 }
 
+export function useAllococaProductVariantStockByIdQuery(id: string) {
+  return useQuery({
+    queryKey: stockQueryKeys.productVariantStockById(id),
+    queryFn: () => fetchProductVariantStockById(id),
+    enabled: !!id,
+  })
+}
+
+
 export function useCreateAllococaStockMutation() {
   const { invalidateQuery } = useAllococaStocksFiltersQuery()
   return useMutation({
@@ -125,6 +141,19 @@ export function useCreateAllococaStockMutation() {
   })
 }
 
+export function useCreateAllococaProductVariantStockMutation(productId: string) {
+  const { invalidateQuery } = useAllococaPoductVariantStocksFiltersQuery(productId)
+  return useMutation({
+    mutationFn: (data: StockProductVariantCreatePayload) => createProductVariantStock({ data }),
+
+    onSuccess: () => {
+      console.log('create product variant stock successfully')
+      invalidateQuery()
+    },
+  })
+}
+
+
 export function useUpdateAllococaStockMutation(id: string) {
   const { invalidateQuery } = useAllococaStocksFiltersQuery()
   return useMutation({
@@ -132,6 +161,45 @@ export function useUpdateAllococaStockMutation(id: string) {
 
     onSuccess: () => {
       console.log('update stock successfully')
+      invalidateQuery()
+    },
+  })
+}
+
+export function useUpdateAllococaProductVariantStockMutation(productId: string, variantId: string) {
+  const queryClient = useQueryClient()
+  const { invalidateQuery } = useAllococaPoductVariantStocksFiltersQuery(productId)
+  return useMutation({
+    mutationFn: (data: StockProductVariantUpdatePayload) => updateProductVariantStock({ id: variantId, data }),
+
+    onSuccess: () => {
+      console.log('update product variant stock successfully')
+      invalidateQuery()
+      queryClient.invalidateQueries({ queryKey: stockQueryKeys.productVariantStockById(variantId) })
+    },
+  })
+}
+
+export function useUpdateAllococaProductVariantStockStatusMutation(productId: string, variantId: string) {
+  const queryClient = useQueryClient()
+  const { invalidateQuery } = useAllococaPoductVariantStocksFiltersQuery(productId)
+  return useMutation({
+    mutationFn: (data: StockStatusUpdatePayload) => updateProductVariantStockStatus({ id: variantId, data }),
+
+    onSuccess: () => {
+      console.log('update product variant stock status successfully')
+      invalidateQuery()
+      queryClient.invalidateQueries({ queryKey: stockQueryKeys.productVariantStockById(variantId) })
+    },
+  })
+}
+
+export function useDeleteAllococaProductVariantStockMutation(productId: string) {
+  const { invalidateQuery } = useAllococaPoductVariantStocksFiltersQuery(productId)
+  return useMutation({
+    mutationFn: (id: string) => deleteProductVariantStock(id),
+    onSuccess: () => {
+      console.log('delete product variant stock successfully')
       invalidateQuery()
     },
   })

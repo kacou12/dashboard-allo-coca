@@ -18,6 +18,8 @@ export const stockQueryKeys = {
     { dates: payload.dates },
    
   ],
+  productVariantStockById: (id: string) => ['productVariantStock', id],
+
   productVariantStockFilters: (payload: StockProductVariantFiltersPayload) => [
     'productVariantStockFilters',
     { limit: payload.limit },

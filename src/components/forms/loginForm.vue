@@ -74,8 +74,8 @@ const rememberMe = ref(false)
 // const password = ref(import.meta.env.PROD ? '' : 'e4zJNfZx');
 // const email = ref(import.meta.env.PROD ? '' : 'jwt@sendchap.ci');
 
-const password = ref(import.meta.env.PROD ? '' : 'palacio');
-const email = ref(import.meta.env.PROD ? '' : 'admin@gmail.com');
+const email = ref(import.meta.env.PROD ? '' : 'junior.essoh@sendchap.ci');
+const password = ref(import.meta.env.PROD ? '' : 'Junior99x');
 
 
 // const password = ref(import.meta.env.PROD ? '' : '8YpQItTa');

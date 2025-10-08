@@ -28,12 +28,13 @@
 
 
                 <section class=" my-5 xl:min-w-[300px] min-w-[200px] mx-1">
-                    <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"></SearchBar>
+                    <SearchBar :is-loading="isFetching && filters.search !== undefined" v-model="filters.search">
+                    </SearchBar>
                 </section>
 
             </section>
 
-            <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter>
+            <!-- <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter> -->
 
         </section>
 
@@ -93,12 +94,12 @@ const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 // const { user, fullName } = useAuthStore();
 
 
-const { data: clientsData, isFetched, refetch, isFetching } = useAllococaClientsFiltersQuery();
+const { data: clientsData, isFetched, refetch, isFetching, filters } = useAllococaClientsFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 // const { isFetched: isFetchedCounty, data: countriesData, isSuccess } = useCountryFiltersQuery();
 
 
-const filters = useTransactionFiltersStore()
+// const filters = useTransactionFiltersStore()
 // const { page } = storeToRefs(useTransactionFiltersStore())
 
 // const { data: providersData, isFetched: isFetchedProviders, refetch: refetchProviders } = useProvidersFiltersQuery(false);

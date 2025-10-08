@@ -35,21 +35,21 @@ export async function fetchFiltersDashboardApi({
 export async function fetchDashboardStatsApi(): Promise<SuccessResponse<DashboardStatsResponse> | undefined> {
  
 
-  //   if (env.VITE_MOCK_API == 'true') {
-  //       // TODO: remove this once you have auth
-  //       return Promise.resolve(mockStatsResponse as SuccessResponse<DashboardStatsResponse>) ;
-  //   }
+    if (env.VITE_MOCK_API == 'true') {
+        // TODO: remove this once you have auth
+        return Promise.resolve(mockStatsResponse as SuccessResponse<DashboardStatsResponse>) ;
+    }
 
 
 
 
 
-  // const result = await Http.get<SuccessResponse<DashboardStatsResponse>>(
-  //   DashboardRouteApi.stats,
+  const result = await Http.get<SuccessResponse<DashboardStatsResponse>>(
+    DashboardRouteApi.stats,
     
-  // )
+  )
 
-  // return result
+  return result
 
-  return Promise.resolve(mockStatsResponse as SuccessResponse<DashboardStatsResponse>) ;
+  // return Promise.resolve(mockStatsResponse as SuccessResponse<DashboardStatsResponse>) ;
 }
