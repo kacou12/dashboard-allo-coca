@@ -102,6 +102,14 @@ export async function fetchStockByIdApi({
   )
 }
 
+export async function deleteStockApi({
+  id,
+}: {
+  id: string
+}): Promise<SuccessResponse<any> | undefined> {
+  return await Http.delete<SuccessResponse<any>>(StockRouteApi.getOne(id))
+}
+
 
 export async function createProductVariantStockApi({
   data,

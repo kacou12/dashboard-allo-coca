@@ -67,7 +67,7 @@ import CommonModal from '@/components/common/commonModal.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import FileField from '@/components/vee-validate/fileField.vue';
-import { useCreateAllococaStockMutation } from '@/composables/queries/allococa/useAllococaStocksQueries';
+import { useCreateAllococaProductVariantStockMutation, useCreateAllococaStockMutation } from '@/composables/queries/allococa/useAllococaStocksQueries';
 // Updated to only import the correct type
 import type { StockProductVariantCreatePayload } from '@/services/allococa/stocks/stock-type';
 import { ref } from 'vue';
@@ -76,7 +76,14 @@ import { useToast } from 'vue-toastification';
 const open = ref(false);
 const toast = useToast();
 
-const { mutateAsync: createProduct } = useCreateAllococaStockMutation();
+const { product_id } = defineProps({
+    product_id: {
+        type: String,
+        required: true
+    }
+})
+
+const { mutateAsync: createProductVariant } = useCreateAllococaProductVariantStockMutation(product_id);
 const imageFile = ref<File | null>(null);
 // 1. Initial State Updated to match StockProductVariantCreatePayload
 const productState = ref<StockProductVariantCreatePayload>({
@@ -105,11 +112,11 @@ const createProductHandler = async () => {
 
     try {
         // Uncomment and use the mutation when ready to integrate with the API
-        // await createProduct(payload); 
+        await createProductVariant(payload);
 
         // 2. Reset State Updated
         productState.value = {
-            product_id: '',
+            product_id: product_id,
             size: '',
             label: '',
             quantity: 0,

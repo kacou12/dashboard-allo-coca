@@ -5,9 +5,9 @@
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Produits en stock</h1>
-                <p class="text-sm text-white">18 Produits</p>
+                <p class="text-sm text-white">{{ stocksProductsVariantData?.total }} Produits</p>
             </section>
-            <AddProductStock></AddProductStock>
+            <AddProductStock :product_id="(route.params.stockId as string)"></AddProductStock>
         </header>
 
 
@@ -17,14 +17,14 @@
             <section class="flex items-center gap-2">
 
 
-                <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full "
+                <!-- <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full "
                     title="Filtre par statut" :elements="[
                         { name: 'Filtre par statut', value: 'all' },
                         { name: 'En attente', value: 'Pending' },
                         { name: 'En cours', value: 'Processing' },
                         { name: 'Echouée', value: 'Failed' },
                         { name: 'Réussi', value: 'Successful' }]">
-                </CommonSelect>
+                </CommonSelect> -->
 
 
 
@@ -51,8 +51,8 @@
 
             <div class="grid grid-cols-5 gap-4" v-if="isFetched">
 
-                <ProductCard v-for="stock in stocksProductsVariantData?.items" :key="stock.id" :stock="stock">
-                </ProductCard>
+                <ProductVariantCard v-for="stock in stocksProductsVariantData?.items" :key="stock.id" :stock="stock">
+                </ProductVariantCard>
 
 
             </div>
@@ -73,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import ProductCard from '@/components/allococa/productCard.vue';
+import ProductVariantCard from '@/components/allococa/productVariantCard.vue';
 import FadeSlideAnimation from '@/components/animations/fadeSlideAnimation.vue';
 import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
 import CommonPagination from '@/components/common/commonPagination.vue';

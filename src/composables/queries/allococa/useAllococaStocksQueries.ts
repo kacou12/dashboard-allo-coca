@@ -11,6 +11,7 @@ import {
   updateStockStatus,
   updateProductVariantStock,
   updateProductVariantStockStatus,
+  deleteStock,
 } from '@/services/allococa/stocks/stock-service'
 
 import type {
@@ -82,6 +83,18 @@ export function useAllococaStocksFiltersQuery() {
     invalidateQuery,
   }
 }
+
+export function useDeleteAllococaStockMutation(productId: string) {
+  const { invalidateQuery } = useAllococaPoductVariantStocksFiltersQuery(productId)
+  return useMutation({
+    mutationFn: (id: string) => deleteStock(id),
+    onSuccess: () => {
+      console.log('delete product stock successfully')
+      invalidateQuery()
+    },
+  })
+}
+
 
 export function useAllococaPoductVariantStocksFiltersQuery(productId: string) {
   const queryClient = useQueryClient()
@@ -180,9 +193,9 @@ export function useUpdateAllococaProductVariantStockMutation(productId: string, 
   })
 }
 
-export function useUpdateAllococaProductVariantStockStatusMutation(productId: string, variantId: string) {
+export function useUpdateAllococaProductVariantStockStatusMutation(variantId: string) {
   const queryClient = useQueryClient()
-  const { invalidateQuery } = useAllococaPoductVariantStocksFiltersQuery(productId)
+  const { invalidateQuery } = useAllococaPoductVariantStocksFiltersQuery(variantId)
   return useMutation({
     mutationFn: (data: StockStatusUpdatePayload) => updateProductVariantStockStatus({ id: variantId, data }),
 

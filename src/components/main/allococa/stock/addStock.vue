@@ -23,6 +23,16 @@
                     <Input id="description" v-model="productState.description" placeholder="Ex: 500g" required />
                 </section>
 
+                <section class=" ">
+                    <p class="flex-1 text-neutral-20">Type de paiement</p>
+
+                    <SelectField v-if="isFetchedCategories" name="category" v-model="productState.category_id"
+                        border-color="border-neutral-60" default-width="w-full" class="w-full" title="Categorie"
+                        :elements="categoriesData!.items.map((item) => ({ name: item.name, value: item.id }))">
+                    </SelectField>
+
+                </section>
+
                 <section class="space-y-2">
                     <p class="text-sm text-neutral-20">Image </p>
                     <!-- <Input id="image_url" v-model="productState.image_url" placeholder="https://example.com/image.png"
@@ -54,7 +64,9 @@ import CommonModal from '@/components/common/commonModal.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import FileField from '@/components/vee-validate/fileField.vue';
+import SelectField from '@/components/vee-validate/selectField.vue';
 import { useCreateAllococaStockMutation } from '@/composables/queries/allococa/useAllococaStocksQueries';
+import { useCategoriesQuery } from '@/composables/queries/useCategoryQueries';
 import type { StockCreatePayload } from '@/services/allococa/stocks/stock-type';
 import { useLoaderStore } from '@/stores/useLoaderStore';
 import { ref } from 'vue';
@@ -62,6 +74,9 @@ import { useToast } from 'vue-toastification';
 
 const open = ref(false);
 const toast = useToast();
+
+const { data: categoriesData, isLoading: isLoadingCategories, isFetched: isFetchedCategories } = useCategoriesQuery()
+
 
 const { startLoading, stopLoading } = useLoaderStore();
 

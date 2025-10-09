@@ -10,7 +10,8 @@ import {
     updateStockStatusApi,
     updateProductVariantStockApi,
     updateProductVariantStockStatusApi,
-    fetchProductVariantStockByIdApi
+    fetchProductVariantStockByIdApi,
+    deleteStockApi
 } from './stock-api'
 import type {
     StockCreatePayload,
@@ -132,6 +133,17 @@ export async function fetchStockById(
     return res?.data;
   } catch (error: any) {
     throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la récupération du produit');
+  }
+}
+
+export async function deleteStock(
+  id: string,
+): Promise<any | undefined> {
+  try {
+    const res = await deleteStockApi({ id });
+    return res?.data;
+  } catch (error: any) {
+    throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la suppression du produit');
   }
 }
 

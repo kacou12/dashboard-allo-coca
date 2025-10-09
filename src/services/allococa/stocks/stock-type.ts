@@ -26,7 +26,7 @@ export type StockProductVariantCreatePayload = {
 export type StockProductVariantUpdatePayload = Partial<StockProductVariantCreatePayload>
 
 export type StockStatusUpdatePayload = {
-  status?: string
+  status?: boolean
 }
 
 export type StockQuantityUpdatePayload = {

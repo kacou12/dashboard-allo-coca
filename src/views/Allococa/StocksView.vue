@@ -5,7 +5,7 @@
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Categories de produits en stock</h1>
-                <p class="text-sm text-white">18 Produits</p>
+                <p class="text-sm text-white">{{ stocksData?.total }} Produit(s) trouvés</p>
             </section>
             <AddStock></AddStock>
         </header>
@@ -61,6 +61,7 @@ import AddStock from '@/components/main/allococa/stock/addStock.vue';
 import { stockColumns } from '@/components/main/allococa/stock/stockColumn';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useAllococaStocksFiltersQuery } from '@/composables/queries/allococa/useAllococaStocksQueries';
+import { useCategoriesQuery } from '@/composables/queries/useCategoryQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
@@ -78,6 +79,7 @@ const { isLoading, isLoadingSkeleton } = storeToRefs(useLoaderStore());
 const isLoadingData = computed(() => {
     return isLoading.value || isLoadingSkeleton.value || isFetching.value;
 })
+
 
 
 const { data: stocksData, isFetched, refetch, isFetching, filtersStock: filters } = useAllococaStocksFiltersQuery();
