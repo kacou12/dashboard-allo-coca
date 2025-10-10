@@ -35,9 +35,8 @@
                         transition-opacity hover:opacity-100 
                         disabled:pointer-events-none 
                         data-[state=open]:bg-accent 
+                        ring-0
                         data-[state=open]:text-muted-foreground border-none">
-                        <!-- <X class="w-4 h-4" />
-                        <span class="sr-only">Close</span> -->
                         <close-icon></close-icon>
 
                     </DialogClose>

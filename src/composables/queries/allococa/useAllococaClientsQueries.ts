@@ -24,6 +24,7 @@ export function useAllococaClientsFiltersQuery() {
     limit: 10,
     dates: [getMidnightToday(), new Date()],
     status: undefined,
+    role: "customer",
   }
 
   const filters = reactive<ClientFiltersPayload>({

@@ -75,7 +75,7 @@ let date = new Date()
 
 
 const dates = ref({
-    start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
+    start: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate() - 7),
     end: new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate()),
 }) as Ref<DateRange>
 

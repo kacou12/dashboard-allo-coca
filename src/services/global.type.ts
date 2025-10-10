@@ -6,6 +6,8 @@ export type DefaultFiltersPayload = {
   limit?: number;
 };
 
+export type UserRole = "super_admin" | "admin" | "employee" | "customer";
+
 export type StatusConfigEnum = { value: string; name: string; color: string; textColor: string }
 export type DefaultFiltersRequest = {
   q?: string;
@@ -81,7 +83,9 @@ export type NotificationFiltersPayload = DefaultFiltersPayload & {
 
 export type DashboardFiltersPayload = {
   country_iso_code?: string;
-  dates?: [Date, Date];
+  dates?: [Date?, Date?];
+  page?: number;
+  limit?: number;
 };
 export type DashboardFiltersRequest = {
   country_iso_code?: string;

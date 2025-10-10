@@ -50,8 +50,11 @@ export function useAllococaDashboardFiltersQuery() {
 }
 
 export function useAllococaDashboardStatsQuery() {
-  return useQuery({
+  const query =  useQuery({
     queryKey: dashboardQueryKeys.dashboardStats,
     queryFn: ({ signal }) => fetchDashboardStats(),
   })
+  return {
+    ...query
+  }
 }

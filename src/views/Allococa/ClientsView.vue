@@ -5,7 +5,7 @@
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Clients</h1>
-                <p class="text-sm text-white">75 clients trouvées</p>
+                <p class="text-sm text-white">{{ clientsData?.total ?? 0 }} client(s) trouvé(s)</p>
             </section>
         </header>
 

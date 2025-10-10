@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { clientSchema, clientUpdateSchema } from './client-schema';
+import type { UserRole } from '@/services/global.type';
 
 export type ClientResponse = {
 
@@ -26,4 +27,6 @@ export type ClientFiltersPayload = {
   status?: string;
   dates?: [Date, Date];
   limit?: number;
+  role: UserRole;
+
 };

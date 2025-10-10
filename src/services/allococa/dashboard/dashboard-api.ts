@@ -7,29 +7,26 @@ import type { DashboardFiltersPayload } from '@/services/global.type'
 import { Http } from '@/services/Http'
 import type { DashboardOrderResponse, DashboardStatsResponse } from './dashboard-alpha-type'
 import { DashboardRouteApi } from './dashboard-constants'
+import { OrderRouteApi } from '../orders/order-constants'
 
 export async function fetchFiltersDashboardApi({
   payload,
 }: {
   payload: DashboardFiltersPayload
 }): Promise<SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined> {
- 
-
   //   if (env.VITE_MOCK_API == 'true') {
   //       // TODO: remove this once you have auth
   //       return Promise.resolve(mockDashboardResponse as SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined) ;
   //   }
 
+  const result = await Http.get<SuccessResponse<PaginationResponse<DashboardOrderResponse>>>(
+    OrderRouteApi.filter,
+    payload,
+  )
 
+  return result
 
-  // const result = await Http.get<SuccessResponse<PaginationResponse<DashboardOrderResponse>>>(
-  //   DashboardRouteApi.default,
-  //   payload,
-  // )
-
-  // return result
-
-  return Promise.resolve(mockDashboardResponse as SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined) ;
+  // return Promise.resolve(mockDashboardResponse as SuccessResponse<PaginationResponse<DashboardOrderResponse>>| undefined) ;
 }
 
 export async function fetchDashboardStatsApi(): Promise<SuccessResponse<DashboardStatsResponse> | undefined> {

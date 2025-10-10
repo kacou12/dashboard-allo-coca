@@ -20,6 +20,6 @@ export function useCategoryQuery(id: string) {
   return useQuery({
     queryKey: computed(() => categoriesQueryKeys.category(id)),
     queryFn: ({ signal }) => fetchCategoryById(id),
-    enabled: false,
+
   })
 }

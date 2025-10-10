@@ -34,7 +34,7 @@
             :confirm-handler="() => toggleAvailability()">
             <section
                 class="relative inline-flex h-[25px] w-[180px] items-center rounded-full cursor-pointer transition-all duration-300 ease-in-out shadow-lg"
-                :class="isAvailable ? 'bg-green-500' : 'bg-red-500'" @click="toggleAvailability">
+                :class="isAvailable ? 'bg-green-500' : 'bg-red-500'">
                 <!-- Texte Disponible -->
                 <span class="absolute left-3 text-white font-medium text-[10px] transition-opacity duration-300"
                     :class="isAvailable ? 'opacity-100' : 'opacity-50'">

@@ -13,7 +13,8 @@
         </template>
         <template #content>
             <div class="space-y-4">
-                <section class="space-y-2" v-if="category.name.toLowerCase().includes('boisson')">
+                <section class="space-y-2"
+                    v-if="productVariantState.label != 'string' && productVariantState.label != null && productVariantState.label.length > 1">
                     <p class="text-sm text-neutral-20">Label</p>
                     <Input type="text" id="label" placeholder="Ex: Zero" v-model="productVariantState.label" required />
                 </section>
@@ -42,17 +43,10 @@
                 </section>
 
                 <section class="space-y-2">
-                    <p class="text-sm text-neutral-20">Image du produit</p>
+                    <p class="text-sm text-neutral-20">Image</p>
 
 
                     <FileField title="Ajout de l'image" name="image" v-model="imageFile"></FileField>
-                </section>
-                <section class="space-y-2">
-                    <p class="text-sm text-neutral-20">Image de la capsule</p>
-
-
-                    <FileField title="Ajout de l'image de la capsule" name="image" v-model="imageCapsuleFile">
-                    </FileField>
                 </section>
 
 
@@ -82,7 +76,6 @@ import FileField from '@/components/vee-validate/fileField.vue';
 import { useCreateAllococaProductVariantStockMutation } from '@/composables/queries/allococa/useAllococaStocksQueries';
 import type { StockProductVariantCreatePayload } from '@/services/allococa/stocks/stock-type';
 import type { CategoryResponse } from '@/services/category/category-type';
-import { useLoaderStore } from '@/stores/useLoaderStore';
 import { ref, type PropType } from 'vue';
 import { useToast } from 'vue-toastification';
 
@@ -93,36 +86,26 @@ const { product_id } = defineProps({
     product_id: {
         type: String,
         required: true
-    },
-    category: {
-        type: Object as PropType<CategoryResponse>,
-        required: true
     }
 })
 
 const { mutateAsync: createProductVariant } = useCreateAllococaProductVariantStockMutation(product_id);
 
-const { startLoading, stopLoading, stopLoadingSkeleton } = useLoaderStore();
-
 const imageFile = ref<File | null>(null);
-const imageCapsuleFile = ref<File | null>(null);
 
 const productVariantState = ref<StockProductVariantCreatePayload>({
     product_id: product_id,
     size: '',
     label: '',
     description: '',
-    quantity: 0,
     unit_price: 0,
-    images: [],
-    sort_order: 0
+    quantity: 0,
+    images: []
 });
 
 const createProductHandler = async () => {
 
     // The payload needs to be built correctly, ensuring price and quantity are numbers
-
-    productVariantState.value.images = [imageCapsuleFile.value!, imageFile.value!];
     const payload: StockProductVariantCreatePayload = {
         ...productVariantState.value,
         quantity: Number(productVariantState.value.quantity),
@@ -131,7 +114,6 @@ const createProductHandler = async () => {
 
     try {
         // Uncomment and use the mutation when ready to integrate with the API
-        startLoading();
         await createProductVariant(payload);
 
         // 2. Reset State Updated
@@ -140,10 +122,9 @@ const createProductHandler = async () => {
             size: '',
             label: '',
             description: '',
-            quantity: 0,
             unit_price: 0,
-            images: [],
-            sort_order: 0
+            quantity: 0,
+            images: []
         };
         open.value = false;
         toast.success('Le produit a bien été ajouté');

@@ -11,7 +11,10 @@ import { computed, reactive, watch } from 'vue'
 const { currentCountry: country } = storeToRefs(useCountryStore())
 export function useDashBoardFiltersQuery() {
   const initialFilters: DashboardFiltersPayload = {
-    dates: [getMidnightToday(), new Date()],
+    // dates: [getMidnightToday(), new Date()],
+    dates: [],
+    page: 1,
+    limit: 10,
   }
 
   const filters = reactive<DashboardFiltersPayload>({

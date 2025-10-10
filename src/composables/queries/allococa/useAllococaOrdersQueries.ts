@@ -6,11 +6,23 @@ import type { OrderFiltersPayload } from '@/services/allococa/orders/order-type'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, reactive, watch } from 'vue'
 
+
+/**
+ * Returns a new Date object representing the date from 7 days ago.
+ * @returns {Date} The date 7 days ago.
+ */
+function getSomeDaysAgoDate(days:number) {
+    let date = new Date(); 
+    // Soustrait 7 jours
+    date.setDate(date.getDate() - days); 
+    return date;
+}
+
 const initialFilters: OrderFiltersPayload = {
   search: undefined,
   page: 1,
   limit: 10,
-  dates: [getMidnightToday(), new Date()],
+  dates: [getSomeDaysAgoDate(7), new Date()],
   status: undefined,
 }
 

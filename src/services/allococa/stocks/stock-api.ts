@@ -4,16 +4,15 @@ import { mockProductsResponse } from '@/mocks/allococa/products.mock.response';
 import { Http } from '@/services/Http';
 import { StockProductVariantApi, StockRouteApi } from './stock-constants';
 import type {
-    StockCreatePayload,
-    StockFiltersPayload,
-    StockProductVariantCreatePayload,
-    StockProductVariantFiltersPayload,
-    StockProductVariantResponse,
-    StockProductVariantUpdatePayload,
-    StockQuantityUpdatePayload,
-    StockResponse,
-    StockStatusUpdatePayload,
-    StockUpdatePayload,
+  StockCreatePayload,
+  StockFiltersPayload,
+  StockProductVariantCreatePayload,
+  StockProductVariantFiltersPayload,
+  StockProductVariantResponse,
+  StockProductVariantUpdatePayload,
+  StockResponse,
+  StockStatusUpdatePayload,
+  StockUpdatePayload
 } from './stock-type';
 
 
@@ -116,7 +115,32 @@ export async function createProductVariantStockApi({
 }: {
   data: StockProductVariantCreatePayload
 }): Promise<SuccessResponse<StockProductVariantResponse> | undefined> {
-  return await Http.post<SuccessResponse<StockProductVariantResponse>>(StockProductVariantApi.create, data)
+    const formData = new FormData()
+  formData.append('product_id', data.product_id!)
+  formData.append('size', data.size!.toString())
+  formData.append('description', data.description!)
+  formData.append('sort_order', data.sort_order!.toString())
+  formData.append('quantity', data.quantity!.toString())
+  formData.append('unit_price', data.unit_price!.toString())
+
+  if(data.label){
+    formData.append('label', data.label!)
+
+  }
+  if (data.images && data.images.length > 0) {
+      data.images.forEach((image) => {
+        formData.append('images', image)
+      })
+  }
+
+  
+  return  Http.post<SuccessResponse<StockProductVariantResponse>>(StockProductVariantApi.create, formData,
+      {
+      headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+    }
+  )
 }
 
 // AJOUTS CI-DESSOUS ▼
@@ -144,8 +168,51 @@ export async function updateProductVariantStockApi({
   id: string
   data: StockProductVariantUpdatePayload // Note : Assurez-vous que ce type est défini
 }): Promise<SuccessResponse<any> | undefined> {
-  return await Http.put<SuccessResponse<any>>(`${StockProductVariantApi.default}/${id}`, data)
+  const formData = new FormData()
+  formData.append('size', data.size!.toString())
+  formData.append('description', data.description!)
+  formData.append('unit_price', data.unit_price!.toString())
+
+  if(data.label){
+
+    formData.append('label', data.label!)
+  }
+
+   formData.append('image', data.image!)
+   formData.append('icon_image', data.icon_image!)
+
+  // if (data.images && data.images.length > 0) {
+  //     data.images.forEach((image) => {
+  //       formData.append('images', image)
+  //     })
+  // }
+
+  return await Http.put<SuccessResponse<any>>(`${StockProductVariantApi.default}/${id}`, formData, 
+    {
+      headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
 }
+
+// export async function depositRequestApi({
+//   data,
+// }: {
+//   data: MerchantDepositRequest
+// }): Promise<SuccessResponse<any> | undefined> {
+//   const formData = new FormData()
+
+//   formData.append('file_url', data.file_url!)
+//   formData.append('bank', data.bank!)
+//   formData.append('amount', data.amount!.toString())
+//   formData.append('type', MerchantRequestTypeEnum.Deposit)
+
+//   return await Http.post<SuccessResponse<any>>(MerchantRequestsRouteApi.default, formData, {
+//     headers: {
+//       'Content-Type': 'multipart/form-data',
+//     },
+//   })
+// }
 
 export async function updateProductVariantStockStatusApi({
   id,

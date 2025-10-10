@@ -5,7 +5,7 @@
             <section class="spacep-y-1">
 
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Categories de produits en stock</h1>
-                <p class="text-sm text-white">{{ stocksData?.total }} Produit(s) trouvés</p>
+                <p class="text-sm text-white">{{ stocksData?.total }} produit(s) trouvé(s)</p>
             </section>
             <AddStock></AddStock>
         </header>
@@ -17,14 +17,14 @@
             <section class="flex items-center gap-2">
 
 
-                <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full "
+                <!-- <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full "
                     title="Filtre par statut" :elements="[
                         { name: 'Filtre par statut', value: 'all' },
                         { name: 'En attente', value: 'Pending' },
                         { name: 'En cours', value: 'Processing' },
                         { name: 'Echouée', value: 'Failed' },
                         { name: 'Réussi', value: 'Successful' }]">
-                </CommonSelect>
+                </CommonSelect> -->
 
 
 

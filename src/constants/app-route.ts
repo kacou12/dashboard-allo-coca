@@ -40,7 +40,7 @@ export const AppRoute = {
   },
   STOCKS_PRODUCTS: {
     name: 'stocks-products',
-    path: '/stock/:stockId/products',
+    path: '/stock/:stockId/category/:categoryId/products',
     v1_object: DashboardRouteApi.default,
   },
 

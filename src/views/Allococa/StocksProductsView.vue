@@ -7,7 +7,8 @@
                 <h1 class="text-clamp-md font-semibold font-merriweathersans">Produits en stock</h1>
                 <p class="text-sm text-white">{{ stocksProductsVariantData?.total }} Produits</p>
             </section>
-            <AddProductStock :product_id="(route.params.stockId as string)"></AddProductStock>
+            <AddProductStock v-if="isFetchedCategory" :product_id="(route.params.stockId as string)"
+                :category="categoryData!"></AddProductStock>
         </header>
 
 
@@ -51,7 +52,8 @@
 
             <div class="grid grid-cols-5 gap-4" v-if="isFetched">
 
-                <ProductVariantCard v-for="stock in stocksProductsVariantData?.items" :key="stock.id" :stock="stock">
+                <ProductVariantCard v-for="productVariant in stocksProductsVariantData?.items" :key="productVariant.id"
+                    :product-variant="productVariant">
                 </ProductVariantCard>
 
 
@@ -82,6 +84,7 @@ import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import AddProductStock from '@/components/main/allococa/stock/addProductStock.vue';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useAllococaPoductVariantStocksFiltersQuery } from '@/composables/queries/allococa/useAllococaStocksQueries';
+import { useCategoriesQuery, useCategoryQuery } from '@/composables/queries/useCategoryQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
 import {
@@ -106,6 +109,10 @@ const isLoadingData = computed(() => {
 
 const { data: stocksProductsVariantData, isFetched, refetch, isFetching, filtersProductVariantStock: filters } = useAllococaPoductVariantStocksFiltersQuery(route.params.stockId as string);
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
+
+
+const { data: categoryData, isLoading: isLoadingCategories, isFetched: isFetchedCategory } = useCategoryQuery(route.params.categoryId as string)
+
 
 const defaultPage = ref(1)
 

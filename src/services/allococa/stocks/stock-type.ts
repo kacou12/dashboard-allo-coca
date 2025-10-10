@@ -18,12 +18,25 @@ export type StockProductVariantCreatePayload = {
   product_id:string 
   size: string
   label: string
+  description: string
   quantity: number //0
   unit_price: number
   images?: File[]
   sort_order?: number //0
 }
-export type StockProductVariantUpdatePayload = Partial<StockProductVariantCreatePayload>
+export type StockProductVariantUpdatePayload = {
+  product_id?:string 
+  size?: string
+  label?: string
+  description?: string
+  quantity?: number //0
+  unit_price?: number
+  sort_order?: number //0
+  image?: File
+  icon_image?: File
+}
+
+// Partial<StockProductVariantCreatePayload>
 
 export type StockStatusUpdatePayload = {
   status?: boolean
@@ -74,6 +87,7 @@ export type StockProductVariantResponse = {
   product_id: string
   size: string
   label: string
+  description: string
   quantity: number
   unit_price: number
   image_url: string

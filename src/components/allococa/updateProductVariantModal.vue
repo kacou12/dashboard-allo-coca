@@ -15,21 +15,20 @@
         </template>
         <template #content>
             <div class="space-y-4">
-                <section class="space-y-2">
+                <section class="space-y-2"
+                    v-if="productVariantState.label != 'string' && productVariantState.label != null && productVariantState.label.length > 1">
                     <p class="text-sm text-neutral-20">Label</p>
-                    <Input type="text" id="label" placeholder="Ex: Nike Air Max 270" v-model="productVariantState.label"
-                        required />
+                    <Input type="text" id="label" placeholder="Ex: Zero" v-model="productVariantState.label" required />
+                </section>
+                <section class="space-y-2">
+                    <p class="text-sm text-neutral-20">Description</p>
+                    <Input type="text" id="Description" placeholder="Ex: Pack 9"
+                        v-model="productVariantState.description" required />
                 </section>
 
                 <section class="space-y-2">
                     <p class="text-sm text-neutral-20">Taille</p>
-                    <Input type="text" id="size" placeholder="Ex: 42, M, L, XL" v-model="productVariantState.size"
-                        required />
-                </section>
-
-                <section class="space-y-2">
-                    <p class="text-sm text-neutral-20">Image </p>
-                    <FileField title="Ajout de l'image" name="image" v-model="currentImage"></FileField>
+                    <Input type="text" id="size" placeholder="Ex: 0.5L " v-model="productVariantState.size" required />
                 </section>
 
                 <section class="space-y-2">
@@ -43,6 +42,35 @@
                         </span>
                     </div>
                 </section>
+
+                <section class="space-y-2">
+                    <p class="text-sm text-neutral-20">Image</p>
+
+                    <!-- Image existante -->
+
+                    <section v-if="!currentImage && product.image_url"
+                        class="h-[130px] flex items-center justify-center">
+                        <img :src="product.image_url" :alt="product.label"
+                            class="transition-opacity duration-300  h-full  ">
+                    </section>
+
+                    <FileField title="Ajout de l'image" name="image" v-model="currentImage"></FileField>
+                </section>
+                <section class="space-y-2">
+                    <p class="text-sm text-neutral-20">Image de la capsule</p>
+
+                    <!-- Image existante -->
+
+                    <section v-if="!currentImage && product.icon_url"
+                        class="h-[130px] flex items-center justify-center">
+                        <img :src="product.icon_url" :alt="product.icon_url"
+                            class="transition-opacity duration-300  h-full  ">
+                    </section>
+
+                    <FileField title="Ajout de l'image" name="image" v-model="currentImage"></FileField>
+                </section>
+
+
             </div>
         </template>
 
@@ -68,7 +96,7 @@ import type { StockProductVariantResponse, StockProductVariantUpdatePayload } fr
 import { onBeforeMount, ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { Input } from '../ui/input';
-import { downloadFileWithAxios } from '@/myUtils';
+import FileField from '../vee-validate/fileField.vue';
 
 const open = ref(false);
 const toast = useToast();
@@ -78,7 +106,7 @@ const { product } = defineProps<{
 }>();
 
 const currentImage = ref<File>();
-
+const currentCapsuleImage = ref<File>();
 
 const { mutateAsync: updateProductVariant } = useUpdateAllococaProductVariantStockMutation(product.product.id, product.id);
 
@@ -86,8 +114,10 @@ const productVariantState = ref<StockProductVariantUpdatePayload>({
     product_id: product.product_id,
     size: product.size,
     label: product.label,
+    description: product.description,
     unit_price: product.unit_price,
-    images: []
+    image: undefined,
+    icon_image: undefined
 });
 
 const updateProductVariantHandler = async () => {
@@ -95,8 +125,10 @@ const updateProductVariantHandler = async () => {
         product_id: productVariantState.value.product_id,
         size: productVariantState.value.size,
         label: productVariantState.value.label,
+        description: productVariantState.value.description,
         unit_price: productVariantState.value.unit_price,
-        images: [currentImage.value!]
+        image: currentImage.value ? currentImage.value : undefined,
+        icon_image: currentCapsuleImage.value ? currentCapsuleImage.value : undefined
     };
 
     await updateProductVariant(payload);
@@ -104,16 +136,15 @@ const updateProductVariantHandler = async () => {
     toast.success("Le produit a bien été modifié");
 }
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
     productVariantState.value = {
         product_id: product.product_id,
         size: product.size,
         label: product.label,
+        description: product.description,
         unit_price: product.unit_price,
-        images: []
+        image: undefined,
+        icon_image: undefined
     }
-
-    currentImage.value = await downloadFileWithAxios(product.image_url, product.product.name);
-    productVariantState.value.images = [currentImage.value];
 })
 </script>

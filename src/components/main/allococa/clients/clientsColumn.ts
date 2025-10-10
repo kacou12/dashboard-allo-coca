@@ -20,23 +20,12 @@ export const clientColumns: ColumnDef<ClientResponse>[] = [
   },
   {
     // Changement : 'customer_id' n'existe plus. On peut utiliser 'id' qui est toujours l'identifiant unique.
-    accessorKey: 'id', 
-    header: () => h('div', { class: 'text-left text-xs min-w-[100px]' }, 'ID client'),
+    accessorKey: 'email', 
+    header: () => h('div', { class: 'text-left text-xs min-w-[100px]' }, 'Email'),
     cell: ({ row }) => {
       const client: ClientResponse = row.original;
       // Corrigé : Accès à 'client.id'
-      return h('div', { class: 'text-left text-neutral-20 text-sm flex items-center min-w-[100px]' }, client.id);
-    },
-  },
-  {
-    // Changement : 'order_count' n'existe plus. J'ai mis 'created_at' (Date de création du compte) pour remplacer,
-    // car il est présent dans le nouveau type.
-    accessorKey: 'created_at',
-    header: () => h('div', { class: 'text-left text-xs min-w-[150px]' }, 'Date de création'),
-    cell: ({ row }) => {
-      const client: ClientResponse = row.original;
-      // Affichage de la date de création. Vous pouvez ajouter un formatage ici si nécessaire.
-      return h('div', { class: 'text-left text-neutral-20 text-sm' }, formatRelativeDate(new Date(client.created_at)));
+      return h('div', { class: 'text-left text-neutral-20 text-sm flex items-center min-w-[100px]' }, client.email);
     },
   },
   {
@@ -58,6 +47,17 @@ export const clientColumns: ColumnDef<ClientResponse>[] = [
       const client: ClientResponse = row.original;
       // Corrigé : Accès à 'client.address'
       return h('div', { class: 'text-left text-sm font-medium' }, client.address); 
+    },
+  },
+    {
+    // Changement : 'order_count' n'existe plus. J'ai mis 'created_at' (Date de création du compte) pour remplacer,
+    // car il est présent dans le nouveau type.
+    accessorKey: 'created_at',
+    header: () => h('div', { class: 'text-left text-xs min-w-[150px]' }, 'Date de création'),
+    cell: ({ row }) => {
+      const client: ClientResponse = row.original;
+      // Affichage de la date de création. Vous pouvez ajouter un formatage ici si nécessaire.
+      return h('div', { class: 'text-left text-neutral-20 text-sm' }, formatRelativeDate(new Date(client.created_at)));
     },
   },
   // {

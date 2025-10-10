@@ -11,7 +11,7 @@
 
                 <DropdownMenuContent align="end" class="text-xs text-neutral-10 font-worksans">
                     <DropdownMenuItem
-                        @click="$router.push({ name: AppRoute.STOCKS_PRODUCTS.name, params: { stockId: stock.id } })">
+                        @click="$router.push({ name: AppRoute.STOCKS_PRODUCTS.name, params: { stockId: stock.id, categoryId: stock.category_id } })">
                         Voir les produits
                     </DropdownMenuItem>
 

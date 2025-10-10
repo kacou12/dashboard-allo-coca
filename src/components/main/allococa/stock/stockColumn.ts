@@ -30,21 +30,21 @@ export const stockColumns: ColumnDef<StockResponse>[] = [
     header: () => h('div', { class: 'text-left text-xs min-w-300px' }, 'Description'),
     cell: ({ row }) => {
       const stock: StockResponse = row.original;
-      return h('div', { class: 'text-left text-neutral-700 text-sm' }, stock.description);
+      return h('div', { class: 'text-left text-neutral-700 text-sm' }, stock.description == "string"? "N/A": stock.description);
     },
   },
-  {
-    accessorKey: 'image_url',
-    header: () => h('div', { class: 'text-left text-xs' }, 'Image'),
-    cell: ({ row }) => {
-      const stock: StockResponse = row.original;
-      return h('img', {
-        src: stock.image_url,
-        alt: stock.name,
-        class: 'w-10 h-10 object-cover rounded',
-      });
-    },
-  },
+  // {
+  //   accessorKey: 'image_url',
+  //   header: () => h('div', { class: 'text-left text-xs' }, 'Image'),
+  //   cell: ({ row }) => {
+  //     const stock: StockResponse = row.original;
+  //     return h('img', {
+  //       src: stock.image_url,
+  //       alt: stock.name,
+  //       class: 'w-10 h-10 object-cover rounded',
+  //     });
+  //   },
+  // },
   // {
   //   accessorKey: 'category_id',
   //   header: () => h('div', { class: 'text-left text-xs min-w-150px' }, 'Catégorie'),

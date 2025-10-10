@@ -30,8 +30,8 @@
                         </svg>
 
                         <div class="flex items-center gap-2">
-                            <p class="text-white">Jessica</p>
-                            <img src="@/assets/allococa/user-circle.png" alt="">
+                            <p class="text-white">{{ user?.name }}</p>
+                            <img class="w-[36px] h-[36px] rounded-full" src="@/assets/images/avatars/26.png" alt="">
                         </div>
                     </div>
 
