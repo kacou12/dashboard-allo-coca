@@ -12,28 +12,28 @@ const router = createRouter({
     {
       path: AppRoute.LOGIN.path,
       name: AppRoute.LOGIN.name,
-      component: () => import('@/views/guests/LoginView.vue'),
+      component: () => import('@/views/Guests/LoginView.vue'),
       // beforeEnter:Auth.authIsRequire,
       meta: { requiresAuth: false },
     },
     {
       path: AppRoute.SIGNUP.path,
       name: AppRoute.SIGNUP.name,
-      component: () => import('@/views/guests/SignupView.vue'),
+      component: () => import('@/views/Guests/SignupView.vue'),
       // beforeEnter:Auth.authIsRequire,
       meta: { requiresAuth: false },
     },
     {
       path: AppRoute.LOST_PASSWORD.path,
       name: AppRoute.LOST_PASSWORD.name,
-      component: () => import('@/views/guests/ForgetPasswordView.vue'),
+      component: () => import('@/views/Guests/ForgetPasswordView.vue'),
       // beforeEnter:Auth.authIsRequire,
       meta: { requiresAuth: false },
     },
       {
       path: AppRoute.VERIFY_EMAIL.path,
       name: AppRoute.VERIFY_EMAIL.name,
-      component: () => import('@/views/guests/forgetPassword/VerifyEmailView.vue'),
+      component: () => import('@/views/Guests/ForgetPassword/VerifyEmailView.vue'),
       // beforeEnter: (to, from) => {
       //   if(from.name === AppRoute.LOST_PASSWORD.name ) {
       //     return true;
@@ -45,7 +45,7 @@ const router = createRouter({
     {
       path: AppRoute.UPDATE_PASSWORD.path,   
       name: AppRoute.UPDATE_PASSWORD.name,
-      component: () => import('@/views/guests/forgetPassword/DefinePasswordView.vue'),
+      component: () => import('@/views/Guests/ForgetPassword/DefinePasswordView.vue'),
       // beforeEnter:Auth.authIsRequire,
       beforeEnter: (to, from) => {
         if(to.query.token) {
@@ -59,7 +59,7 @@ const router = createRouter({
     {
       path: AppRoute.SUCCESS_UPDATE_PASSWORD.path,
       name: AppRoute.SUCCESS_UPDATE_PASSWORD.name,
-      component: () => import('@/views/guests/forgetPassword/SuccessResetPasswordView.vue'),
+      component: () => import('@/views/Guests/ForgetPassword/SuccessResetPasswordView.vue'),
       beforeEnter: (to, from) => {
         if(from.name === AppRoute.UPDATE_PASSWORD.name ) {
           return true;
