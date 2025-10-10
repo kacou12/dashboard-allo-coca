@@ -1,4 +1,3 @@
-// import { env } from '@/config/env'
 import axios from '@/config/axios'
 import { Http } from '../Http'
 import { AdminRouteApi } from '../admin/admin-constants'
@@ -74,9 +73,13 @@ export async function resetPasswordApi(payload: ResetPasswordRequest) {
 }
 
 
-export async function refreshTokenApi() {
+export async function refreshTokenApi(refreshToken  : string) {
   // return await axios.post<SuccessResponse<RefreshTokenResponse>>('/admin/api/v1/auth/refresh-token')
-  return await axios.post<string>('/admin/api/v1/auth/refresh-token')
+  return await axios.post<SuccessResponse<LoginResponse>>(AuthRouteApi.refreshToken,
+    {
+      refresh_token: refreshToken 
+    }
+  )
 }
 export async function fetchAdminPoliciesByRoleIdApi(roleId: string) {
   // const res = await Http.get<AdminPolicyResponse[]>(`/admin/api/v1/policies/role/${roleId}`)

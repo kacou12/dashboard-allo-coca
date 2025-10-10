@@ -5,13 +5,14 @@ import type {
   AuthResponse,
   LoginForm,
   LoginRequest,
+  LoginResponse,
   ResetPasswordRequest
 } from '@/services/auth/auth-type'
 import { useAuthStore } from '@/stores/useAuthStore'
 import type { AxiosError } from 'axios'
 import { useToast } from 'vue-toastification'
 import { fetchAdminPoliciesByRoleIdApi, forgetPasswordApi, loginApi, logoutApi, profilApi, refreshTokenApi, resetPasswordApi, updatePasswordApi } from './auth-api'
-import { destroySensitiveInfo, saveToken } from './auth-util'
+import { destroySensitiveInfo, getRefreshToken, saveToken } from './auth-util'
 
 export async function loginWithCredential({ email, password }: LoginForm) {
   const toast = useToast()
@@ -22,8 +23,8 @@ export async function loginWithCredential({ email, password }: LoginForm) {
     }
 
     const res = await loginApi(data)
-    const { access_token, duration } = res.data?.data! ?? {}
-    saveToken(access_token)
+    const { access_token, duration, refresh_token } = res.data?.data! ?? {}
+    saveToken(access_token, refresh_token)
 
     return res.data.data
   } catch (error: any) {
@@ -76,7 +77,7 @@ export async function resetPassword(payload: ResetPasswordRequest) {
 
 export async function fetchProfil(): Promise<AuthResponse | undefined> {
   const toast = useToast()
-  const { setUser } = useAuthStore();
+  const { setUser, user } = useAuthStore();
   try {
    
 
@@ -89,7 +90,7 @@ export async function fetchProfil(): Promise<AuthResponse | undefined> {
      toast.error(localError.response?.data.message ?? 'Quelque chose s\'est mal passé')
   }
 }
-export async function refreshToken(): Promise<string | undefined> {
+export async function refreshToken(): Promise<LoginResponse | undefined> {
   try {
     // if (getRefreshToken() && getDeviceId()) {
     // const data: RefreshTokenRequest = {
@@ -99,15 +100,13 @@ export async function refreshToken(): Promise<string | undefined> {
     //   refreshToken: getRefreshToken() ?? '',
     // }
 
-    const res = await refreshTokenApi()
-    const accessToken = res.data
-    saveToken(accessToken)
-    // TODO: display dialog session expired
-    return 'Successfully'
-    // }
 
-    // destroySensitiveInfo()
-    // router.push({ name: AppRoute.LOGIN.name })
+    const res = await refreshTokenApi(getRefreshToken()!)
+    const { access_token, duration, refresh_token } = res.data?.data! ?? {}
+    saveToken(access_token, refresh_token)
+    // TODO: display dialog session expired
+    return res.data.data;
+
   } catch (error: any) {
     // TODO: display dialog session expired
     destroySensitiveInfo()

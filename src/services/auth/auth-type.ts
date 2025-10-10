@@ -6,6 +6,7 @@ export type LoginForm = z.infer<typeof loginSchema>
 
 export type Authentication = {
   access_token: string
+  refresh_token: string
   token_type: string
   duration: string
   deviceId: string

@@ -39,13 +39,13 @@ export function setDeviceId(deviceId: string) {
 
 export function saveToken(
   accessToken: string,
-  // refreshToken: string,
+  refreshToken: string,
   // expiryIn: string,
   // deviceId: string,
 ): void {
   setAccessToken(accessToken)
   // setExpiryIn(expiryIn)
-  // setRefreshToken(refreshToken)
+  setRefreshToken(refreshToken)
   // setDeviceId(deviceId)
 }
 
