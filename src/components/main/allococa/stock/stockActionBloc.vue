@@ -63,7 +63,7 @@
 
                 <!-- Modal des détails -->
                 <article v-else-if="contentModalAction == 'SHOW'" class="relative">
-                    <div class="absolute top-0 left-0 right-0 bottom-0 bg-white/40 flex items-center justify-center">
+                    <!-- <div class="absolute top-0 left-0 right-0 bottom-0 bg-white/40 flex items-center justify-center">
                         <div role="status">
                             <svg aria-hidden="true"
                                 class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -77,7 +77,7 @@
                             </svg>
                             <span class="sr-only">Loading...</span>
                         </div>
-                    </div>
+                    </div> -->
                     <DialogHeader class="flex flex-row justify-between items-center">
                         <DialogTitle>Détails du stock</DialogTitle>
                         <DialogClose

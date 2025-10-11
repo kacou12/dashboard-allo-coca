@@ -5,13 +5,13 @@
       <div class="flex-1 bg-white"></div>
     </section>
 
-    <section class="z-50 relative   w-full h-full pt-[100px] flex flex-col maxContain3xl">
+    <section class="z-50 relative   w-full h-full pt-[90px] flex flex-col maxContain3xl">
 
 
       <!-- DEBUT NAVBAR -->
       <NavBar class="absolute top-0 left-0 right-0 "></NavBar>
       <!-- FIN NAVBAR -->
-      <section class="flex-1 flex items-center gap-8 h-full ">
+      <section class="flex-1 flex items-center gap-2 h-full ">
 
         <!-- DEBUT BARRE DES MENUS -->
         <AsideBar class=" ">

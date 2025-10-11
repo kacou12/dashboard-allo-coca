@@ -1,5 +1,5 @@
 <template>
-    <aside class="px-4 py-9 h-full shadow-md bg-white rounded-2xl">
+    <aside class="px-3 py-5 h-full shadow-md bg-white rounded-2xl">
         <!-- Navigation Items -->
         <div v-for="item in navigationItems" :key="item.name" class="mb-4">
             <!-- <router-link :to="{ name: item.route }" class="block" v-slot="{ isActive }">
