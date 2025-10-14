@@ -43,7 +43,7 @@
                 <div v-for="item in order.items" :key="item.id" class="px-6 py-4 flex justify-between items-center">
                     <div class="flex-1">
                         <p class="font-medium text-gray-900">
-                            {{ item.variant.product.name }}
+                            {{ item.variant.product.name }} {{ item.variant.name }}
                         </p>
                         <p class="text-sm text-gray-600">{{ item.variant.name }}</p>
                         <p class="text-sm text-gray-500 mt-1">
