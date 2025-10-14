@@ -104,7 +104,7 @@ export const AppRoute = {
     v1_object: DashboardRouteApi.default,
   },
   ADMIN: {
-    name: 'admin',
+    name: 'admins',
     path: '/',
     v1_object: '', // Aucune correspondance directe trouvée dans permission-constants.ts
   },

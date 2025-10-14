@@ -38,29 +38,14 @@
 
         <main v-if="isSuccess" class="space-y-5 xl:w-[75%] font-medium text-sm my-8 ">
 
-            <section class="flex flex-col md:flex-row">
-                <div class="md:w-[30%]">
-                    <p class="flex-1 text-neutral-20">Photo de profil</p>
-                </div>
-                <!-- <p class="flex-1 text-neutral-40">Photo de profil</p> -->
-
-                <div class="w-full max-w-[512px]">
-
-                    <!-- :class="`bg-[url('/src/assets/images/avatar/${adminUser!.avatar.split(" .")[0]}.png')]`" -->
-                    <div :style="`background-image: url(/src/assets/images/avatar/${adminUser!.avatar.split('.')[0]}.png)`"
-                        class="w-[72px] h-[72px] rounded-full bg-cover">
-                    </div>
-                </div>
-            </section>
 
             <section class="flex flex-col md:flex-row">
                 <div class="md:w-[30%]">
                     <p class="flex-1 text-neutral-20 ">Nom</p>
                 </div>
                 <div class="flex gap-3 w-full max-w-[512px]  ">
-                    <Input disabled v-model="userState.firstname" type="firstNmae" id="firstName" class="" required />
-                    <Input disabled v-model="userState.lastname" type="lastName" id="lastName" placeholder="Last name"
-                        class="" required />
+                    <Input disabled v-model="userState.name" type="name" id="name" class="" required />
+
                 </div>
             </section>
 
@@ -89,10 +74,10 @@
 
             <section class="flex flex-col md:flex-row">
                 <div class="md:w-[30%]">
-                    <p class="flex-1 text-neutral-20">Authentification</p>
+                    <p class="flex-1 text-neutral-20">Numéro de téléphone</p>
                 </div>
                 <div class="flex gap-3 w-full max-w-[512px] relative">
-                    <Input disabled v-model="userState.phone" class="pl-14" id="email" placeholder="numéro de téléphone"
+                    <Input disabled v-model="userState.phone" class="pl-14" id="phone" placeholder="numéro de téléphone"
                         required />
                     <span
                         class="absolute start-0 inset-y-0 flex items-center justify-center px-2 border-r text-neutral-30">
@@ -133,14 +118,12 @@
 <script setup lang="ts">
 import CommonButton from '@/components/buttons/commonButton.vue';
 import CommonBreadcrumb from '@/components/common/commonBreadcrumb.vue';
-import CommonSelect from '@/components/common/commonSelect.vue';
 import CommonSwitch from '@/components/common/commonSwitch.vue';
-import CustomCommonSwitch from '@/components/custom-shadcn/customCommonSwitch.vue';
 import { Input } from '@/components/ui/input';
-import { useAdminQuery, useUpdateAdminMutation } from '@/composables/queries/useAdminQueries';
-import { fetchRoles } from '@/services/admin/admin-service';
-import type { AdminUpdatePayload, RoleResponse } from '@/services/admin/admin-type';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { useClientQuery } from '@/composables/queries/allococa/useAllococaClientsQueries';
+import { useUpdateAdminMutation } from '@/composables/queries/useAdminQueries';
+import type { AdminUpdatePayload } from '@/services/admin/admin-type';
+import { reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
@@ -161,37 +144,16 @@ const updateUser = async () => {
 
 
 const userState = reactive<AdminUpdatePayload>({
-    firstname: "",  // email de l'utilisateur
-    lastname: "",  // mot de passe de l'utilisateur
+    name: "",  // nom de l'utilisateur
     email: "",
     phone: "",
-    role_id: "",
     active: false
 });
 
-const defaultImage = computed(() => {
-    if (adminUser.value) {
-
-        return new URL(`/src/assets/images/avatar/${adminUser.value!.avatar.split(".")[0]}.png`, import.meta.url).href;
-    }
-    return '';
-});
 
 
-const { data: adminUser, isSuccess, isLoading, refetch } = useAdminQuery(route.params.id as string);
 
-onMounted(async () => {
-    await refetch()
-    const testAdmin = { ...adminUser.value };
-    userState.email = adminUser.value?.email;
-    userState.firstname = adminUser.value?.firstname;
-    userState.lastname = adminUser.value?.lastname;
-    userState.phone = adminUser.value?.phone;
-    userState.role_id = adminUser.value?.role_id;
-    userState.active = adminUser.value?.active;
-
-
-});
+const { data: adminUser, isSuccess, isLoading, refetch } = useClientQuery(route.params.id as string);
 
 
 </script>

@@ -8,12 +8,9 @@ export type AdminRoleForm = z.infer<typeof adminRoleSchema>
 
 export type AdminRequest = {
   email: string
-  firstname: string
-  lastname: string
+  name: string
   phone: string
-  role_id: string
-  birthdate: string
-  country_id: string
+  // role_id: string
 }
 export type AdminRoleRequest = AdminRoleForm & {
   description: string
@@ -32,47 +29,22 @@ export type PermissionRequest = {
 }
 
 export type AdminResponse = {
-  accepted_tos: boolean
-  active: boolean
-  avatar: string
-  birthdate: string
-  country: CountryResponse
-  country_id: string
-  created_at: string
-  email: string
-  email_verified: boolean
-  firstname: string
   id: string
-  is_superuser: boolean
-  last_login: string | null
-  lastname: string
-  password: string
+  active: boolean
+  email: string
+  name: string
   phone: string
-  phone_verified: boolean
-  pin_code: string
-  referral_code: string | null
-  referred_by: string | null
-  reward_amount: number
-  role: RoleResponse
-  role_id: string
-  sendchap_id: string
+  created_at: string
   updated_at: string
-  validated_phone_numbers: string[] | null
-  verification_status: string
-  withdrawn_amount: number
 }
 
 export type AdminUpdatePayload = {
   // id?: string
 
   active?: boolean
-  avatar?: string
-  birthdate?: string
   email?: string
-  firstname?: string
-  lastname?: string
+  name?: string
   phone?: string
-  role_id?: string
 }
 
 export type PermissionResponse = {

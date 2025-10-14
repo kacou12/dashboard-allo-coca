@@ -33,7 +33,7 @@ const router = createRouter({
       {
       path: AppRoute.VERIFY_EMAIL.path,
       name: AppRoute.VERIFY_EMAIL.name,
-      component: () => import('@/views/Guests/ForgetPassword/VerifyEmailView.vue'),
+      component: () => import('@/views/Guests/forgetPassword/VerifyEmailView.vue'),
       // beforeEnter: (to, from) => {
       //   if(from.name === AppRoute.LOST_PASSWORD.name ) {
       //     return true;
@@ -45,7 +45,7 @@ const router = createRouter({
     {
       path: AppRoute.UPDATE_PASSWORD.path,   
       name: AppRoute.UPDATE_PASSWORD.name,
-      component: () => import('@/views/Guests/ForgetPassword/DefinePasswordView.vue'),
+      component: () => import('@/views/Guests/forgetPassword/DefinePasswordView.vue'),
       // beforeEnter:Auth.authIsRequire,
       beforeEnter: (to, from) => {
         if(to.query.token) {
@@ -59,7 +59,7 @@ const router = createRouter({
     {
       path: AppRoute.SUCCESS_UPDATE_PASSWORD.path,
       name: AppRoute.SUCCESS_UPDATE_PASSWORD.name,
-      component: () => import('@/views/Guests/ForgetPassword/SuccessResetPasswordView.vue'),
+      component: () => import('@/views/Guests/forgetPassword/SuccessResetPasswordView.vue'),
       beforeEnter: (to, from) => {
         if(from.name === AppRoute.UPDATE_PASSWORD.name ) {
           return true;

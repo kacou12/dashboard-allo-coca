@@ -72,13 +72,13 @@ export function useAdminsFiltersQuery() {
   }
 }
 
-export function useAdminQuery(id: string) {
-  return useQuery({
-    queryKey: computed(() => adminQueryKeys.admin({ id, country: country.value?.id! })),
-    queryFn: ({ signal }) => fetchOneAdmin({ id }),
-    enabled: false,
-  })
-}
+// export function useAdminQuery(id: string) {
+//   return useQuery({
+//     queryKey: computed(() => adminQueryKeys.admin({ id, country: country.value?.id! })),
+//     queryFn: ({ signal }) => fetchOneAdmin({ id }),
+//     enabled: false,
+//   })
+// }
 
 export function useCreateAdminMutation() {
   const { invalidateQuery } = useAdminsFiltersQuery()
@@ -100,7 +100,7 @@ export function useUpdateAdminMutation(id: string) {
     onSuccess: () => {
       console.log('create admin successfully')
 
-      invalidateQuery()
+      // invalidateQuery()
     },
   })
 }

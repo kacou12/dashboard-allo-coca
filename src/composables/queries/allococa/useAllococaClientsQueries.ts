@@ -4,6 +4,7 @@ import {
   createClient,
   deleteClient,
   fetchClients,
+  fetchOneClient,
   updateClient,
 } from '@/services/allococa/clients/client-service'
 
@@ -62,6 +63,15 @@ export function useAllococaClientsFiltersQuery() {
     invalidateQuery,
   }
 }
+
+export function useClientQuery(id: string) {
+  return useQuery({
+    queryKey: computed(() => clientQueryKeys.client(id)),
+    queryFn: ({ signal }) => fetchOneClient({ id }),
+  })
+}
+
+
 
 export function useCreateAllococaClientMutation() {
   const { invalidateQuery } = useAllococaClientsFiltersQuery()

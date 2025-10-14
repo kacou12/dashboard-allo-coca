@@ -17,42 +17,18 @@
                         <article class="flex-1">
 
                             <div>
-                                <p class="flex-1 text-neutral-20 ">Nom</p>
+                                <p class="flex-1 text-neutral-20 ">Nom complet</p>
                             </div>
                             <div class="flex gap-3 w-full max-w-[512px]  ">
                                 <!-- <Input type="firstNmae" id="firstName" v-model="dataState.firstname"
                                     placeholder="First name" class=""  /> -->
 
-                                <InputField class="w-full" v-model="dataState.firstname" placeholder="First name"
+                                <InputField class="w-full" v-model="dataState.name" placeholder="First name"
                                     name="firstname" />
 
                             </div>
                         </article>
-                        <article class="flex-1">
 
-                            <div>
-                                <p class="flex-1 text-neutral-20 ">Prenoms</p>
-                            </div>
-                            <div class="flex gap-3 w-full max-w-[512px]  ">
-                                <!-- <Input type="lastname" id="lastname" v-model="dataState.lastname" placeholder="First name"
-                                    class="" /> -->
-                                <InputField class="w-full" v-model="dataState.lastname" placeholder="Last name"
-                                    name="lastname" />
-
-                            </div>
-                        </article>
-                    </section>
-                    <section class="  ">
-                        <div>
-                            <p class="flex-1 text-neutral-20 ">Date de naissance</p>
-                        </div>
-                        <div class="">
-                            <!-- <Input type="firstNmae" id="firstName" v-model="dataState.firstname" placeholder="First name"
-                                class=""  />
-                            <Input type="lastName" id="lastName" v-model="dataState.lastname" placeholder="Last name"
-                                class=""  /> -->
-                            <CommonDatePicker name="birthdate" v-model="birthDateValue"></CommonDatePicker>
-                        </div>
                     </section>
 
                     <section class=" ">
@@ -90,21 +66,15 @@
                             +225
                         </span>
                     </div> -->
-                        <div class=" w-full  max-w-[512px]">
+                        <!-- <div class=" w-full  max-w-[512px]">
 
-                            <!-- <CommonSelect v-model="dataState.role_id" border-color="border-neutral-60"
-                                default-width="w-full" class="w-full" title="Role"
-                                :elements="selectedOptions.map((role: RoleResponse) => ({ name: role.name, value: role.id }))">
-                            </CommonSelect> -->
                             <SelectField name="role_id" v-model="dataState.role_id" border-color="border-neutral-60"
                                 default-width="w-full" class="w-full" title="Role" :elements="[{ name: 'super_admin', value: 'e464995c-43fc-416a-987d-067647883b84' }, { name: 'user', value: 'dbde9970-19c8-4555-9984-96c3ce0169ab' },
                                 { name: 'support', value: 'a846add0-099e-4aa9-80cf-7a41a1a8e85c' }]">
                             </SelectField>
 
-                            <!-- <CommonMultiselect v-model="selectedOptions" :options="options" placeholder="Choix des roles"
-                                :animation="0.5" :max-count="2" variant="default">
-                            </CommonMultiselect> -->
-                        </div>
+                  
+                        </div> -->
                     </section>
 
                     <section class=" ">
@@ -150,28 +120,20 @@
 import CommonButton from '@/components/buttons/commonButton.vue';
 import CommonModal from '@/components/common/commonModal.vue';
 import { Button } from '@/components/ui/button';
-import { createAdmin, fetchRoles } from '@/services/admin/admin-service';
-import type { AdminRequest, RoleResponse } from '@/services/admin/admin-type';
-import { type DateValue } from '@internationalized/date';
-import { onBeforeMount, ref } from 'vue';
-import CommonDatePicker from '../common/commonDatePicker.vue';
-import CommonSelect from '../common/commonSelect.vue';
-import { Input } from '../ui/input';
-import { useLoaderStore } from '@/stores/useLoaderStore';
 import { useCreateAdminMutation } from '@/composables/queries/useAdminQueries';
-import { useQueryClient } from '@tanstack/vue-query';
-import { useToast } from 'vue-toastification';
+import type { AdminRequest } from '@/services/admin/admin-type';
 import { useCountryStore } from '@/stores/useCountryStore';
+import { useLoaderStore } from '@/stores/useLoaderStore';
+import { type DateValue } from '@internationalized/date';
 import { storeToRefs } from 'pinia';
+import { ref } from 'vue';
+import { useToast } from 'vue-toastification';
 
+import { adminSchema } from '@/services/admin/admin-schema';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
-import { adminSchema } from '@/services/admin/admin-schema';
 import InputField from '../vee-validate/InputField.vue';
-import CustomEmailInputField from '../vee-validate/CustomEmailInputField.vue';
-import SelectField from '../vee-validate/selectField.vue';
 
-const selectedOptions = ref<RoleResponse[]>([]);
 const toast = useToast();
 
 const { startLoading, stopLoading, startLoadingSkeleton } = useLoaderStore();
@@ -191,13 +153,11 @@ const birthDateValue = ref<DateValue>()
 
 const addNewAdmin = async () => {
     const payload: AdminRequest = {
-        birthdate: `${birthDateValue.value!.year}/${birthDateValue.value!.month < 10 ? `0${birthDateValue.value!.month}` : birthDateValue.value!.month}/${birthDateValue.value!.day < 10 ? `0${birthDateValue.value!.day}` : birthDateValue.value!.day}`,
-        firstname: dataState.value.firstname,
-        lastname: dataState.value.lastname,
-        role_id: dataState.value.role_id,
+        name: dataState.value.name,
+        // role_id: dataState.value.role_id,
         email: dataState.value.email,
         phone: dataState.value.phone,
-        country_id: currentCountry.value!.id
+
     };  // dataState.email,
     // createAdmin(payload);
 
@@ -228,9 +188,8 @@ const addNewAdmin = async () => {
 
 
 const dataState = ref({
-    firstname: "",
-    lastname: "",
-    role_id: "",
+    name: "",
+    // role_id: "",
     email: "",
     phone: "",
 

@@ -2,7 +2,8 @@
     <CommonModal backgroud-color="bg-white" v-model:open="open" :showDivider="false">
         <template #trigger>
             <div class="cursor-pointer" @click.prevent.stop="() => console.log('dd')">
-                <CustomCommonSwitch :default-active="isActive"></CustomCommonSwitch>
+                <!-- <CustomCommonSwitch :default-active="isActive"></CustomCommonSwitch> -->
+                <CommonSwitch v-model="isActive"></CommonSwitch>
             </div>
         </template>
 
@@ -33,6 +34,7 @@
 
 <script setup lang="ts">
 import CommonModal from '@/components/common/commonModal.vue';
+import CommonSwitch from '@/components/common/commonSwitch.vue';
 import CustomCommonSwitch from '@/components/custom-shadcn/customCommonSwitch.vue';
 
 import { Button } from '@/components/ui/button';

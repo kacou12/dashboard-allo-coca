@@ -19,7 +19,6 @@ export type OrderStatusUpdatePayload = {
 }
 
 export enum OrderStatusEnum {
-  AFFECTED = 'Affecté',
   IN_PROGRESS = 'En cours',
   DELIVERED = 'Livrée',
   CANCELED = 'Annulée'
@@ -52,9 +51,8 @@ export type OrderFiltersRequest = {
 };
 
 export const orderStatusConfigEnumData: StatusConfigEnum[] =[
-  { value: 'pending', name: 'En attente', color: '#6c757d', textColor: '#ffffff' },
-  { value: 'processing', name: 'En traitement', color: '#ffc107', textColor: '#000000' },
-  { value: 'paid', name: 'Payée', color: '#28a745', textColor: '#ffffff' },
+  { value: 'pending', name: 'En cours ', color: '#6c757d', textColor: '#ffffff' },
+  { value: 'delivered', name: 'Livrée', color: '#28a745', textColor: '#ffffff' },
   { value: 'cancelled', name: 'Annulée', color: '#dc3545', textColor: '#ffffff' },
 ];
 

@@ -23,7 +23,6 @@
 
             </section>
 
-
             <div>
                 <notification-icon></notification-icon>
             </div>
@@ -41,10 +40,7 @@
                 </div>
             </section>
             <section class="sm:my-0 my-5">
-
-                <!-- <CommonButton @action="console.log('wapiti')" title="Créer un compte"></CommonButton> -->
-
-                <AddAdminAccountModal> </AddAdminAccountModal>
+                <!-- <AddAdminAccountModal> </AddAdminAccountModal> -->
 
             </section>
 
@@ -67,19 +63,16 @@
                     </template>
                 </CommonSelect>
             </div>
-            <SearchBar :is-loading="isFetching && filters.q !== undefined" v-model="filters.q"
+            <SearchBar :is-loading="isFetching && filters.search !== undefined" v-model="filters.search"
                 class="w-full sm:w-[28%] sm:my-0 my-5"></SearchBar>
 
         </section>
 
         <!-- Transactions table -->
-        <CommonDataTable :default-page="filters.page" :dynamic-width-columns="false" :total="adminsData?.total ?? 0"
-            :columns="administrationColumn" :data="adminsData?.items ?? []" @prev-page="prevPage" @next-page="nextPage"
-            @go-to-page="goToPage">
+        <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
+            :total="adminsData?.total ?? 0" :columns="administrationColumn" :data="adminsData?.items ?? []"
+            @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
         </CommonDataTable>
-
-
-
 
 
     </div>
@@ -89,25 +82,41 @@
 import CommonDataTable from '@/components/common/commonDataTable.vue';
 import CommonSelect from '@/components/common/commonSelect.vue';
 import { administrationColumn } from '@/components/main/administration/tables/administrationColumn';
-import AddAdminAccountModal from '@/components/modals/addAdminAccountModal.vue';
 
 import notificationIcon from '@/components/svg/notificationIcon.vue';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useLoaderStore } from '@/stores/useLoaderStore';
 // import type { AdministrationType } from '@/interfaces/datatable.interface';
-import { useAdminsFiltersQuery } from '@/composables/queries/useAdminQueries';
-import { useRoute } from 'vue-router';
-import { useTemplateRef, inject } from 'vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
+import { useAllococaAdminsFiltersQuery } from '@/composables/queries/allococa/useAllococaAdminsQueries';
+import { inject } from 'vue';
+import { useRoute } from 'vue-router';
 
 const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 
 
 
-const { data: adminsData, isFetched, filters, isLoading, isSuccess, isFetching } = useAdminsFiltersQuery();
+const { data: adminsData, isFetched, filters, isLoading, isSuccess, isFetching } = useAllococaAdminsFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
 
 const route = useRoute();
+
+
+
+const [limitModel, limitModifiers] = defineModel('limitProvider', {
+    type: String,
+
+    set(value: string) {
+        filters.limit = parseInt(value);
+        return value
+    },
+    //   get(v) {
+    //     return v;
+    //   },
+    default: undefined,
+})
+
+
 
 const nextPage = async () => {
     filters.page = filters.page + 1;

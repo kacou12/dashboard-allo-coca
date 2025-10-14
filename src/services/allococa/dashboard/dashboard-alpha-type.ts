@@ -68,5 +68,9 @@ export interface DashboardStatsResponse{
     product_image_url: string;
     orders_count: number;
   };
-  weekly_orders: number;
+  weekly_orders: {
+    pending: number;
+    cancelled: number;
+    delivered: number;
+  };
 }

@@ -36,6 +36,7 @@ const OrderIcon = defineAsyncComponent(() => import('./OrderIcon.vue'));
 const UserIcon = defineAsyncComponent(() => import('./UserIcon.vue'));
 const StockIcon = defineAsyncComponent(() => import('./StockIcon.vue'));
 const DashboardIcon = defineAsyncComponent(() => import('./DashboardIcon.vue'));
+const AdminIcon = defineAsyncComponent(() => import('./AdminIcon.vue'));
 
 const props = defineProps({
     item: {
@@ -54,6 +55,8 @@ const iconMap = {
     'orders': OrderIcon,
     'users': UserIcon,
     'stock': StockIcon,
+    'admin': AdminIcon,
+    // Ajoutez d'autres icônes ici si nécessaire'
 };
 
 const iconComponent = computed(() => {

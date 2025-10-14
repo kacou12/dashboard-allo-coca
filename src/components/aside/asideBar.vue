@@ -43,17 +43,14 @@
 </template>
 
 <script setup lang="ts">
+import { sidebarStateKey } from '@/components/layouts/provide-state-key';
+import { AppRoute } from '@/constants/app-route';
+import { destroySensitiveInfo } from '@/services/auth/auth-util';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from '@/stores/useLoaderStore';
-import { AppRoute } from '@/constants/app-route';
-import { logout } from '@/services/auth/auth-service';
+import { storeToRefs } from 'pinia';
 import { computed, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import AsideNavigation from '../asideNavigation.vue'
-import { storeToRefs } from 'pinia';
-import { destroySensitiveInfo } from '@/services/auth/auth-util';
-import type { InjectionKey } from 'vue'
-import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import AsideCard from './asideCard.vue';
 
 // Navigation items data
@@ -72,11 +69,18 @@ const navigationItems = [
         name: 'Clients',
         route: 'clients',
         icon: 'users'
-    },
+    }
+    ,
     {
         name: 'Stocks',
         route: 'stocks',
         icon: 'stock'
+    }
+    ,
+    {
+        name: 'Admins',
+        route: 'administration',
+        icon: 'admin'
     }
 ];
 

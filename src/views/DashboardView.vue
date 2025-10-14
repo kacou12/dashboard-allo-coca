@@ -39,7 +39,7 @@
           <p class="text-sm">Total des commandes</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-h1-md">{{ dashboardStatsData?.weekly_orders ?? 0 }}</p>
+            <p class="text-clamp-h1-md">{{ dashboardStatsData?.weekly_orders.pending ?? 0 }}</p>
             <p class="text-sm">cette semaine</p>
           </div>
         </div>

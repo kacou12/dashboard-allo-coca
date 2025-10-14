@@ -1,8 +1,9 @@
 import {
   createClientApi,
+  deleteClientApi,
+  fetchClientByIdApi,
   fetchClientsApi,
-  updateClientApi,
-  deleteClientApi
+  updateClientApi
 } from './client-api';
 import type {
   ClientCreatePayload,
@@ -31,6 +32,16 @@ export async function fetchClients(
     return customData;
   } catch (error: any) {
     throw Error(error.response?.data?.message || 'Une erreur est survenue lors de la récupération des clients');
+  }
+}
+
+export async function fetchOneClient({ id }: { id: string }): Promise<ClientResponse | undefined> {
+  try {
+    const res = await fetchClientByIdApi({ id: id })
+
+    return res?.data
+  } catch (error: any) {
+    throw Error(error.response.data.message)
   }
 }
 
