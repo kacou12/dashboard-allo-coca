@@ -3,15 +3,14 @@ import { fetchOneAdmin } from '@/services/admin/admin-service'
 import { clientQueryKeys } from '@/services/allococa/clients/client-query-keys'
 import {
   createClient,
-  deleteClient,
   fetchClients,
-  updateClient,
+  updateClient
 } from '@/services/allococa/clients/client-service'
 
 import type {
   ClientCreatePayload,
   ClientFiltersPayload,
-  ClientUpdatePayload,
+  ClientUpdatePayload
 } from '@/services/allococa/clients/client-type'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed, reactive, watch } from 'vue'
@@ -22,7 +21,7 @@ export function useAllococaAdminsFiltersQuery() {
   const initialFilters: ClientFiltersPayload = {
     search: undefined,
     page: 1,
-    limit: 10,
+    limit: 7,
     dates: [getMidnightToday(), new Date()],
     status: undefined,
     role: "admin",
@@ -69,6 +68,33 @@ export function useAdminQuery(id: string) {
     queryKey: computed(() => clientQueryKeys.admin(id)),
     queryFn: ({ signal }) => fetchOneAdmin({ id }),
     enabled: false,
+  })
+}
+
+
+
+export function useCreateAdminMutation() {
+  const { invalidateQuery } = useAllococaAdminsFiltersQuery()
+  return useMutation({
+    mutationFn: (values: ClientCreatePayload) => createClient({ data: values }),
+
+    onSuccess: () => {
+      console.log('create admin successfully')
+
+      invalidateQuery()
+    },
+  })
+}
+export function useUpdateAdminMutation(id: string) {
+  const { invalidateQuery } = useAllococaAdminsFiltersQuery()
+  return useMutation({
+    mutationFn: (payload: ClientUpdatePayload) => updateClient({ id, data: payload }),
+
+    onSuccess: () => {
+      console.log('create admin successfully')
+
+      // invalidateQuery()
+    },
   })
 }
 

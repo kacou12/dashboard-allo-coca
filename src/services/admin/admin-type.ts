@@ -1,7 +1,5 @@
 import { z } from 'zod'
 import type { adminRoleSchema, adminSchema } from './admin-schema'
-import type { AdminRole } from './admin-constants'
-import type { CountryResponse } from '../country/country-type'
 
 export type AdminForm = z.infer<typeof adminSchema>
 export type AdminRoleForm = z.infer<typeof adminRoleSchema>
@@ -10,7 +8,7 @@ export type AdminRequest = {
   email: string
   name: string
   phone: string
-  // role_id: string
+  role: string
 }
 export type AdminRoleRequest = AdminRoleForm & {
   description: string

@@ -1,54 +1,18 @@
 <template>
-    <div class="px-4 bg-white">
+    <div class="px-4 ">
 
-        <header class="flex justify-between items-center">
-            <section class="flex items-center gap-2">
-                <button class="hidden xl:block p-2 -ml-2 mr-2" @click="toggleSidebarExpanded">
-                    <svg viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round" class="h-6 w-6 transform"
-                        :class="isSidebarExpanded ? 'rotate-180' : 'rotate-0'">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <line x1="4" y1="6" x2="14" y2="6" />
-                        <line x1="4" y1="18" x2="14" y2="18" />
-                        <path d="M4 12h17l-3 -3m0 6l3 -3" />
-                    </svg>
-                </button>
-                <div class=" space-y-1">
+        <header class=" flex items-center gap-2 text-white justify-between">
+            <section class="spacep-y-1">
 
-
-                    <h1 class="text-md xl:text-xl font-bold font-merriweathersans leading-6 text-black">Administration
-                    </h1>
-                    <p class="text-neutral-30 text-sm font-normal">Gestion des administrateurs</p>
-                </div>
-
+                <h1 class="text-clamp-md font-semibold font-merriweathersans">Equipe d'administration</h1>
+                <p class="text-sm text-white">{{ adminsData?.total ?? 0 }} personne(s) trouvé(s)</p>
             </section>
-
             <div>
-                <notification-icon></notification-icon>
+                <AddAdminAccountModal></AddAdminAccountModal>
             </div>
         </header>
 
-
-        <div class="flex flex-col sm:flex-row justify-between my-4">
-            <section class="flex gap-2 items-center">
-                <p class="text-[18px] font-semibold">Equipe d'administration</p>
-                <div>
-                    <span v-if="isFetched"
-                        class="text-xs font-medium px-[5px] py-[1px]  rounded-xl border text-[#633DA5] border-[#633DA5]">{{
-                            adminsData!.total }}
-                        Personne(s)</span>
-                </div>
-            </section>
-            <section class="sm:my-0 my-5">
-                <!-- <AddAdminAccountModal> </AddAdminAccountModal> -->
-
-            </section>
-
-        </div>
-
-        <div class="h-[1px] bg-neutral-70 my-5"></div>
-
-        <section class="flex flex-col sm:flex-row justify-between mb-4">
+        <section class="flex flex-col sm:flex-row justify-between mb-4 mt-5">
             <div class="flex gap-3">
 
                 <CommonSelect title="Trier par"
@@ -91,6 +55,7 @@ import { sidebarStateKey } from '@/components/layouts/provide-state-key';
 import { useAllococaAdminsFiltersQuery } from '@/composables/queries/allococa/useAllococaAdminsQueries';
 import { inject } from 'vue';
 import { useRoute } from 'vue-router';
+import AddAdminAccountModal from '@/components/modals/addAdminAccountModal.vue';
 
 const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 

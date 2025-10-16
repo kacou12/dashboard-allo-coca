@@ -29,14 +29,14 @@ import { computed, reactive, watch } from 'vue'
 const initialFiltersStock: StockFiltersPayload = {
   search: undefined,
   page: 1,
-  limit: 10,
+  limit: 7,
   dates: [getMidnightToday(), new Date()],
   status: undefined,
 }
 const initialFiltersProductVariantStock: StockProductVariantFiltersPayload = {
   search: undefined,
   page: 1,
-  limit: 10,
+  limit: 7,
   product_id: undefined,
   dates: [getMidnightToday(), new Date()],
   status: undefined,

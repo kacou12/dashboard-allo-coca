@@ -14,7 +14,7 @@ const initialFilters: InvoiceFiltersPayload = {
   service: undefined,
   // has_relaunch_payment: undefined,
   //   user_id: undefined,
-  limit: 10,
+  limit: 7,
 };
 
 export const useInvoiceFiltersStore = defineStore(

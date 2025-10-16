@@ -2,8 +2,8 @@
     <CommonModal backgroud-color="bg-white" v-model:open="open" :showDivider="false">
         <template #trigger>
             <div class="cursor-pointer" @click.prevent.stop="() => console.log('dd')">
-                <!-- <CustomCommonSwitch :default-active="isActive"></CustomCommonSwitch> -->
-                <CommonSwitch v-model="isActive"></CommonSwitch>
+                <CustomCommonSwitch :default-active="isActive"></CustomCommonSwitch>
+                <!-- <CommonSwitch v-model="isActive"></CommonSwitch> -->
             </div>
         </template>
 

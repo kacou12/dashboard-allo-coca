@@ -27,7 +27,7 @@ export class Http {
     try {
       if (queryParams) {
         if (!queryParams.limit) {
-          queryParams = { ...queryParams, limit: 10 }
+          queryParams = { ...queryParams, limit: 7 }
         }
 
         const query = queryString.stringify(queryParams)

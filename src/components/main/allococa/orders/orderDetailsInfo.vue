@@ -5,7 +5,7 @@
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h1 class=" font-bold text-gray-900">
-                        Commande {{ order.reference || order.id }}
+                        Commande {{ order.reference }}
                     </h1>
                     <p class="text-sm text-gray-500 mt-1">{{ formatRelativeDate(new Date(order.order_date)) }}</p>
                 </div>
@@ -64,7 +64,11 @@
             <div class="space-y-2">
                 <div class="flex justify-between text-gray-600">
                     <span>Sous-total</span>
-                    <span>{{ formatPrice(order.total_amount) }}</span>
+                    <span>{{ formatPrice(subtotal) }}</span>
+                </div>
+                <div v-if="order.is_settled" class="flex justify-between text-gray-600">
+                    <span>Consignation</span>
+                    <span>{{ formatPrice(order.number_of_casier * 3600) }}</span>
                 </div>
                 <div class="flex justify-between text-xl font-bold text-gray-900 pt-2 border-t">
                     <span>Total</span>
@@ -77,15 +81,19 @@
 <script setup lang="ts">
 import { formatPrice, formatRelativeDate } from '@/myUtils';
 import type { OrderResponse } from '@/services/allococa/orders/order-type';
-import type { PropType } from 'vue';
+import { computed, type PropType } from 'vue';
 import OrderStatusBloc from './orderStatusBloc.vue';
 
-defineProps({
+const { order } = defineProps({
     order: {
         type: Object as PropType<OrderResponse>,
         required: true
     }
 })
+
+const subtotal = computed(() => {
+    return order.items.reduce((acc, item) => acc + item.line_total, 0);
+});
 
 </script>
 

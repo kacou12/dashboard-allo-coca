@@ -1,5 +1,5 @@
 <template>
-    <aside class="px-3 py-5 h-full shadow-md bg-white rounded-2xl">
+    <aside class="px-3 py-5 shadow-md bg-white rounded-2xl border-2">
         <!-- Navigation Items -->
         <div v-for="item in navigationItems" :key="item.name" class="mb-4">
             <!-- <router-link :to="{ name: item.route }" class="block" v-slot="{ isActive }">
@@ -25,7 +25,7 @@
         </div>
 
         <!-- Logout Button -->
-        <div class="mt-auto pt-6">
+        <div class="mt-auto">
             <button @click="handleLogout"
                 class="w-full rounded-xl flex flex-col items-center justify-center gap-2 p-6 transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer group bg-gray-50 hover:bg-red-50 hover:shadow-md relative overflow-hidden before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-red-200/30 before:to-transparent before:transition-all before:duration-500 hover:before:left-full">
                 <svg class="w-6 h-6 transition-colors duration-300 text-gray-600 group-hover:text-red-500" fill="none"

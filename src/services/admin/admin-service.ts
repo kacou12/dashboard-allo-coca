@@ -89,7 +89,7 @@ export async function updateAdmin({
   }
 }
 
-export async function fetchOneAdmin({ id }: { id: string }): Promise<AdminResponse | undefined> {
+export async function   fetchOneAdmin({ id }: { id: string }): Promise<AdminResponse | undefined> {
   try {
     const res = await fetchAdminByIdApi({ id: id })
 

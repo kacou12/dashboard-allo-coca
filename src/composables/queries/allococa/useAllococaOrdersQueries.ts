@@ -21,7 +21,7 @@ function getSomeDaysAgoDate(days:number) {
 const initialFilters: OrderFiltersPayload = {
   search: undefined,
   page: 1,
-  limit: 10,
+  limit: 7,
   dates: [getSomeDaysAgoDate(7), new Date()],
   status: undefined,
 }

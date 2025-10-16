@@ -11,10 +11,10 @@
       <!-- DEBUT NAVBAR -->
       <NavBar class="absolute top-0 left-0 right-0 "></NavBar>
       <!-- FIN NAVBAR -->
-      <section class="flex-1 flex items-center gap-2 h-full ">
+      <section class="flex-1 flex gap-2 h-full ">
 
         <!-- DEBUT BARRE DES MENUS -->
-        <AsideBar class=" ">
+        <AsideBar class="h-fit">
         </AsideBar>
         <!-- FIN BARRE DES MENUS -->
 

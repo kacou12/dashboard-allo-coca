@@ -14,7 +14,7 @@ export function useDashBoardFiltersQuery() {
     // dates: [getMidnightToday(), new Date()],
     dates: [],
     page: 1,
-    limit: 10,
+    limit: 7,
   }
 
   const filters = reactive<DashboardFiltersPayload>({

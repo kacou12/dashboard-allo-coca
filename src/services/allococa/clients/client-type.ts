@@ -2,6 +2,13 @@ import { z } from 'zod';
 import type { clientSchema, clientUpdateSchema } from './client-schema';
 import type { UserRole } from '@/services/global.type';
 
+
+export type AdminUserRequest = {
+  email: string
+  name: string
+  phone: string
+  role: string
+}
 export type ClientResponse = {
 
   id: string
@@ -19,7 +26,11 @@ export type ClientResponse = {
 
 export type ClientCreatePayload = z.infer<typeof clientSchema>;
 
-export type ClientUpdatePayload = z.infer<typeof clientUpdateSchema>;
+export type ClientUpdateForm = z.infer<typeof clientUpdateSchema>;
+export type ClientUpdatePayload = ClientUpdateForm & {
+  password?: string
+  is_active?: boolean
+};
 
 export type ClientFiltersPayload = {
   search?: string;

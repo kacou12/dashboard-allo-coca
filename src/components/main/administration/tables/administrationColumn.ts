@@ -58,20 +58,20 @@ export const administrationColumn: ColumnDef<ClientResponse>[] = [
   },
 
   // ACTIONS
-  {
-    id: 'actions',
-    enableHiding: false,
-    size: 116,
-    cell: ({ row }) => {
-      const rowOriginal = row.original
+  // {
+  //   id: 'actions',
+  //   enableHiding: false,
+  //   size: 116,
+  //   cell: ({ row }) => {
+  //     const rowOriginal = row.original
 
-      return h(
-        'div',
-        { class: 'text-right flex justify-end' },
-        h(AdministrationActionsBloc, {
-          id: rowOriginal.id,
-        }),
-      )
-    },
-  },
+  //     return h(
+  //       'div',
+  //       { class: 'text-right flex justify-end' },
+  //       h(AdministrationActionsBloc, {
+  //         id: rowOriginal.id,
+  //       }),
+  //     )
+  //   },
+  // },
 ]

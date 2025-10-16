@@ -40,7 +40,7 @@ export async function updateClientApi({
   id: string;
   data: ClientUpdatePayload;
 }): Promise<SuccessResponse<any> | undefined> {
-  return await Http.put<SuccessResponse<any>>(ClientRouteApi.update(id), data);
+  return await Http.patch<SuccessResponse<any>>(ClientRouteApi.update(id), data);
 }
 
 export async function fetchClientByIdApi({

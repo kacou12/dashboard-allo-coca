@@ -11,7 +11,7 @@ import { useCountryStore } from './useCountryStore'
 const initialFilters: OperationLogFiltersPayload = {
   q: undefined,
   page: 1,
-  limit: 10,
+  limit: 7,
   trace_id: undefined,
   user_email: undefined,
   user_phone: undefined,

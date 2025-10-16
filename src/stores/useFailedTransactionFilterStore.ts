@@ -15,7 +15,7 @@ const initialFilters: TransactionFiltersPayload = {
   type: undefined,
   // has_relaunch_payment: true,
   //   user_id: undefined,
-  limit: 10,
+  limit: 7,
 }
 
 export const useFailedTransactionFilterStore = defineStore('TransactionFailedfilters', () => {

@@ -14,27 +14,12 @@
         <!-- transaction filter -->
         <section class="flex xl:justify-between items-center">
             <section class="flex items-center gap-2">
-
-
-                <!-- <CommonSelect v-model="statusModel" :default-width="width >= 1366 ? 'w-fit' : 'w-full'" class=" w-full "
-                    title="Filtre par statut" :elements="[
-                        { name: 'Filtre par statut', value: 'all' },
-                        { name: 'En attente', value: 'Pending' },
-                        { name: 'En cours', value: 'Processing' },
-                        { name: 'Echouée', value: 'Failed' },
-                        { name: 'Réussi', value: 'Successful' }]">
-                </CommonSelect> -->
-
-
-
                 <section class=" my-5 xl:min-w-[300px] min-w-[200px] mx-1">
                     <SearchBar :is-loading="isFetching && filters.search !== undefined" v-model="filters.search">
                     </SearchBar>
                 </section>
 
             </section>
-
-            <!-- <CommonDatesFilter :update-handler="updateData" v-model="dates"></commonDatesFilter> -->
 
         </section>
 

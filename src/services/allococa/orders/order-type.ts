@@ -63,6 +63,8 @@ export type OrderResponse = {
   reference?: string
   status: string
   total_amount: number
+  is_settled: boolean,
+  number_of_casier: number,
   items: OrderLine[]
   user_id: string
   user: User

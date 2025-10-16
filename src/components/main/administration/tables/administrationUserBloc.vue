@@ -1,11 +1,10 @@
 <template>
     <div class="flex gap-3 items-center">
 
-        <AdminConfirmModal :id="admin.id" :default-active="testSwicth" :confirm-handler="() => confirmHandler()">
-        </AdminConfirmModal>
+        <!-- <AdminConfirmModal :id="admin.id" :default-active="testSwicth" :confirm-handler="() => confirmHandler()">
+        </AdminConfirmModal> -->
 
-        <section class="flex items-center gap-2 font-worksans cursor-pointer"
-            @click="$router.push({ name: AppRoute.ADMINISTRATION_USER.name, params: { id: admin.id } })">
+        <section class="flex items-center gap-2 font-worksans cursor-pointer">
 
             <!-- <img class="w-11 h-11 rounded-full" :src="(admin.avatar as string)" alt="User" /> -->
             <img class="w-11 h-11 rounded-full" src="https://picsum.photos/200/300" alt="User" />

@@ -22,7 +22,7 @@ export function useOperationLogsFiltersQuery() {
   //   status: undefined,
   //   type: undefined,
   //   user_id: user_id,
-  //   limit: 10,
+  //   limit: 7,
   // }
 
   // const filters = reactive<TransactionFiltersPayload>({
