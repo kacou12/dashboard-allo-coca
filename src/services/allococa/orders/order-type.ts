@@ -94,6 +94,8 @@ type OrderLine = {
 type Variant = {
   id: string
   name: string
+  description:string
+  label:string
   product: Product
 }
 
