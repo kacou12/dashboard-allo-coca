@@ -20,14 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import AdminConfirmModal from './adminConfirmModal.vue';
-import type { PropType } from 'vue';
-import type { AdminResponse } from '@/services/admin/admin-type';
-import { useUpdateAdminMutation } from '@/composables/queries/useAdminQueries';
-import { useToast } from 'vue-toastification';
 import type { ClientResponse } from '@/services/allococa/clients/client-type';
-import { AppRoute } from '@/constants/app-route';
+import type { PropType } from 'vue';
+import { ref } from 'vue';
+import { useToast } from 'vue-toastification';
 const { admin } = defineProps({
     admin: {
         required: true,
