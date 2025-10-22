@@ -10,7 +10,8 @@
             <img class="w-11 h-11 rounded-full" src="https://picsum.photos/200/300" alt="User" />
             <section class="flex flex-col gap-1">
                 <p class="text-sm text-neutral-10 font-medium">{{ admin.name }}</p>
-                <p class="text-sm text-neutral-20">+225 0787995058</p>
+                <p class="text-sm text-neutral-20">{{ admin.email }}</p>
+                <p class="text-sm text-neutral-20">{{ admin.phone }}</p>
             </section>
         </section>
         <section>

@@ -1,5 +1,5 @@
 <template>
-    <CommonModal backgroud-color="bg-white" v-model:open="open" :showDivider="false">
+    <CommonModal :is-height-full="true" backgroud-color="bg-white" v-model:open="open" :showDivider="false">
         <template #trigger>
             <div>
                 <CommonButton class="text-primary-50" type="outline" @action="console.log('Produit')"
@@ -47,7 +47,7 @@
 
                     <FileField title="Ajout de l'image" name="image" v-model="imageFile"></FileField>
                 </section>
-                <section class="space-y-2">
+                <section class="space-y-2" v-if="category.name.toLowerCase().includes('boisson')">
                     <p class="text-sm text-neutral-20">Image de la capsule</p>
 
 
@@ -83,13 +83,13 @@ import { useCreateAllococaProductVariantStockMutation } from '@/composables/quer
 import type { StockProductVariantCreatePayload } from '@/services/allococa/stocks/stock-type';
 import type { CategoryResponse } from '@/services/category/category-type';
 import { useLoaderStore } from '@/stores/useLoaderStore';
-import { ref, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import { useToast } from 'vue-toastification';
 
 const open = ref(false);
 const toast = useToast();
 
-const { product_id } = defineProps({
+const { product_id, category } = defineProps({
     product_id: {
         type: String,
         required: true
@@ -117,12 +117,17 @@ const productVariantState = ref<StockProductVariantCreatePayload>({
     images: [],
     sort_order: 0
 });
+const isBoissonCategory = computed(() => category.name.toLowerCase().includes('boisson'));
 
 const createProductHandler = async () => {
 
     // The payload needs to be built correctly, ensuring price and quantity are numbers
+    if (category.name.toLowerCase().includes('boisson')) {
 
-    productVariantState.value.images = [imageCapsuleFile.value!, imageFile.value!];
+        productVariantState.value.images = [imageCapsuleFile.value!, imageFile.value!];
+    } else {
+        productVariantState.value.images = [imageFile.value!];
+    }
     const payload: StockProductVariantCreatePayload = {
         ...productVariantState.value,
         quantity: Number(productVariantState.value.quantity),

@@ -50,10 +50,10 @@
                 @next-page="nextPage">
             </CommonDataTable> -->
 
-            <div class="grid grid-cols-5 gap-4" v-if="isFetched">
+            <div class="grid grid-cols-5 gap-4" v-if="isFetched && isFetchedCategory">
 
-                <ProductVariantCard v-for="productVariant in stocksProductsVariantData?.items" :key="productVariant.id"
-                    :product-variant="productVariant">
+                <ProductVariantCard :category="categoryData!" v-for="productVariant in stocksProductsVariantData?.items"
+                    :key="productVariant.id" :product-variant="productVariant">
                 </ProductVariantCard>
 
 

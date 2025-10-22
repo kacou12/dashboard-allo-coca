@@ -28,9 +28,9 @@
         </div>
 
 
-        <div class="absolute right-5 bottom-5 ">
-          <img class="w-[37px] h-full" src="@/assets/allococa/coca-bottle.png" alt="">
-          <!-- <img class="w-[37px] h-full" :src="dashboardStatsData?.best_seller.product_image_url" alt=""> -->
+        <div class="absolute right-5 bottom-5 " v-if="dashboardStatsData?.best_seller">
+          <!-- <img class="w-[37px] h-full" src="@/assets/allococa/coca-bottle.png" alt=""> -->
+          <img class="w-[37px] h-full" :src="dashboardStatsData?.best_seller.product_image_url" alt="">
         </div>
       </article>
 

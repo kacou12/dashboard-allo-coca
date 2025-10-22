@@ -54,7 +54,21 @@ export async function createStockApi({
 }: {
   data: StockCreatePayload
 }): Promise<SuccessResponse<StockResponse> | undefined> {
-  return await Http.post<SuccessResponse<StockResponse>>(StockRouteApi.create, data)
+  
+  const formData = new FormData()
+
+  formData.append('name', data.name!)
+  formData.append('description', data.description!)
+  formData.append('category_id', data.category_id!)
+  formData.append('image', data.image!)
+ 
+  return await Http.post<SuccessResponse<StockResponse>>(StockRouteApi.create, formData,
+    {
+      headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }
+  )
 }
 
 
@@ -177,9 +191,16 @@ export async function updateProductVariantStockApi({
 
     formData.append('label', data.label!)
   }
+  if(data.image){
 
-   formData.append('image', data.image!)
-   formData.append('icon_image', data.icon_image!)
+    formData.append('image', data.image!)
+  }
+
+  if(data.icon_image){
+
+    formData.append('icon_image', data.icon_image!)
+  }
+
 
   // if (data.images && data.images.length > 0) {
   //     data.images.forEach((image) => {

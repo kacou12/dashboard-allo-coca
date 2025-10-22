@@ -1,5 +1,5 @@
 <template>
-    <CommonModal backgroud-color="bg-white" v-model:open="open" :showDivider="false">
+    <CommonModal :is-height-full="true" backgroud-color="bg-white" v-model:open="open" :showDivider="false">
         <template #trigger>
             <button class="p-1.5 bg-white rounded-lg shadow-sm hover:bg-gray-100 transition-colors" title="Modifier">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-700" viewBox="0 0 20 20"
@@ -56,18 +56,18 @@
 
                     <FileField title="Ajout de l'image" name="image" v-model="currentImage"></FileField>
                 </section>
-                <section class="space-y-2">
+                <section class="space-y-2" v-if="isBoissonCategory">
                     <p class="text-sm text-neutral-20">Image de la capsule</p>
 
                     <!-- Image existante -->
 
-                    <section v-if="!currentImage && product.icon_url"
+                    <section v-if="!currentCapsuleImage && product.icon_url"
                         class="h-[130px] flex items-center justify-center">
                         <img :src="product.icon_url" :alt="product.icon_url"
                             class="transition-opacity duration-300  h-full  ">
                     </section>
 
-                    <FileField title="Ajout de l'image" name="image" v-model="currentImage"></FileField>
+                    <FileField title="Ajout de l'image" name="capsule_image" v-model="currentCapsuleImage"></FileField>
                 </section>
 
 
@@ -93,17 +93,22 @@ import CommonModal from '@/components/common/commonModal.vue';
 import { Button } from '@/components/ui/button';
 import { useUpdateAllococaProductVariantStockMutation } from '@/composables/queries/allococa/useAllococaStocksQueries';
 import type { StockProductVariantResponse, StockProductVariantUpdatePayload } from '@/services/allococa/stocks/stock-type';
-import { onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { Input } from '../ui/input';
 import FileField from '../vee-validate/fileField.vue';
+import type { CategoryResponse } from '@/services/category/category-type';
 
 const open = ref(false);
 const toast = useToast();
 
-const { product } = defineProps<{
-    product: StockProductVariantResponse
+const { product, category } = defineProps<{
+    product: StockProductVariantResponse,
+    category: CategoryResponse,
 }>();
+
+const isBoissonCategory = computed(() => category.name.toLowerCase().includes('boisson'));
+
 
 const currentImage = ref<File>();
 const currentCapsuleImage = ref<File>();

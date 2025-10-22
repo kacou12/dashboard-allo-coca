@@ -2,14 +2,18 @@ export const mockStatsResponse: {
   code: number;
   msg: string;
   data: {
-    total_sales: number;
-    best_seller: {
-      product_id: string;
-      product_name: string;
-      product_image_url: string;
-      orders_count: number;
-    };
-    weekly_orders: number;
+      total_sales: number;
+  best_seller: {
+    product_id:string
+    product_name: string;
+    product_image_url: string;
+    orders_count: number;
+  };
+  weekly_orders: {
+    pending: number;
+    cancelled: number;
+    delivered: number;
+  };
   };
 } = {
   code: 200,
@@ -26,6 +30,11 @@ export const mockStatsResponse: {
       orders_count: 547, // La commande a été supprimé
     },
     // Correspondance : 'total_orders' est devenu 'weekly_orders'
-    weekly_orders: 547, 
+    weekly_orders:
+    {
+      pending: 10,
+      cancelled: 5,
+      delivered: 432,
+    } 
   },
 };

@@ -1,5 +1,5 @@
 <template>
-    <CommonModal backgroud-color="bg-white" v-model:open="open" :showDivider="false">
+    <CommonModal :is-height-full="true" backgroud-color="bg-white" v-model:open="open" :showDivider="false">
         <template #trigger>
             <div>
                 <CommonButton class="text-primary-50" type="outline" @action="console.log('Produit')"

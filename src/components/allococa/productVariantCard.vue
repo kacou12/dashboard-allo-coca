@@ -3,7 +3,7 @@
         <div class="absolute top-2 right-2 z-10 flex gap-2">
 
 
-            <UpdateProductVariantModal :product="productVariant"></UpdateProductVariantModal>
+            <UpdateProductVariantModal :category="category" :product="productVariant"></UpdateProductVariantModal>
 
             <ConfirmModal :confirm-text="`Voulez-vous vraiment supprimer le produit ?`"
                 :confirm-handler="() => handleDelete()">
@@ -56,9 +56,11 @@ import { useLoaderStore } from '@/stores/useLoaderStore';
 import ConfirmModal from '../modals/confirmModal.vue';
 import { useToast } from 'vue-toastification';
 import { useCategoryQuery } from '@/composables/queries/useCategoryQueries';
+import type { CategoryResponse } from '@/services/category/category-type';
 
 interface Props {
     productVariant: StockProductVariantResponse;
+    category: CategoryResponse,
 }
 
 const props = withDefaults(defineProps<Props>(), {});

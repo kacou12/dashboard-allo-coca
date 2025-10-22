@@ -2,7 +2,6 @@ import type { ColumnDef } from '@tanstack/vue-table'
 
 import type { ClientResponse } from '@/services/allococa/clients/client-type'
 import { h } from 'vue'
-import AdministrationActionsBloc from './administrationActionsBloc.vue'
 import AdministrationUserBloc from './administrationUserBloc.vue'
 
 
