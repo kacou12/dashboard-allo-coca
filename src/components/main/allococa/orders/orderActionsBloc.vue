@@ -159,6 +159,9 @@ import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import OrderDetailsInfo from './orderDetailsInfo.vue';
 import { useUpdateOrderStatusMutation } from '@/composables/queries/allococa/useAllococaOrdersQueries';
+import { useLoaderStore } from '@/stores/useLoaderStore';
+
+const { startLoading, stopLoading } = useLoaderStore();
 
 
 const { order } = defineProps<{
@@ -178,13 +181,15 @@ const isLoading = ref(false);
 
 
 const processingOrderHandler = async () => {
-    await updateOrderStatus(orderStatusConfigEnumData[1].value)
+    startLoading();
+    await updateOrderStatus(orderStatusConfigEnumData[0].value)
     open.value = false;
     toast.success("La transaction a bien été mise en processing");
 
 }
 const paidOrderHandler = async () => {
-    await updateOrderStatus(orderStatusConfigEnumData[2].value)
+    startLoading();
+    await updateOrderStatus(orderStatusConfigEnumData[1].value)
     open.value = false;
     toast.success("La transaction a bien été mise en payé");
 
@@ -192,7 +197,8 @@ const paidOrderHandler = async () => {
 
 
 const canceledOrderHandler = async () => {
-    await updateOrderStatus(orderStatusConfigEnumData[3].value)
+    startLoading();
+    await updateOrderStatus(orderStatusConfigEnumData[2].value)
     open.value = false;
     toast.success("La transaction a bien été annulée");
 }

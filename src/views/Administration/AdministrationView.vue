@@ -13,7 +13,7 @@
         </header>
 
         <section class="flex flex-col sm:flex-row justify-between mb-4 mt-5">
-            <div class="flex gap-3">
+            <!-- <div class="flex gap-3">
 
                 <CommonSelect title="Trier par"
                     :elements="[{ name: 'Tout', value: 'all' }, { name: 'En cours', value: 'en cours' }, { name: 'Termine', value: 'termine' }]">
@@ -25,18 +25,18 @@
                         </svg>
 
                     </template>
-                </CommonSelect>
-            </div>
+</CommonSelect>
+</div> -->
             <SearchBar :is-loading="isFetching && filters.search !== undefined" v-model="filters.search"
                 class="w-full sm:w-[28%] sm:my-0 my-5"></SearchBar>
 
         </section>
 
         <!-- Transactions table -->
-        <!-- <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
+        <CommonDataTable :page-size="limitModel ? parseInt(limitModel) : 10" ref="my-table" :default-page="filters.page"
             :total="adminsData?.total ?? 0" :columns="administrationColumn" :data="adminsData?.items ?? []"
             @go-to-page="goToPage" @prev-page="prevPage" @next-page="nextPage">
-        </CommonDataTable> -->
+        </CommonDataTable>
 
 
     </div>

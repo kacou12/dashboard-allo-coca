@@ -39,7 +39,7 @@
           <p class="text-sm">Total des commandes</p>
           <div class="flex items-center gap-1">
 
-            <p class="text-clamp-h1-md">{{ dashboardStatsData?.weekly_orders.pending ?? 0 }}</p>
+            <p class="text-clamp-h1-md">{{ sumData }}</p>
             <p class="text-sm">cette semaine</p>
           </div>
         </div>
@@ -83,7 +83,7 @@ import {
 import { useWindowSize } from '@vueuse/core';
 import type { DateRange } from "radix-vue";
 import type { Ref } from 'vue';
-import { inject, ref, useTemplateRef } from 'vue';
+import { computed, inject, ref, useTemplateRef } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 
@@ -98,6 +98,13 @@ const pageSize = ref(7);
 const { isSidebarExpanded, toggleSidebarExpanded } = inject(sidebarStateKey)!
 const { user, fullName } = useAuthStore();
 
+const sumData = computed(() => {
+  if (!isFetchedDashboardStats.value) return 0
+
+  return dashboardStatsData.value!.weekly_orders.pending +
+    dashboardStatsData.value!.weekly_orders.cancelled +
+    dashboardStatsData.value!.weekly_orders.delivered;
+})
 
 const { data: dashboardOrdersData, isFetched, refetch, isFetching } = useDashBoardFiltersQuery();
 const { startLoadingSkeleton, stopLoadingSkeleton } = useLoaderStore();
