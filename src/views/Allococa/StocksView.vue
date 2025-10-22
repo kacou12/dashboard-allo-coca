@@ -53,18 +53,13 @@
 
 <script setup lang="ts">
 import CommonDataTable from '@/components/common/commonDataTable.vue';
-import CommonDatesFilter from '@/components/common/commonDatesFilter.vue';
-import CommonSelect from '@/components/common/commonSelect.vue';
 import { sidebarStateKey } from '@/components/layouts/provide-state-key';
-import AddProductStock from '@/components/main/allococa/stock/addProductStock.vue';
 import AddStock from '@/components/main/allococa/stock/addStock.vue';
 import { stockColumns } from '@/components/main/allococa/stock/stockColumn';
 import SearchBar from '@/components/users/SearchBar.vue';
 import { useAllococaStocksFiltersQuery } from '@/composables/queries/allococa/useAllococaStocksQueries';
-import { useCategoriesQuery } from '@/composables/queries/useCategoryQueries';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useLoaderStore } from "@/stores/useLoaderStore";
-import { useTransactionFiltersStore } from '@/stores/useTransactionFilterStore';
 import {
     CalendarDate
 } from '@internationalized/date';
