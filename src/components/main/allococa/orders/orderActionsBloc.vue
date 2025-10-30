@@ -19,15 +19,15 @@
             </DropdownMenuItem>
           </DialogTrigger>
 
-          <DialogTrigger as-child v-if="order.status != 'canceled'">
+          <DialogTrigger as-child v-if="order.status != 'cancelled'">
             <DropdownMenuItem @click="contentModalAction = 'CANCELLED'"
               >Annuler la commande
             </DropdownMenuItem>
           </DialogTrigger>
 
-          <DialogTrigger as-child v-if="order.status != 'processing'">
-            <DropdownMenuItem @click="contentModalAction = 'PROCESSING'"
-              >Marquer comme "en cous de livraison"
+          <DialogTrigger as-child v-if="order.status != 'delivered'">
+            <DropdownMenuItem @click="contentModalAction = 'DELIVERED'"
+              >Marquer comme "livrée"
             </DropdownMenuItem>
           </DialogTrigger>
 
@@ -140,7 +140,7 @@
           </div>
         </article>
 
-        <article v-if="contentModalAction == 'PROCESSING'">
+        <article v-if="contentModalAction == 'DELIVERED'">
           <DialogHeader class="flex flex-row justify-between items-center">
             <DialogTitle>Marquer comme en cous de livraison</DialogTitle>
             <DialogClose
@@ -150,10 +150,7 @@
             </DialogClose>
           </DialogHeader>
           <div class="text-sm px-6 my-8 text-center">
-            <p>
-              Êtes-vous sûr de vouloir marquer la commande comme en cous de
-              livraison ?
-            </p>
+            <p>Êtes-vous sûr de vouloir marquer la commande comme livrée ?</p>
           </div>
           <DialogFooter class="flex gap-2 px-6 pb-6">
             <Button
@@ -242,7 +239,7 @@ const canceledOrderHandler = async () => {
 };
 
 const open = ref(false);
-const contentModalAction = ref<"SHOW" | "CANCELLED" | "PAID" | "PROCESSING">();
+const contentModalAction = ref<"SHOW" | "CANCELLED" | "PAID" | "DELIVERED">();
 
 const copy = (id: string) => {
   navigator.clipboard.writeText(id);
