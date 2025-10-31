@@ -142,7 +142,7 @@
 
         <article v-if="contentModalAction == 'DELIVERED'">
           <DialogHeader class="flex flex-row justify-between items-center">
-            <DialogTitle>Marquer comme en cous de livraison</DialogTitle>
+            <DialogTitle>Marquer comme en cous de livré</DialogTitle>
             <DialogClose
               class="w-fit rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
             >
@@ -220,7 +220,7 @@ const isLoading = ref(false);
 
 const processingOrderHandler = async () => {
   startLoading();
-  await updateOrderStatus(orderStatusConfigEnumData[0].value);
+  await updateOrderStatus(orderStatusConfigEnumData[1].value);
   open.value = false;
   toast.success("La transaction a bien été mise en processing");
 };
