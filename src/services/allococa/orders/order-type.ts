@@ -116,6 +116,7 @@ type Variant = {
   name: string;
   description: string;
   label: string;
+  size: string;
   product: Product;
 };
 
